@@ -1,0 +1,147 @@
+%% Author:	Frank Berghaus modified by Chris Geroux
+%% File:	draft2.tex
+%% Date:	24.07.2003
+%% Purpose:	Undergrad Thesis.
+
+\documentclass[12pt, oneside]{smuthesis}
+\input{epsf}
+%---> SET UP MARGINS <--------------------------------------------------------------------
+% original margin settings
+%\setlength{\textwidth}{16.5cm}
+%\setlength{\oddsidemargin}{1.0cm}
+%\setlength{\evensidemargin}{1.0cm}
+%\setlength{\topmargin}{-2.0cm}
+%\setlength{\textheight}{23.5cm}
+%
+% Brynle's revised margin settings
+\setlength{\textwidth}      {6.0in}   % sets text width  = 6.0 in
+\setlength{\textheight}     {9.0in}   % sets text height = 9.0 in
+\setlength{\topmargin}      {-0.25in} % sets top  margin = 1.0 in
+\setlength{\evensidemargin} {0.485in} % sets left margin = 1.5 in
+\setlength{\oddsidemargin}  {0.485in} % sets left margin = 1.5 in
+\setlength{\footskip}       {1.0in}   % allows up to 1.0 in for footers
+%
+%---> PACKAGES <--------------------------------------------------------------------------
+\usepackage{psfigure}
+\usepackage{latexsym,multicol,epsfig}
+\usepackage{setspace}
+%\usepackage{supertabular}
+\usepackage{alltt}
+\usepackage{graphicx}
+%\usepackage{amsmath}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+\newcommand{\code}[1]{\texttt{#1}}%allows \code{stuff} to be \textt{stuff} used for code varibles
+%
+%---> TITLE PAGE <------------------------------------------------------------------------
+\def\figurebox#1#2#3{%
+    \def\arg{#3}%
+    \ifx\arg\empty
+    {\hfill\vbox{\hsize#2\hrule\hbox to #2{\vrule\hfill\vbox to #1{\hsize#2%
+     \vfill}\vrule}\hrule}\hfill}%
+    \else
+    {\hfill\epsfbox{#3}\hfill}%
+    \fi}
+\degreetitle{Bachelor of Science}
+\numberofsignatures{5}
+%
+%---> BEGIN DOCUMENT <--------------------------------------------------------------------
+\begin{document}
+\frontmatter
+%---> TITLE <-----------------------------------------------------------------------------
+\title{\sc Some Title}
+\author{Some Author}
+\date{today}
+\medskip
+
+\maketitle
+\pagestyle{headings}
+
+%---> ABSTRACT <--------------------------------------------------------------------------
+%% Apparently they want the title and name of the author in the abstract ...
+\begin{center}
+\section*{\center \sc Abstract}
+\paragraph*{\center \sc Some Title\\}
+by {\em Some Author}\\
+submitted on \today:\\
+\end{center}
+\newpage
+
+%---> TABLE OF CONTENTS <----------------------------------------------------------------
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+%
+%---> INTRODUCTION <---------------------------------------------------------------------
+\mainmatter
+\chapter{\sc Introduction}
+\paragraph*{}
+
+your stuff here! Here is how you make a reference to ref1 \citep{test1}. Here is how you make a reference to ref2 \citep{test2}. There it is.
+
+\section{\sc A Section}
+
+This is how you put in a section within a chapter.
+Here is how you make reference to a Figure, like Figure~\ref{fig:samplefig}
+ below.
+
+
+\subsection{\sc Sub-Section}
+
+You can make subsections, too.
+
+\newpage
+
+\chapter{Another Chapter}
+
+Here is how you add in another chapter.
+Here is how you make a table. \\
+
+\begin{table}
+\caption{Comparison of Indices of Refraction for Various Materials}
+\label{tab:refindex}
+\centering
+\begin{tabular}{l|c}
+\hline \hline
+Medium    & Index of Refraction(n) \\
+\hline
+Vacuum    & 1                     \\
+$CO_{2}$  & 1.00045               \\
+Aerogel   & 1.0-1.05              \\
+Water     & 1.33                  \\
+\hline \hline
+\end{tabular}
+\end{table}
+
+Here is how you can put in an equation (although this one isn't labeled). \\
+
+\begin{displaymath}
+\centering
+\tan(\theta_{tg}) = \frac{x_{tg}}{Z_{0}} \: and \:
+\tan(\phi_{tg}) = \frac{y_{tg}}{Z_{0}}
+\end{displaymath}
+
+Here is an equation done differently, labeled properly, which could be 
+referenced using equation~\ref{equ:mom}:
+
+\begin{equation}
+\centering
+p = (\delta + 1)\cdot p_{cent}
+\label{equ:mom}
+\end{equation}
+
+
+\appendix
+
+\chapter{Name of your first Appendix}
+\label{app:optics}
+
+If you wanted an appendix, it would go in like this.  It would be 
+referenced using Appendix~\ref{app:optics}.
+
+
+\begin{singlespace}
+\bibliography{SMU-HonorsThesis-template}
+\end{singlespace}
+\end{document}
