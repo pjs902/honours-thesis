@@ -5,28 +5,27 @@ import pytest
 from binaryshift import BinaryShift
 
 
-# Setup:
-
-m123 = [0.1, 0.5, 1.0, 100]  # Slope breakpoints for initial mass function
-a12 = [-0.468, -1.178, -2.117]  # Slopes for initial mass function
-nbin12 = [5, 5, 20]
-
-# Output times for the evolution
-tout = np.array([11000])
-
-# Integration settings
-N0 = 5e5  # Normalization of stars
-Ndot = -0.0001  # Regulates how low mass objects are depleted default -20, 0 for 47 Tuc
-tcc = 0  # Core collapse time
-NS_ret = 0.1  # Initial neutron star retention
-BH_ret_int = 1  # Initial Black Hole retention
-BH_ret_dyn = 0.00235  # Dynamical Black Hole retention
-FeHe = -0.7  # Metallicity
-
-
 @pytest.fixture
 # TODO: figure out how to ignore the SSPTools warnings
 def f():
+    # config for ssptools
+    m123 = [0.1, 0.5, 1.0, 100]  # Slope breakpoints for initial mass function
+    a12 = [-0.468, -1.178, -2.117]  # Slopes for initial mass function
+    nbin12 = [5, 5, 20]
+
+    # Output times for the evolution
+    tout = np.array([11000])
+
+    # Integration settings
+    N0 = 5e5  # Normalization of stars
+    Ndot = (
+        -0.0001
+    )  # Regulates how low mass objects are depleted default -20, 0 for 47 Tuc
+    tcc = 0  # Core collapse time
+    NS_ret = 0.1  # Initial neutron star retention
+    BH_ret_int = 1  # Initial Black Hole retention
+    BH_ret_dyn = 0.00235  # Dynamical Black Hole retention
+    FeHe = -0.7  # Metallicity
     # ignore the warnings from SSPTools
     f = emf3.evolve_mf(
         m123=m123,
@@ -60,18 +59,45 @@ def mj_Mj(f):
 @pytest.fixture
 def binshift(mj_Mj, f):
     mj, Mj = mj_Mj
-    bs = BinaryShift(mj=mj, Mj=Mj, MF=f)
+    bs = BinaryShift(mj=mj, Mj=Mj, MF=f, verbose=True)
+
+    # make sure the lengths match
+    with pytest.raises(ValueError):
+        BinaryShift(mj=[2], Mj=[3, 2], MF=f, verbose=True)
     return bs
 
 
 # test mass conservation
 def test_shift_q(mj_Mj, binshift):
     mj, Mj = mj_Mj
-    mj_new, Mj_new = binshift.shift_q(fb=0.3, q=0.7)
+    mj_new, Mj_new = binshift.shift_q(fb=0.3, q=0.3)
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
+
+    # these are vad values for q, fb
+    with pytest.raises(ValueError):
+        binshift.shift_q(fb=0.3, q=3)
+
+    with pytest.raises(ValueError):
+        binshift.shift_q(fb=2, q=0.5)
 
 
 def test_shift_equal(mj_Mj, binshift):
     mj, Mj = mj_Mj
     mj_new, Mj_new = binshift.shift_equal(fb=0.3)
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
+
+    # bad value for fb
+    with pytest.raises(ValueError):
+        binshift.shift_equal(fb=3)
+
+
+def test_shift_solar(mj_Mj, binshift):
+    binshift.shift_solar()
+
+
+def test_shift_kroupa(mj_Mj, binshift):
+    binshift.shift_kroupa()
+
+
+def test_shift_dump(binshift):
+    binshift.dump()

@@ -2,7 +2,7 @@ import numpy as np
 
 
 class BinaryShift:
-    def __init__(self, mj, Mj, MF):
+    def __init__(self, mj, Mj, MF, verbose=False):
         """
         Initialize an instance of `BinaryShift` with the provided mass bins and MF, (TODO)
         the IFMR will (eventually) be used to label the object type of each bin.
@@ -26,6 +26,8 @@ class BinaryShift:
         self.WD_mask = (self.mj <= self.mWD_max) & ~self.MS_mask
         self.NS_mask = (self.mj < self.mBH_min) & (self.mj > self.mWD_max)
         self.BH_mask = self.mj >= self.mBH_min
+
+        self.verbose = verbose
 
     def dump(self):
         """
@@ -72,37 +74,33 @@ class BinaryShift:
         # loop through the MS mass bins
         for i in range(self.nms):
 
-            print()
-            print(f"current mj: {mj[i]:.3f}")
+            if self.verbose:
+                print()
+                print(f"current mj: {mj[i]:.3f}")
 
             # get mass of companion
             companion_mass = mj[i] * self.q
-            print(f"{companion_mass = :.3f}")
+            if self.verbose:
+                print(f"{companion_mass = :.3f}")
 
             # mass of new bin
             mj_bin = mj[i] + companion_mass
-            print(f"new mass: {mj_bin:.3f} ")
+            if self.verbose:
+                print(f"new mass: {mj_bin:.3f} ")
 
-            # if the companion is smaller than the lightest MS bin, just skip it
-            if companion_mass < np.min(mj):
-                print(
-                    f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
-                )
-                pass
-            else:
-
-                # total mass in binaries for this new bin
-                Mj_bin = Mj[i] * self.fb
+            # total mass in binaries for this new bin
+            Mj_bin = Mj[i] * self.fb
+            if self.verbose:
                 print(f"total mass in binaries {Mj_bin:.3f}")
 
-                # add in the new mean mass bin
-                mj = np.append(mj, mj_bin)
+            # add in the new mean mass bin
+            mj = np.append(mj, mj_bin)
 
-                # add in the new total mass bin
-                Mj = np.append(Mj, Mj_bin)
+            # add in the new total mass bin
+            Mj = np.append(Mj, Mj_bin)
 
-                # remove the mass from the old total mass bin
-                Mj[i] -= Mj_bin
+            # remove the mass from the old total mass bin
+            Mj[i] -= Mj_bin
         return mj, Mj
 
     def shift_q(self, fb, q):
@@ -126,31 +124,37 @@ class BinaryShift:
 
         # loop through the MS mass bins
         for i in range(self.nms):
-            print()
-            print(f"current mj: {mj[i]:.3f}")
+            if self.verbose:
+                print()
+                print(f"current mj: {mj[i]:.3f}")
 
             # get mass of companion
             companion_mass = mj[i] * self.q
-            print(f"{companion_mass = :.3f}")
+            if self.verbose:
+                print(f"{companion_mass = :.3f}")
 
             # if the companion is smaller than the lightest MS bin, just skip it
             if companion_mass < np.min(mj):
-                print(
-                    f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
-                )
+                if self.verbose:
+                    print(
+                        f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
+                    )
                 pass
             else:
 
                 # find closest bin to companion mass
                 companion_idx = np.argmin(np.abs(mj[: self.nms] - companion_mass))
-                print(f"closest {companion_idx = }")
+                if self.verbose:
+                    print(f"closest {companion_idx = }")
                 # here change the mass of the companion to the mass of the closest bin (TODO: do we want this?)
                 companion_mass = mj[companion_idx]
-                print(f"closest {companion_mass = :.3f}")
+                if self.verbose:
+                    print(f"closest {companion_mass = :.3f}")
 
                 # mass of new bin
                 binary_mj = mj[i] + companion_mass
-                print(f"new mass: {binary_mj:.3f} ")
+                if self.verbose:
+                    print(f"new mass: {binary_mj:.3f} ")
 
                 # get total mass of new binary bin, will be (fb * mj) + (fb * companion mass bin)
                 primary_Mj = self.fb * Mj[i]
@@ -170,13 +174,13 @@ class BinaryShift:
 
         return mj, Mj
 
-    def shift_kroupa():
+    def shift_kroupa(self):
         """
         (TODO) Shift mass according to `fb` and `q` determined by random draw from Kroupa IMF.
         """
         pass
 
-    def shift_solar():
+    def shift_solar(self):
         """
         (TODO) Shift mass according to `fb` and `q` in the solar neighborhood.
         """
