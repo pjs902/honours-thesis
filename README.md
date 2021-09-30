@@ -3,6 +3,7 @@
 
 [![Tests](https://github.com/pjs902/honors-thesis/actions/workflows/python-app.yml/badge.svg)](https://github.com/pjs902/honors-thesis/actions/workflows/python-app.yml)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![Thesis](https://img.shields.io/badge/Thesis-pdf-blue)](https://github.com/pjs902/honors-thesis/blob/main/thesis/thesis.pdf)
 
 
 
