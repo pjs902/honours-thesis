@@ -1,5 +1,6 @@
 import numpy as np
 
+__all__ = ["BinaryShift"]
 
 class BinaryShift:
     def __init__(self, mj, Mj, MF, verbose=False):
