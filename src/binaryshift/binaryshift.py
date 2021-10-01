@@ -28,6 +28,8 @@ class BinaryShift:
         self.NS_mask = (self.mj < self.mBH_min) & (self.mj > self.mWD_max)
         self.BH_mask = self.mj >= self.mBH_min
 
+        # TODO: binary and single star masks
+
         self.verbose = verbose
 
     def dump(self):
@@ -57,7 +59,10 @@ class BinaryShift:
 
         print(f"{self.mBH_min = }")
 
+        # TODO: dump masks?
+
     def shift_equal(self, fb):
+        # TODO: use the `shift_q` function for this, just set q = 1.0
         """
         Shift mass to create binaries of equal mass, amount of mass shifted is determined by `fb`.
         """
@@ -135,6 +140,7 @@ class BinaryShift:
                 print(f"{companion_mass = :.3f}")
 
             # if the companion is smaller than the lightest MS bin, just skip it
+            # TODO: if the campanion mass is close to the smallest bin, we should use it
             if companion_mass < np.min(mj):
                 if self.verbose:
                     print(
