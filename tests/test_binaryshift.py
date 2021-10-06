@@ -81,6 +81,20 @@ def test_shift_q(mj_Mj, binshift):
         binshift.shift_q(fb=2, q=0.5)
 
 
+def test_shift_q_dist(mj_Mj, binshift):
+    # TODO: we probably only want this function, not the one that works on single values
+    mj, Mj = mj_Mj
+    mj_new, Mj_new = binshift.shift_q_dist(fb=[0.1, 0.1, 0.1], q=[0.3, 0.5, 0.8])
+    assert np.isclose(np.sum(Mj), np.sum(Mj_new))
+
+    # these are vad values for q, fb
+    with pytest.raises(ValueError):
+        binshift.shift_q_dist(fb=[0.3, 0, 4, 0.3], q=[3, 0.5, 0.8])
+
+    with pytest.raises(ValueError):
+        binshift.shift_q_dist(fb=[2, 0.5], q=[0.5, 0.8])
+
+
 def test_shift_equal(mj_Mj, binshift):
     mj, Mj = mj_Mj
     mj_new, Mj_new = binshift.shift_equal(fb=0.3)
