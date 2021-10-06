@@ -15,24 +15,22 @@ class BinaryShift:
 
         self.mj = mj
         self.Mj = Mj
-        self.mf = MF
+        self._mf = MF
 
         # IFMR stuff
-        self.nms = np.sum(np.array(self.mf.Ns) > self.mf.Nmin) - 1
-        self.mWD_max = self.mf.IFMR.predict(self.mf.IFMR.wd_m_max)
-        self.mBH_min = self.mf.mBH_min
+        self._nms = np.sum(np.array(self._mf.Ns) > self._mf.Nmin) - 1
+        self._mWD_max = self._mf.IFMR.predict(self._mf.IFMR.wd_m_max)
+        self._mBH_min = self._mf.mBH_min
 
         # Use this to make the binary mask
         self._len_mj_init = len(mj)
 
         # Here are a bunch of masks for the bins
         self.MS_mask = np.ones_like(self.mj, dtype=bool)
-        self.MS_mask[self.nms + 1 :] = False
-        self.WD_mask = (self.mj <= self.mWD_max) & ~self.MS_mask
-        self.NS_mask = (self.mj < self.mBH_min) & (self.mj > self.mWD_max)
-        self.BH_mask = self.mj >= self.mBH_min
-
-        # TODO: binary and single star masks
+        self.MS_mask[self._nms + 1 :] = False
+        self.WD_mask = (self.mj <= self._mWD_max) & ~self.MS_mask
+        self.NS_mask = (self.mj < self._mBH_min) & (self.mj > self._mWD_max)
+        self.BH_mask = self.mj >= self._mBH_min
 
         self.verbose = verbose
 
@@ -57,11 +55,11 @@ class BinaryShift:
             pass
 
         # IFMR Stuff
-        print(f"{self.nms = }")
+        print(f"{self._nms = }")
 
-        print(f"{self.mWD_max = }")
+        print(f"{self._mWD_max = }")
 
-        print(f"{self.mBH_min = }")
+        print(f"{self._mBH_min = }")
 
         # TODO: dump masks?
 
@@ -91,7 +89,7 @@ class BinaryShift:
         Mj = self.Mj.copy()
 
         # loop through the MS mass bins
-        for i in range(self.nms):
+        for i in range(self._nms):
             if self.verbose:
                 print()
                 print(f"current mj: {mj[i]:.3f}")
@@ -112,10 +110,10 @@ class BinaryShift:
             else:
 
                 # find closest bin to companion mass
-                companion_idx = np.argmin(np.abs(mj[: self.nms] - companion_mass))
+                companion_idx = np.argmin(np.abs(mj[: self._nms] - companion_mass))
                 if self.verbose:
                     print(f"closest {companion_idx = }")
-                # here change the mass of the companion to the mass of the closest bin (TODO: do we want this?)
+                # here change the mass of the companion to the mass of the closest bin
                 companion_mass = mj[companion_idx]
                 if self.verbose:
                     print(f"closest {companion_mass = :.3f}")
@@ -170,7 +168,7 @@ class BinaryShift:
         # loop through the binary mass ratios
         for fb, q in zip(self.fb, self.q):
             # loop through the MS mass bins
-            for i in range(self.nms):
+            for i in range(self._nms):
                 if self.verbose:
                     print()
                     print(f"current mj: {mj[i]:.3f}")
@@ -191,10 +189,10 @@ class BinaryShift:
                 else:
 
                     # find closest bin to companion mass
-                    companion_idx = np.argmin(np.abs(mj[: self.nms] - companion_mass))
+                    companion_idx = np.argmin(np.abs(mj[: self._nms] - companion_mass))
                     if self.verbose:
                         print(f"closest {companion_idx = }")
-                    # here change the mass of the companion to the mass of the closest bin (TODO: do we want this?)
+                    # here change the mass of the companion to the mass of the closest bin
                     companion_mass = mj[companion_idx]
                     if self.verbose:
                         print(f"closest {companion_mass = :.3f}")
