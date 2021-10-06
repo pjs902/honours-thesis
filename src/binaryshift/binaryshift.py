@@ -68,87 +68,11 @@ class BinaryShift:
         Shift mass to create binaries of equal mass, amount of mass shifted is determined by `fb`.
         """
 
-        return self.shift_q(fb, 1.0)
+        return self.shift_q([fb], [1.0])
 
     def shift_q(self, fb, q):
         """
-        Shift mass in to binaries with mass function `q`, amount of mass shifted determined by `fb`.
-        """
-
-        if q > 1.0 or q < 0:
-            raise ValueError("q must be between 0 and 1.")
-
-        if fb > 1.0 or fb < 0:
-            raise ValueError("fb must be between 0 and 1.")
-
-        self.fb = fb
-        self.q = q
-
-        # don't mess with original
-        mj = self.mj.copy()
-        Mj = self.Mj.copy()
-
-        # loop through the MS mass bins
-        for i in range(self._nms):
-            if self.verbose:
-                print()
-                print(f"current mj: {mj[i]:.3f}")
-
-            # get mass of companion
-            companion_mass = mj[i] * self.q
-            if self.verbose:
-                print(f"{companion_mass = :.3f}")
-
-                # if the companion is much smaller than the lightest MS bin, just skip it
-                if companion_mass < np.min(mj) and (
-                    np.abs(companion_mass - np.min(mj)) > 0.025
-                ):
-                    if self.verbose:
-                        print(
-                            f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
-                        )
-                    pass
-            else:
-
-                # find closest bin to companion mass
-                companion_idx = np.argmin(np.abs(mj[: self._nms] - companion_mass))
-                if self.verbose:
-                    print(f"closest {companion_idx = }")
-                # here change the mass of the companion to the mass of the closest bin
-                companion_mass = mj[companion_idx]
-                if self.verbose:
-                    print(f"closest {companion_mass = :.3f}")
-
-                # mass of new bin
-                binary_mj = mj[i] + companion_mass
-                if self.verbose:
-                    print(f"new mass: {binary_mj:.3f} ")
-
-                # get total mass of new binary bin, will be (fb * mj) + (fb * companion mass bin)
-                primary_Mj = self.fb * Mj[i]
-                companion_Mj = self.fb * Mj[companion_idx]
-
-                binary_Mj = primary_Mj + companion_Mj
-
-                # add in new binary mean mass bin
-                mj = np.append(mj, binary_mj)
-
-                # add total mass to new binary bin
-                Mj = np.append(Mj, binary_Mj)
-
-                # remove mass from both primary, companion bins
-                Mj[i] -= primary_Mj
-                Mj[companion_idx] -= companion_Mj
-
-                # set the binary mask
-                self.bin_mask = np.array([False] * len(mj))
-                self.bin_mask[self._len_mj_init :] = True
-
-        return mj, Mj
-
-    def shift_q_dist(self, fb, q):
-        """
-        Shift mass in to binaries with mass function `q`, amount of mass shifted determined by `fb`.
+        Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
         TODO: we probably only want this function, not the one that works on single values
         """
 
@@ -165,6 +89,10 @@ class BinaryShift:
         # don't mess with original
         mj = self.mj.copy()
         Mj = self.Mj.copy()
+
+        # TODO: i think this actually doesn't split the mass evenly between the mass ratios, 
+        # whichever is first would more than the second and the second would get more than the last
+        # not immediately clear how fix this
 
         # loop through the binary mass ratios
         for fb, q in zip(self.fb, self.q):
@@ -220,9 +148,9 @@ class BinaryShift:
                     Mj[i] -= primary_Mj
                     Mj[companion_idx] -= companion_Mj
 
-                    # set the binary mask
-                    self.bin_mask = np.array([False] * len(mj))
-                    self.bin_mask[self._len_mj_init :] = True
+        # set the binary mask
+        self.bin_mask = np.array([False] * len(mj))
+        self.bin_mask[self._len_mj_init :] = True
 
         return mj, Mj
 
