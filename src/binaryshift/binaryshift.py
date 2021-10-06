@@ -99,14 +99,15 @@ class BinaryShift:
             if self.verbose:
                 print(f"{companion_mass = :.3f}")
 
-            # if the companion is smaller than the lightest MS bin, just skip it
-            # TODO: if the campanion mass is close to the smallest bin, we should use it
-            if companion_mass < np.min(mj):
-                if self.verbose:
-                    print(
-                        f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
-                    )
-                pass
+                # if the companion is much smaller than the lightest MS bin, just skip it
+                if companion_mass < np.min(mj) and (
+                    np.abs(companion_mass - np.min(mj)) > 0.025
+                ):
+                    if self.verbose:
+                        print(
+                            f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
+                        )
+                    pass
             else:
 
                 # find closest bin to companion mass
@@ -178,9 +179,10 @@ class BinaryShift:
                 if self.verbose:
                     print(f"{companion_mass = :.3f}")
 
-                # if the companion is smaller than the lightest MS bin, just skip it
-                # TODO: if the campanion mass is close to the smallest bin, we should use it
-                if companion_mass < np.min(mj):
+                # if the companion is much smaller than the lightest MS bin, just skip it
+                if companion_mass < np.min(mj) and (
+                    np.abs(companion_mass - np.min(mj)) > 0.025
+                ):
                     if self.verbose:
                         print(
                             f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
