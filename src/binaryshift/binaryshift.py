@@ -133,8 +133,9 @@ class BinaryShift:
                         print(f"new mass: {binary_mj:.3f} ")
 
                     # get total mass of new binary bin, will be (fb * mj) + (fb * companion mass bin)
-                    primary_Mj = fb * Mj[i]
-                    companion_Mj = fb * Mj[companion_idx]
+                    # here use self.Mj so we take from the unchanged Mj
+                    primary_Mj = fb * self.Mj[i]
+                    companion_Mj = fb * self.Mj[companion_idx]
 
                     binary_Mj = primary_Mj + companion_Mj
 
