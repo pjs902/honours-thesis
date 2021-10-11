@@ -6,11 +6,20 @@ name: Tests
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'notebooks/**'
+      - 'thesis/**'
+      - 'summary/**'
+      
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - 'notebooks/**'
+      - 'thesis/**'
+      - 'summary/**'
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
