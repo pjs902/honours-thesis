@@ -73,7 +73,6 @@ class BinaryShift:
     def shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
-        TODO: we probably only want this function, not the one that works on single values
         """
 
         self.fb = np.array(fb)
@@ -89,10 +88,6 @@ class BinaryShift:
         # don't mess with original
         mj = self.mj.copy()
         Mj = self.Mj.copy()
-
-        # TODO: i think this actually doesn't split the mass evenly between the mass ratios, 
-        # whichever is first would more than the second and the second would get more than the last
-        # not immediately clear how fix this
 
         # loop through the binary mass ratios
         for fb, q in zip(self.fb, self.q):
