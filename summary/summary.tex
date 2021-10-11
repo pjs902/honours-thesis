@@ -1,0 +1,80 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{gensymb}
+\usepackage{siunitx}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{PHYS 4790 (Honours Thesis)}
+\newcommand\hwnumber{1}                 % <-- Number
+\newcommand\Name{Peter Smith}           % <-- Name
+\newcommand\ANum{A00426605}             % <-- A#
+
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\Name \\ \ANum}
+\chead{\textbf{Project Summary}}    % Title
+\rhead{\course \\ \today}    % Date
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+
+\newcommand{\software}[1]{\textrm{\MakeUppercase{#1}}}
+
+\begin{document}
+
+
+\section{Description}
+\begin{itemize}
+	\item Title: The effects of binary stars on recovered remnant populations.
+	\item Hypothesis/Research Question: So I think the goal is basically to see what the effects
+	      of realistic binary populations are on \software{limepy} models and by extension, see
+	      what the effects on the recovered remant population are.
+	\item Goals and Objectives: Create realistic binary populations, make some toy models to
+	      demonstrate the effects, fit models with realistic binary populations to observations,
+	      compare remant populations.
+\end{itemize}
+
+\section{Motivation and Rationale}
+Right now, our models don't account for binaries at all, some studies suggest that binaries could
+mimic the effect of heavy remants.
+
+
+\section{Methodology}
+\begin{itemize}
+	\item Approach to problem
+	\item Techniques/Methods
+
+\end{itemize}
+
+\section{Timelime}
+\begin{itemize}
+	\item Basic reading and planning
+	\item Get the realistic binary populations working
+	      \begin{itemize}
+		      \item Currently have it working with binaries defined by mass fraction
+		      \item Use the binary fraction that is usually used so that we can compare to observations
+		      \item Look into using isochrones to get the apparent color/magnitude of binary
+		            stars so we can fit with MF data (this may or may not be needed depending on
+		            how the MF data is reported, read the Sollima papers)
+	      \end{itemize}
+	\item Toy models
+	\item Fit models
+	\item Analysis/Writing
+	\item End date
+\end{itemize}
+
+\end{document}
