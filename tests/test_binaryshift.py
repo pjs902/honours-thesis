@@ -70,7 +70,6 @@ def binshift(mj_Mj, f):
 # Test mass conservation
 
 def test_shift_q(mj_Mj, binshift):
-    # TODO: we probably only want this function, not the one that works on single values
     mj, Mj = mj_Mj
     mj_new, Mj_new = binshift.shift_q(fb=[0.1, 0.1, 0.1], q=[0.3, 0.5, 0.8])
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
