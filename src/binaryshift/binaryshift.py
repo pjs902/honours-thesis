@@ -73,6 +73,7 @@ class BinaryShift:
     def shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
+        TODO: current fb definition is mass fraction, this is not useful if we want to compare to obs.
         """
 
         self.fb = np.array(fb)
