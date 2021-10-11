@@ -92,7 +92,7 @@ class BinaryShift:
         # loop through the binary mass ratios
         for fb, q in zip(self.fb, self.q):
             # loop through the MS mass bins
-            for i in range(self._nms):
+            for i in range(self._nms + 1):
                 if self.verbose:
                     print()
                     print(f"current mj: {mj[i]:.3f}")
