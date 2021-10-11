@@ -145,7 +145,7 @@ class BinaryShift:
                     Mj[companion_idx] -= companion_Mj
 
         # set the binary mask
-        self.bin_mask = np.array([False] * (len(mj)))
+        self.bin_mask = np.array([False] * len(mj))
         self.bin_mask[self._len_mj_init :] = True
         # add the extra Falses onto the ends of the other masks
         nbins_added = len(self.bin_mask) - len(self.MS_mask)
