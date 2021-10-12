@@ -39,7 +39,7 @@
 
 \section{Description}
 \begin{itemize}
-	\item Title: The effects of binary stars on recovered remnant populations.
+\item (Working) Title: The effects of binary stars on recovered remnant populations.
 	\item Hypothesis/Research Question: So I think the goal is basically to see what the effects
 	      of realistic binary populations are on \software{limepy} models and by extension, see
 	      what the effects on the recovered remant population are.
@@ -50,7 +50,8 @@
 
 \section{Motivation and Rationale}
 Right now, our models don't account for binaries at all, some studies suggest that binaries could
-mimic the effect of heavy remants.
+mimic the effect of heavy remants (cite them here). Discuss the observations that we \emph{do} have
+and the limits.
 
 
 \section{Methodology}
@@ -58,18 +59,26 @@ mimic the effect of heavy remants.
 	\item Approach to problem
 	\item Techniques/Methods
 
+
 \end{itemize}
+
+Basically we're just going the shift the mass around according to the binary fractions and chosen
+mass ratio distribution. the models will then be fit in the usual way with GCfit but will need to
+take special care with mass function fitting. will probably need to use isochrones to get the color
+and luminosity of the binary system in order to count them as the correct observed mass for the mf
+data (see discussion below, may not be needed).
 
 \section{Timelime}
 \begin{itemize}
-	\item Basic reading and planning
+\item Basic reading and planning \checkmark
 	\item Get the realistic binary populations working
 	      \begin{itemize}
 		      \item Currently have it working with binaries defined by mass fraction
 		      \item Use the binary fraction that is usually used so that we can compare to observations
 		      \item Look into using isochrones to get the apparent color/magnitude of binary
-		            stars so we can fit with MF data (this may or may not be needed depending on
-		            how the MF data is reported, read the Sollima papers)
+stars so we can fit with MF data (this may or may not be needed
+depending on how the MF data is reported, read the Sollima papers to see
+exactly how they handle the binaries)
 	      \end{itemize}
 	\item Toy models
 	\item Fit models
