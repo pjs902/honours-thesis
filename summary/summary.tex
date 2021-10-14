@@ -39,7 +39,7 @@
 
 \section{Description}
 \begin{itemize}
-\item (Working) Title: The effects of binary stars on recovered remnant populations.
+	\item (Working) Title: The effects of binary stars on recovered remnant populations.
 	\item Hypothesis/Research Question: So I think the goal is basically to see what the effects
 	      of realistic binary populations are on \software{limepy} models and by extension, see
 	      what the effects on the recovered remant population are.
@@ -50,8 +50,10 @@
 
 \section{Motivation and Rationale}
 Right now, our models don't account for binaries at all, some studies suggest that binaries could
-mimic the effect of heavy remants (cite them here). Discuss the observations that we \emph{do} have
-and the limits.
+mimic the effect of heavy remants (Do we need citations in the summary?). By including realistic
+binary populations, we hope to get better estimates for the heavy remants. Discuss the (few)
+observations that we have and the limits of the observations, as well as things that just aren't
+well constrained at all like the distribution of mass ratios in GCs.
 
 
 \section{Methodology}
@@ -64,26 +66,31 @@ and the limits.
 
 Basically we're just going the shift the mass around according to the binary fractions and chosen
 mass ratio distribution. the models will then be fit in the usual way with GCfit but will need to
-take special care with mass function fitting. will probably need to use isochrones to get the color
-and luminosity of the binary system in order to count them as the correct observed mass for the mf
-data (see discussion below, may not be needed).
+take special care with mass function fitting. Check how much detail we want here, probably want to,
+at the minimum, justify why we can just shift mass around and basically treat binaires as single
+stars.
 
 \section{Timelime}
 \begin{itemize}
-\item Basic reading and planning \checkmark
+	\item Basic reading and planning \checkmark
 	\item Get the realistic binary populations working
 	      \begin{itemize}
 		      \item Currently have it working with binaries defined by mass fraction
-		      \item Use the binary fraction that is usually used so that we can compare to observations
-		      \item Look into using isochrones to get the apparent color/magnitude of binary
-stars so we can fit with MF data (this may or may not be needed
-depending on how the MF data is reported, read the Sollima papers to see
-exactly how they handle the binaries)
+		            \checkmark
+		      \item Use the correct binary fraction so that we can compare to observations
+		            (1-3 weeks? less straightforward than I hoped)
 	      \end{itemize}
-	\item Toy models
-	\item Fit models
-	\item Analysis/Writing
-	\item End date
+	\item Project Summary (Nov 1st)
+	\item Toy models (1-2 weeks)
+	\item Use mass-luminosity relations to get the apparent mass of the binary system in order
+	      to fit on MF data (1-2 weeks)
+	\item Modify the GCfit code to allow for the mass function to be fit to the observed mass of
+	      the binary system (I'm thinking this might be the longest part, maybe a few weeks?)
+	\item Fit models (1-2 weeks, should easy once we modify GCfit)
+	\item Literature Review (Ongoing - Jan 31st)
+	\item Progress Report (Feb 7th)
+	\item Thesis Draft (Ongoing - March 18th)
+	\item End date (April 4th)
 \end{itemize}
 
 \end{document}
