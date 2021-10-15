@@ -82,12 +82,11 @@ def test_shift_q(mj_Mj, binshift):
     # TODO check number conservation
 
     # Ntotal_initial = np.sum(Mj/mj)
-    
+
     # Nj = Mj_new / mj_new
     # Ntotal_shifted = 2*np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask_new])
     # print(f"{Ntotal_initial = :.3f} {Ntotal_shifted = :.3f}")
     # assert np.isclose(Ntotal_initial, Ntotal_shifted)
-
 
     # these are vad values for q, fb
     with pytest.raises(ValueError):
