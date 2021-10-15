@@ -158,6 +158,106 @@ class BinaryShift:
 
         return mj, Mj
 
+    def shift_q(self, fb, q):
+        """
+        Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
+        NOTE: This is the new version that uses the number of stars/binaries instead of their masses.
+        """
+
+        self.fb = np.array(fb)
+        self.q = np.array(q)
+
+        # check for invalid values
+        if np.any(self.q > 1.0) or np.any(self.q < 0):
+            raise ValueError("q must be between 0 and 1.")
+
+        if np.any(self.fb > 1.0) or np.any(self.fb < 0):
+            raise ValueError("fb must be between 0 and 1.")
+
+        # don't mess with original
+        mj = self.mj.copy()
+        Mj = self.Mj.copy()
+        Nj = Mj / mj
+        Nj_shifted = Nj.copy()
+
+        # loop through the binary mass ratios
+        for fb, q in zip(self.fb, self.q):
+            # loop through the MS mass bins
+            for i in range(self._nms + 1):
+                if self.verbose:
+                    print()
+                    print(f"current mj: {mj[i]:.3f}")
+
+                # get mass of companion
+                companion_mass = mj[i] * q
+                if self.verbose:
+                    print(f"{companion_mass = :.3f}")
+
+                # if the companion is much smaller than the lightest MS bin, just skip it
+                if companion_mass < np.min(mj) and (
+                    np.abs(companion_mass - np.min(mj)) > 0.025
+                ):
+                    if self.verbose:
+                        print(
+                            f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
+                        )
+                    pass
+                else:
+
+                    # find closest bin to companion mass
+                    companion_idx = np.argmin(np.abs(mj[: self._nms] - companion_mass))
+                    if self.verbose:
+                        print(f"closest {companion_idx = }")
+                    # here change the mass of the companion to the mass of the closest bin
+                    companion_mass = mj[companion_idx]
+                    if self.verbose:
+                        print(f"closest {companion_mass = :.3f}")
+
+                    # mean mass of new bin
+                    binary_mj = mj[i] + companion_mass
+                    if self.verbose:
+                        print(f"new mass: {binary_mj:.3f} ")
+
+                    # get total N of new binary bin (here the division by two is to avoid double counting stars as companions/primaries)
+                    # TODO: here what is actually happening is we are setting fb = Nbin / Nsingle. Instead we want fb = Nbin / (Nbin + Nsingle)
+                    # maybe this is an easy fix?
+                    binary_Nj = Nj[i] * fb / 2
+                    if self.verbose:
+                        print(f"current bin N: {Nj[i]:.3f} ")
+                        print(f"binary N: {binary_Nj:.3f} ")
+
+                    # add in new binary mean mass bin
+                    mj = np.append(mj, binary_mj)
+
+                    # add total N to new binary bin
+                    Nj_shifted = np.append(Nj_shifted, binary_Nj)
+
+                    # remove N from both primary, companion bins
+                    Nj_shifted[i] -= binary_Nj
+
+                    if Nj_shifted[i] < 0:
+                        print(f"WARN: fb too high, bin {i} went negative")
+
+                    Nj_shifted[companion_idx] -= binary_Nj
+
+                    if Nj_shifted[companion_idx] < 0:
+                        print(f"WARN: fb too high, bin {i} went negative")
+
+        # set the binary mask
+        self.bin_mask = np.array([False] * len(mj))
+        self.bin_mask[self._len_mj_init :] = True
+        # add the extra Falses onto the ends of the other masks
+        nbins_added = len(self.bin_mask) - len(self.MS_mask)
+        self.MS_mask_new = np.append(self.MS_mask, [False] * nbins_added)
+        self.WD_mask_new = np.append(self.WD_mask, [False] * nbins_added)
+        self.NS_mask_new = np.append(self.NS_mask, [False] * nbins_added)
+        self.BH_mask_new = np.append(self.BH_mask, [False] * nbins_added)
+
+        Mj = Nj_shifted * mj
+        # TODO: here check if any bins are empty
+
+        return mj, Mj
+
     def shift_kroupa(self):
         """
         (TODO) Shift mass according to `fb` and `q` determined by random draw from Kroupa IMF.
