@@ -1,4 +1,5 @@
 import numpy as np
+import warnings
 
 __all__ = ["BinaryShift"]
 
@@ -70,12 +71,12 @@ class BinaryShift:
 
         return self.shift_q([fb], [1.0])
 
-    def shift_q(self, fb, q):
+    def shift_q_OLD(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
-        TODO: current fb definition is mass fraction, this is not useful if we want to compare to obs.
+        NOTE: This is the old version that (sort of) used mass fraction, this is broken.
         """
-
+        warnings.warn("This is the old broken method", DeprecationWarning)
         self.fb = np.array(fb)
         self.q = np.array(q)
 
