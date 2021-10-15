@@ -71,9 +71,23 @@ def binshift(mj_Mj, f):
 
 
 def test_shift_q(mj_Mj, binshift):
+
+    # do the shifting
     mj, Mj = mj_Mj
     mj_new, Mj_new = binshift.shift_q(fb=[0.1, 0.1, 0.1], q=[0.3, 0.5, 0.8])
+
+    # check mass conservation
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
+
+    # TODO check number conservation
+
+    # Ntotal_initial = np.sum(Mj/mj)
+    
+    # Nj = Mj_new / mj_new
+    # Ntotal_shifted = 2*np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask_new])
+    # print(f"{Ntotal_initial = :.3f} {Ntotal_shifted = :.3f}")
+    # assert np.isclose(Ntotal_initial, Ntotal_shifted)
+
 
     # these are vad values for q, fb
     with pytest.raises(ValueError):
@@ -84,8 +98,12 @@ def test_shift_q(mj_Mj, binshift):
 
 
 def test_shift_equal(mj_Mj, binshift):
+
+    # do the shifting
     mj, Mj = mj_Mj
     mj_new, Mj_new = binshift.shift_equal(fb=0.3)
+
+    # check mass conservation
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # bad value for fb
