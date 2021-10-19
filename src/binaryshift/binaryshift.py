@@ -93,6 +93,7 @@ class BinaryShift:
 
         # loop through the binary mass ratios
         for fb, q in zip(self.fb, self.q):
+
             # loop through the MS mass bins
             for i in range(self._nms + 1):
                 if self.verbose:
@@ -181,7 +182,12 @@ class BinaryShift:
         Nj_shifted = Nj.copy()
 
         # loop through the binary mass ratios
-        for fb, q in zip(self.fb, self.q):
+        for _fb, q in zip(self.fb, self.q):
+
+            # NOTE: Here's a conversion from one way of counting to the other, works great for
+            # larger fb, seems slightly off for smaller fb?
+            fb = _fb / (1.0 + _fb)
+
             # loop through the MS mass bins
             for i in range(self._nms + 1):
                 if self.verbose:
@@ -218,10 +224,8 @@ class BinaryShift:
                     if self.verbose:
                         print(f"new mass: {binary_mj:.3f} ")
 
-                    # get total N of new binary bin (here the division by two is to avoid double counting stars as companions/primaries)
-                    # TODO: here what is actually happening is we are setting fb = Nbin / Nsingle. Instead we want fb = Nbin / (Nbin + Nsingle)
-                    # maybe this is an easy fix?
-                    binary_Nj = Nj[i] * fb / 2
+                    # get total N of new binary bin
+                    binary_Nj = Nj[i] * fb  # / 2
                     if self.verbose:
                         print(f"current bin N: {Nj[i]:.3f} ")
                         print(f"binary N: {binary_Nj:.3f} ")
