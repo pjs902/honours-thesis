@@ -262,7 +262,12 @@ class BinaryShift:
         self.BH_mask_new = np.append(self.BH_mask, [False] * nbins_added)
 
         Mj = Nj_shifted * mj
-        # TODO: here check if any bins are empty
+        # TODO: here check if any bins are empty (doesn't really seem to be needed)
+        # cs = Nj_shifted > 10* self._mf.Nmin
+        # mj = mj[cs]
+        # Mj = Mj[cs]
+        # print(f"{cs = }")
+        # print(f"{self.BH_mask = }")
 
         return mj, Mj
 
