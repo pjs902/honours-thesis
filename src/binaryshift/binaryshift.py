@@ -240,12 +240,16 @@ class BinaryShift:
                     Nj_shifted[i] -= binary_Nj
 
                     if Nj_shifted[i] < 0:
-                        print(f"WARN: fb too high, bin {i} went negative")
+                        raise ValueError(
+                            f"Value of fb is too high: bin {i} {mj[i] = } went negative"
+                        )
 
                     Nj_shifted[companion_idx] -= binary_Nj
 
                     if Nj_shifted[companion_idx] < 0:
-                        print(f"WARN: fb too high, bin {i} went negative")
+                        raise ValueError(
+                            f"Value of fb is too high: bin {i} {mj[i] = } went negative"
+                        )
 
         # set the binary mask
         self.bin_mask = np.array([False] * len(mj))
