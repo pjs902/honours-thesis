@@ -1,12 +1,12 @@
 from ssptools import evolve_mf_3 as emf3
 import numpy as np
 import pytest
+import warnings
 
 from binaryshift import BinaryShift
 
 
 @pytest.fixture
-# TODO: figure out how to ignore the SSPTools warnings
 def f():
     # config for ssptools
     m123 = [0.1, 0.5, 1.0, 100]  # Slope breakpoints for initial mass function
@@ -27,21 +27,23 @@ def f():
     BH_ret_dyn = 0.00235  # Dynamical Black Hole retention
     FeHe = -0.7  # Metallicity
     # ignore the warnings from SSPTools
-    f = emf3.evolve_mf(
-        m123=m123,
-        a12=a12,
-        nbin12=nbin12,
-        tout=tout,
-        N0=N0,
-        Ndot=Ndot,
-        tcc=tcc,
-        NS_ret=NS_ret,
-        BH_ret_int=BH_ret_int,
-        BH_ret_dyn=BH_ret_dyn,
-        FeHe=FeHe,
-        natal_kicks=True,
-        vesc=100,
-    )
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        f = emf3.evolve_mf(
+            m123=m123,
+            a12=a12,
+            nbin12=nbin12,
+            tout=tout,
+            N0=N0,
+            Ndot=Ndot,
+            tcc=tcc,
+            NS_ret=NS_ret,
+            BH_ret_int=BH_ret_int,
+            BH_ret_dyn=BH_ret_dyn,
+            FeHe=FeHe,
+            natal_kicks=True,
+            vesc=100,
+        )
     return f
 
 
