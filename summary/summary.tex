@@ -49,47 +49,46 @@
 \end{itemize}
 
 \section{Motivation and Rationale}
-
-Our current, state of the art equilibrium models assume that all stars are single make no effort to
-include the effect of binaries.
-
-Here maybe discuss a few studies that discss effects of binaries.
-
-
-By including the dynamical effects of binaries in our models we hope to recover more accurate
-remnant populations in present day globular clusters. If there is a significant amount of mass in
-heavy binary systems, we may not need as much mass in heavy remnants to reproduce the observered
-kinematics of the cluster.
+\paragraph{}
+Our current, state-of-the-art equilibrium models assume that all stars are single and make no effort
+to include the effect of binaries. The highest mass binary systems are of comperable mass to the
+heaviest white dwarfs and neutron stars and should also mass segregate at a similar rate. Having a
+large centrally concentrated population of binaries could very well reduce the need for a large
+central population of heavy remnants. By including the dynamical effects of binaries in our models
+we hope to recover more accurate remnant populations in present day clusters.
 
 
+\paragraph{}
 Binary populations in globular clusters are, in general, not very well constrained. Even for
-clusters for which we have large photometric surveys and multi-epoch radial velocity observations,
+clusters for which we have large photometric surveys and multi-epoch radial velocity measurements,
 we are often only able to observe binary systems with high mass ratios. This results in loose
 constraints on the total binary fraction and weak constraints on the mass ratio distribution above $
-q = 0.5$, with little to no constraints on the mass ratio distribution for $q < 0.5$. There are a
+q = 0.5$, with essentially no constraints on the mass ratio distribution for $q < 0.5$. There are a
 few options in the literature for likely mass ratio distributions, the one with the most
 observational motivation being a flat mass ratio distribution where all value of $q$ are equally
 likely. Other options include random sampling from the IMF or adopting the observed mass fraction
-distribution from the solar neighbourhood.
+distribution from the solar neighbourhood. By adopting a mass ratio prescription and binary fraction
+we can generate a realistic population of binaries that is likely to mimic those found in present
+day clusters.
 
 
 
 \section{Methodology}
-
+\paragraph{}
 Because of the high densities and old ages of globular clusters, we can safely assume that all long
-period loosely bound binaries have been ionized. This allows us to treat binary star systems as a
+period, loosely bound binaries have been ionized. This allows us to treat binary star systems as a
 single system for the purposes of our models, a binary system of two $0.5 M_\odot$ stars should
 behave like a single star of $ 1 M_\odot$. This means that in order to replicate the effects of
-binary stars in our models we can simply shift some of the stars from our binned mass function into
-bins of higher masses according to the binary population.
-
+binary stars in our models we can simply shift some of the stars in our binned mass function into
+bins of higher mass according to the chosen binary population.
+\paragraph{}
 When we fit these modified models to observations, we need to take special care when comparing to
 the available stellar mass function data. The method used to collect the mass function data is to
 assume all observed stars are single stars and to assign each star a mass based on its luminosity.
 This means that when we compare our models to the data we will need to convert the dynamical mass of
 the binaries into an "observed mass" which is related to the total luminosity of the binary system.
 These binary bins will then contribute to the single star bin which is closest to the "observed
-mass" of the binary bin.
+mass" of the binary bin for the purposes of computing mass function likelihoods.
 
 \section{Timelime}
 \begin{itemize}
