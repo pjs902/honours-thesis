@@ -200,6 +200,11 @@ class BinaryShift:
                     print(f"{companion_mass = :.3f}")
 
                 # if the companion is much smaller than the lightest MS bin, just skip it
+
+                # TODO: it turns out this isn't really sustainable with lots of low q binaries,
+                # we end with an fb much lower than what we intended, maybe keep track and add them in later?
+                # could just do the biggest remaining bin?
+
                 if companion_mass < np.min(mj) and (
                     np.abs(companion_mass - np.min(mj)) > 0.025
                 ):
