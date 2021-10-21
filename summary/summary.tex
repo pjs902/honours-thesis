@@ -49,26 +49,47 @@
 \end{itemize}
 
 \section{Motivation and Rationale}
-Right now, our models don't account for binaries at all, some studies suggest that binaries could
-mimic the effect of heavy remants (Do we need citations in the summary?). By including realistic
-binary populations, we hope to get better estimates for the heavy remants. Discuss the (few)
-observations that we have and the limits of the observations, as well as things that just aren't
-well constrained at all like the distribution of mass ratios in GCs.
+
+Our current, state of the art equilibrium models assume that all stars are single make no effort to
+include the effect of binaries.
+
+Here maybe discuss a few studies that discss effects of binaries.
+
+
+By including the dynamical effects of binaries in our models we hope to recover more accurate
+remnant populations in present day globular clusters. If there is a significant amount of mass in
+heavy binary systems, we may not need as much mass in heavy remnants to reproduce the observered
+kinematics of the cluster.
+
+
+Binary populations in globular clusters are, in general, not very well constrained. Even for
+clusters for which we have large photometric surveys and multi-epoch radial velocity observations,
+we are often only able to observe binary systems with high mass ratios. This results in loose
+constraints on the total binary fraction and weak constraints on the mass ratio distribution above $
+q = 0.5$, with little to no constraints on the mass ratio distribution for $q < 0.5$. There are a
+few options in the literature for likely mass ratio distributions, the one with the most
+observational motivation being a flat mass ratio distribution where all value of $q$ are equally
+likely. Other options include random sampling from the IMF or adopting the observed mass fraction
+distribution from the solar neighbourhood.
+
 
 
 \section{Methodology}
-\begin{itemize}
-	\item Approach to problem
-	\item Techniques/Methods
 
+Because of the high densities and old ages of globular clusters, we can safely assume that all long
+period loosely bound binaries have been ionized. This allows us to treat binary star systems as a
+single system for the purposes of our models, a binary system of two $0.5 M_\odot$ stars should
+behave like a single star of $ 1 M_\odot$. This means that in order to replicate the effects of
+binary stars in our models we can simply shift some of the stars from our binned mass function into
+bins of higher masses according to the binary population.
 
-\end{itemize}
-
-Basically we're just going the shift the mass around according to the binary fractions and chosen
-mass ratio distribution. the models will then be fit in the usual way with GCfit but will need to
-take special care with mass function fitting. Check how much detail we want here, probably want to,
-at the minimum, justify why we can just shift mass around and basically treat binaires as single
-stars.
+When we fit these modified models to observations, we need to take special care when comparing to
+the available stellar mass function data. The method used to collect the mass function data is to
+assume all observed stars are single stars and to assign each star a mass based on its luminosity.
+This means that when we compare our models to the data we will need to convert the dynamical mass of
+the binaries into an "observed mass" which is related to the total luminosity of the binary system.
+These binary bins will then contribute to the single star bin which is closest to the "observed
+mass" of the binary bin.
 
 \section{Timelime}
 \begin{itemize}
