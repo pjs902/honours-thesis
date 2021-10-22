@@ -219,3 +219,25 @@ class BinaryShift:
         fb = self.fb * p_q
 
         return self.shift_q(fb=fb, q=q)
+
+
+    def shift_flat(self, fb):
+        """
+        Shift mass according to a flat `q` distribution.
+        """
+
+        # validate fb
+        self.fb = float(fb)
+        if self.fb > 1.0 or self.fb < 0:
+            raise ValueError("fb must be between 0 and 1.")
+
+
+        # full list of q values
+        q = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        # each q value equally likely
+        p_q = np.ones_like(q) / len(q)
+
+        # here find the individual fb for each q value by adjusting the total fb by P(q)
+        fb = self.fb * p_q
+
+        return self.shift_q(fb=fb, q=q)
