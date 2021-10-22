@@ -282,8 +282,27 @@ class BinaryShift:
         """
         pass
 
-    def shift_solar(self):
+    def shift_solar(self, fb):
         """
-        (TODO) Shift mass according to `fb` and `q` in the solar neighborhood.
+        Shift mass according to `fb` and `q` in the solar neighborhood.
+        Values for solar binaries from Fisher et al. (2005) (10.1111/j.1365-2966.2005.09193.x)
         """
-        pass
+
+        # validate fb
+        self.fb = float(fb)
+        if self.fb > 1.0 or self.fb < 0:
+            raise ValueError("fb must be between 0 and 1.")
+
+        # frequencies from Table 3 of Fisher et al. (2005) (10.1111/j.1365-2966.2005.09193.x)
+        freqs = np.array([29, 29, 30, 32, 31, 32, 36, 45, 27, 76])
+
+        # get P(q) for each q value (we could hardcode this I guess)
+        p_q = freqs / np.sum(freqs)
+
+        # full list of q values
+        q = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+
+        # here find the individual fb for each q value by adjusting the total fb by P(q)
+        fb = self.fb * p_q
+
+        return self.shift_q(fb=fb, q=q)

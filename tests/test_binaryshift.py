@@ -69,7 +69,10 @@ def binshift(mj_Mj, f):
     return bs
 
 
-# Test mass conservation
+# Test Shifts
+
+# TODO: we should probably do some test where we make sure the binary fraction matches, at least for
+# the equal mass shifting
 
 
 def test_shift_q(mj_Mj, binshift):
@@ -90,7 +93,7 @@ def test_shift_q(mj_Mj, binshift):
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
 
 
-    # these are vad values for q, fb
+    # these are bad values for q, fb
     with pytest.raises(ValueError):
         binshift.shift_q(fb=[0.3, 0, 4, 0.3], q=[3, 0.5, 0.8])
 
@@ -122,7 +125,26 @@ def test_shift_equal(mj_Mj, binshift):
 
 
 def test_shift_solar(mj_Mj, binshift):
-    binshift.shift_solar()
+    # do the shifting
+    mj, Mj = mj_Mj
+    mj_new, Mj_new = binshift.shift_solar(fb=0.3)
+
+    # check mass conservation
+    assert np.isclose(np.sum(Mj), np.sum(Mj_new))
+
+    # check number conservation
+    Ntotal_initial = np.sum(Mj[binshift.MS_mask]/mj[binshift.MS_mask])
+    Nj = Mj_new / mj_new
+
+    Ntotal_shifted = 2*np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask_new])
+
+    assert np.isclose(Ntotal_initial, Ntotal_shifted)
+
+
+    # check bad values
+
+    with pytest.raises(ValueError):
+        binshift.shift_solar(fb=2)
 
 
 def test_shift_kroupa(mj_Mj, binshift):
