@@ -11,6 +11,7 @@
 \usepackage{hyperref}
 \usepackage{gensymb}
 \usepackage{siunitx}
+\usepackage{microtype}
 
 \setlength{\parindent}{0.0in}
 \setlength{\parskip}{0.05in}
@@ -36,36 +37,30 @@
 
 \begin{document}
 
+\begin{center}
+	\Large{\textbf{The Effects of Binaries on Recovered Remnant Populations}}
+\end{center}
 
-\section{Description}
-\begin{itemize}
-	\item (Working) Title: The effects of binary stars on recovered remnant populations.
-	\item Hypothesis/Research Question: So I think the goal is basically to see what the effects
-	      of realistic binary populations are on \software{limepy} models and by extension, see
-	      what the effects on the recovered remant population are.
-	\item Goals and Objectives: Create realistic binary populations, make some toy models to
-	      demonstrate the effects, fit models with realistic binary populations to observations,
-	      compare remant populations.
-\end{itemize}
 
 \section{Motivation and Rationale}
 \paragraph{}
-Our current, state-of-the-art equilibrium models assume that all stars are single and make no effort
-to include the effect of binaries. The highest mass binary systems are of comperable mass to the
-heaviest white dwarfs and neutron stars and should also mass segregate at a similar rate. Having a
-large centrally concentrated population of binaries could very well reduce the need for a large
-central population of heavy remnants. By including the dynamical effects of binaries in our models
-we hope to recover more accurate remnant populations in present day clusters.
+Current, state-of-the-art equilibrium models typically assume that all stars are single and make no
+effort to include the dynamical effects of binary systems. The highest mass binary systems are of
+comperable mass to the heaviest white dwarfs and neutron stars and should also mass segregate at a
+similar rate. Having a large centrally concentrated population of binaries could very well reduce
+the need for a large central population of heavy remnants. By including the dynamical effects of
+binaries in our models we hope to recover more accurate remnant populations for present day globular
+clusters.
 
 
 \paragraph{}
 Binary populations in globular clusters are, in general, not very well constrained. Even for
 clusters for which we have large photometric surveys and multi-epoch radial velocity measurements,
 we are often only able to observe binary systems with high mass ratios. This results in loose
-constraints on the total binary fraction and weak constraints on the mass ratio distribution above $
-q = 0.5$, with essentially no constraints on the mass ratio distribution for $q < 0.5$. There are a
+constraints on the total binary fraction and weak constraints on the mass ratio distribution above
+$q = 0.5$, with essentially no constraints on the mass ratio distribution for $q < 0.5$. There are a
 few options in the literature for likely mass ratio distributions, the one with the most
-observational motivation being a flat mass ratio distribution where all value of $q$ are equally
+observational motivation being a flat mass ratio distribution where all values of $q$ are equally
 likely. Other options include random sampling from the IMF or adopting the observed mass fraction
 distribution from the solar neighbourhood. By adopting a mass ratio prescription and binary fraction
 we can generate a realistic population of binaries that is likely to mimic those found in present
@@ -92,24 +87,27 @@ mass" of the binary bin for the purposes of computing mass function likelihoods.
 
 \section{Timelime}
 \begin{itemize}
-	\item Basic reading and planning \checkmark
-	\item Get the realistic binary populations working
+\item Get the realistic binary populations working (Nov 12th)
 	      \begin{itemize}
-		      \item Currently have it working with binaries defined by mass fraction
-		            \checkmark
-		      \item Use the correct binary fraction so that we can compare to observations
-		            (1-3 weeks? less straightforward than I hoped)
+\item Implement equal mass binaries \checkmark
+\item Allow for custom mass ratio distributions
+\item Implement random sampling from a Kroupa IMF
+\item Implement solar neighbourhood $q$ distribution
 	      \end{itemize}
-	\item Project Summary (Nov 1st)
-	\item Toy models (1-2 weeks)
+\item Project Summary (Nov 1st). Ongoing throughout the first term.
+\item Toy models (Nov 19). We can run a few models with realistic binary populations and
+compare them to models without binaries. This will let us look at the effects of the binary
+systems without needing to fit models to real data.
 	\item Use mass-luminosity relations to get the apparent mass of the binary system in order
-	      to fit on MF data (1-2 weeks)
+to fit on MF data (Dec 3rd)
 	\item Modify the GCfit code to allow for the mass function to be fit to the observed mass of
-	      the binary system (I'm thinking this might be the longest part, maybe a few weeks?)
-	\item Fit models (1-2 weeks, should easy once we modify GCfit)
-	\item Literature Review (Ongoing - Jan 31st)
+the binary system (Jan 14th)
+\item Fit models (Jan 28th). Once we've modified the mass function fitting to work with
+binaries, we can fit our models with binaries to real observations of clusters and see how
+the model parameters and remant populations change with the inclusion of binaries.
+\item Literature Review (Jan 31st) This should be done in parallel with the above.
 	\item Progress Report (Feb 7th)
-	\item Thesis Draft (Ongoing - March 18th)
+\item Thesis Draft (March 18th) This should pick up where the literature review left off.
 	\item End date (April 4th)
 \end{itemize}
 
