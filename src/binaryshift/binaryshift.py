@@ -81,6 +81,9 @@ class BinaryShift:
         self.fb = np.array(fb)
         self.q = np.array(q)
 
+
+        #TODO: truncate the q distribution based on the smallest possible q value
+
         # check for invalid values
         if np.any(self.q > 1.0) or np.any(self.q < 0):
             raise ValueError("q must be between 0 and 1.")
@@ -114,9 +117,10 @@ class BinaryShift:
 
                 # if the companion is much smaller than the lightest MS bin, just skip it
 
-                # TODO: it turns out this isn't really sustainable with lots of low q binaries,
-                # we end with an fb much lower than what we intended, maybe keep track and add them in later?
-                # could just do the biggest remaining bin?
+                # TODO: Here what we actually want to do is to use these low mass bins as
+                # companions, so when we reach a point where there are no availible low mass bin for
+                # companions we should instead look for a high mass primary star that still
+                # satisfies the q value.
 
                 if companion_mass < np.min(mj) and (
                     np.abs(companion_mass - np.min(mj)) > 0.025
