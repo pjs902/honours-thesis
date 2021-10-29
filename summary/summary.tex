@@ -87,27 +87,30 @@ mass" of the binary bin for the purposes of computing mass function likelihoods.
 
 \section{Timelime}
 \begin{itemize}
-\item Get the realistic binary populations working (Nov 12th)
+	\item Get the realistic binary populations working (November 12th)
 	      \begin{itemize}
-\item Implement equal mass binaries \checkmark
-\item Allow for custom mass ratio distributions
-\item Implement random sampling from a Kroupa IMF
-\item Implement solar neighbourhood $q$ distribution
+		      \item Implement equal mass binaries
+		      \item Implement solar neighbourhood $q$ distribution
 	      \end{itemize}
-\item Project Summary (Nov 1st). Ongoing throughout the first term.
-\item Toy models (Nov 19). We can run a few models with realistic binary populations and
-compare them to models without binaries. This will let us look at the effects of the binary
-systems without needing to fit models to real data.
-	\item Use mass-luminosity relations to get the apparent mass of the binary system in order
-to fit on MF data (Dec 3rd)
-	\item Modify the GCfit code to allow for the mass function to be fit to the observed mass of
-the binary system (Jan 14th)
-\item Fit models (Jan 28th). Once we've modified the mass function fitting to work with
-binaries, we can fit our models with binaries to real observations of clusters and see how
-the model parameters and remant populations change with the inclusion of binaries.
-\item Literature Review (Jan 31st) This should be done in parallel with the above.
+	\item Project Summary (Nov 1st)
+	\item Integrate models with binaries with GCFit (January 7th).
+	      \begin{itemize}
+		      \item Re-bin models with binaries to reduce the runtime (November 19th)
+		      \item Keep track of the overall binary populations within the rebinned models (Dec 3rd)
+		      \item Use isochrones to get the apparent luminosity of the binary systems and
+		            use this to estimate the "observed mass" of the binary systems in order
+		            to re-scale the number density profiles. (January 7th)
+	      \end{itemize}
+	\item Literature Review (Jan 31st) This can be done in parallel with the above.
+	\item Toy models (Nov 19). We can run a few models with realistic binary populations and
+	      compare them to models without binaries. This will let us look at the effects of the
+	      binary systems without needing to fit models to real data.
+	\item Fit models (Jan 28th). Once we've modified the mass function likelihood to work with
+	      binaries, we can fit our models with binaries to real observations of clusters and see
+	      how the model parameters and remant populations change with the inclusion of realistic
+	      binary populations.
 	\item Progress Report (Feb 7th)
-\item Thesis Draft (March 18th) This should pick up where the literature review left off.
+	\item Thesis Draft (March 18th)
 	\item End date (April 4th)
 \end{itemize}
 
