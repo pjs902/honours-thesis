@@ -127,25 +127,37 @@ class BinaryShift:
                 if self.verbose:
                     print(f"{companion_mass = :.3f}")
 
-                # if the companion is much smaller than the lightest MS bin, just skip it
-
                 # TODO: Here what we actually want to do is to use these low mass bins as
                 # companions, so when we reach a point where there are no availible low mass bin for
                 # companions we should instead look for a high mass primary star that still
                 # satisfies the q value.
 
-                if companion_mass < np.min(mj) and (
-                    np.abs(companion_mass - np.min(mj)) > 0.025
+                # TODO: So this is sort of working now, but it's not quite right. fb doesn't match
+                # the requested value anymore expect for 30%, check to see if its still taking away
+                # mass and stars properly
+                if companion_mass < np.min(mj[: self._nms + 1]) and (
+                    np.abs(companion_mass - np.min(mj[: self._nms + 1])) > 0.025
                 ):
                     if self.verbose:
                         print(
-                            f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, skipping"
+                            f"companion mass {companion_mass:.3f} smaller than {np.min(mj):.3f}, switching to companion star"
                         )
-                    pass
+                    new_q = 1.0 / q
+                    companion_mass = mj[i] * new_q
+                    print(f"new (primary) {companion_mass = :.3f}")
+                    if companion_mass > np.max(mj[: self._nms + 1]) and (
+                        np.abs(companion_mass - np.max(mj[: self._nms + 1])) > 0.025
+                    ):
+                        print(
+                            f"companion mass {companion_mass:.3f} larger than {np.max(mj[:self._nms+1]):.3f}, skipping companion star"
+                        )
+                        continue
                 else:
 
                     # find closest bin to companion mass
-                    companion_idx = np.argmin(np.abs(mj[: self._nms] - companion_mass))
+                    companion_idx = np.argmin(
+                        np.abs(mj[: self._nms + 1] - companion_mass)
+                    )
                     if self.verbose:
                         print(f"closest {companion_idx = }")
                     # here change the mass of the companion to the mass of the closest bin

@@ -85,13 +85,14 @@ def test_shift_q(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask]/mj[binshift.MS_mask])
+    Ntotal_initial = np.sum(Mj[binshift.MS_mask] / mj[binshift.MS_mask])
     Nj = Mj_new / mj_new
 
-    Ntotal_shifted = 2*np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask_new])
+    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
+        Nj[binshift.MS_mask_new]
+    )
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
-
 
     # these are bad values for q, fb
     with pytest.raises(ValueError):
@@ -111,13 +112,14 @@ def test_shift_equal(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask]/mj[binshift.MS_mask])
+    Ntotal_initial = np.sum(Mj[binshift.MS_mask] / mj[binshift.MS_mask])
     Nj = Mj_new / mj_new
 
-    Ntotal_shifted = 2*np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask_new])
+    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
+        Nj[binshift.MS_mask_new]
+    )
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
-
 
     # bad value for fb
     with pytest.raises(ValueError):
@@ -133,18 +135,20 @@ def test_shift_solar(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask]/mj[binshift.MS_mask])
+    Ntotal_initial = np.sum(Mj[binshift.MS_mask] / mj[binshift.MS_mask])
     Nj = Mj_new / mj_new
 
-    Ntotal_shifted = 2*np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask_new])
+    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
+        Nj[binshift.MS_mask_new]
+    )
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
-
 
     # check bad values
 
     with pytest.raises(ValueError):
         binshift.shift_solar(fb=2)
+
 
 def test_shift_flat(mj_Mj, binshift):
     # do the shifting
