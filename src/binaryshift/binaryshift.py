@@ -205,12 +205,6 @@ class BinaryShift:
 
         return mj, Mj
 
-    def shift_kroupa(self):
-        """
-        (TODO) Shift mass according to `fb` and `q` determined by random draw from Kroupa IMF.
-        """
-        pass
-
     def shift_solar(self, fb):
         """
         Shift mass according to `fb` and `q` in the solar neighborhood.
