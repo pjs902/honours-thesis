@@ -33,6 +33,9 @@ class BinaryShift:
         self.NS_mask = (self.mj < self._mBH_min) & (self.mj > self._mWD_max)
         self.BH_mask = self.mj >= self._mBH_min
 
+        # minimum possible q value based on the mass bins
+        self._q_min = np.min(self.mj[self.MS_mask]) / np.max(self.mj[self.MS_mask])
+
         self.verbose = verbose
 
     def dump(self):
@@ -71,7 +74,6 @@ class BinaryShift:
 
         return self.shift_q([fb], [1.0])
 
-
     def shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
@@ -81,15 +83,25 @@ class BinaryShift:
         self.fb = np.array(fb)
         self.q = np.array(q)
 
-
-        #TODO: truncate the q distribution based on the smallest possible q value
-
         # check for invalid values
         if np.any(self.q > 1.0) or np.any(self.q < 0):
             raise ValueError("q must be between 0 and 1.")
 
         if np.any(self.fb > 1.0) or np.any(self.fb < 0):
             raise ValueError("fb must be between 0 and 1.")
+
+        # Truncate q distribution based on smallest possible q value
+        # get the total fb from bad q values
+        q_mask = self.q > self._q_min
+        fb_disallowed = np.sum(self.fb[~q_mask])
+
+        # remove the values from the q and fb distributions
+        self.q = self.q[q_mask]
+        self.fb = self.fb[q_mask]
+
+        # add the removed probabilities to the fb distribution
+        extra_fb = fb_disallowed / len(self.fb)
+        self.fb = self.fb + extra_fb
 
         # don't mess with original
         mj = self.mj.copy()
@@ -224,7 +236,6 @@ class BinaryShift:
 
         return self.shift_q(fb=fb, q=q)
 
-
     def shift_flat(self, fb):
         """
         Shift mass according to a flat `q` distribution.
@@ -234,7 +245,6 @@ class BinaryShift:
         self.fb = float(fb)
         if self.fb > 1.0 or self.fb < 0:
             raise ValueError("fb must be between 0 and 1.")
-
 
         # full list of q values
         q = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
