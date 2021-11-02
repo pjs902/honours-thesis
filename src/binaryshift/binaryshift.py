@@ -67,13 +67,6 @@ class BinaryShift:
 
         # TODO: dump masks?
 
-    def shift_equal(self, fb):
-        """
-        Shift mass to create binaries of equal mass, amount of mass shifted is determined by `fb`.
-        """
-
-        return self.shift_q([fb], [1.0])
-
     def shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
@@ -89,19 +82,6 @@ class BinaryShift:
 
         if np.any(self.fb > 1.0) or np.any(self.fb < 0):
             raise ValueError("fb must be between 0 and 1.")
-
-        # Truncate q distribution based on smallest possible q value
-        # get the total fb from bad q values
-        q_mask = self.q > self._q_min
-        fb_disallowed = np.sum(self.fb[~q_mask])
-
-        # remove the values from the q and fb distributions
-        self.q = self.q[q_mask]
-        self.fb = self.fb[q_mask]
-
-        # add the removed probabilities to the fb distribution
-        extra_fb = fb_disallowed / len(self.fb)
-        self.fb = self.fb + extra_fb
 
         # don't mess with original
         mj = self.mj.copy()
@@ -147,36 +127,43 @@ class BinaryShift:
                     new_q = 1.0 / q
                     companion_mass = mj[i] * new_q
                     print(f"new (primary) {companion_mass = :.3f}")
-                    print(f"new q {new_q = :.3f}")
+                    print(f"{new_q = :.3f}")
                     if companion_mass > np.max(mj[: self._nms + 1]) and (
                         np.abs(companion_mass - np.max(mj[: self._nms + 1])) > 0.025
                     ):
                         print(
                             f"companion mass {companion_mass:.3f} larger than {np.max(mj[:self._nms+1]):.3f}, skipping companion star"
                         )
+                        # go to next bin
                         continue
 
                 # find closest bin to companion mass
                 companion_idx = np.argmin(np.abs(mj[: self._nms + 1] - companion_mass))
                 if self.verbose:
                     print(f"closest {companion_idx = }")
+
                 # here change the mass of the companion to the mass of the closest bin
                 companion_mass = mj[companion_idx]
                 if self.verbose:
                     print(f"closest {companion_mass = :.3f}")
+
                 # mean mass of new bin
                 binary_mj = mj[i] + companion_mass
                 if self.verbose:
                     print(f"new mass: {binary_mj:.3f} ")
+
                 # get total N of new binary bin
                 binary_Nj = Nj[i] * fb  # / 2
                 if self.verbose:
                     print(f"current bin N: {Nj[i]:.3f} ")
                     print(f"binary N: {binary_Nj:.3f} ")
+
                 # add in new binary mean mass bin
                 mj = np.append(mj, binary_mj)
+
                 # add total N to new binary bin
                 Nj_shifted = np.append(Nj_shifted, binary_Nj)
+
                 # remove N from both primary, companion bins
                 Nj_shifted[i] -= binary_Nj
                 if Nj_shifted[i] < 0:
@@ -227,12 +214,32 @@ class BinaryShift:
         p_q = freqs / np.sum(freqs)
 
         # full list of q values
-        q = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+        q = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+
+        # Truncate q distribution based on smallest possible q value
+        # get the total fb from bad q values
+        q_mask = q > self._q_min
+        pq_disallowed = np.sum(p_q[~q_mask])
+
+        # remove the values from the q and p(q) distributions
+        q = q[q_mask]
+        p_q = p_q[q_mask]
+
+        # add the removed probabilities to the p(q) distribution
+        extra_pq = pq_disallowed / len(q)
+        p_q = p_q + extra_pq
 
         # here find the individual fb for each q value by adjusting the total fb by P(q)
-        fb = self.fb * p_q
+        fb = fb * p_q
 
         return self.shift_q(fb=fb, q=q)
+
+    def shift_equal(self, fb):
+        """
+        Shift mass to create binaries of equal mass, amount of mass shifted is determined by `fb`.
+        """
+
+        return self.shift_q([fb], [1.0])
 
     def shift_flat(self, fb):
         """
@@ -245,10 +252,12 @@ class BinaryShift:
             raise ValueError("fb must be between 0 and 1.")
 
         # full list of q values
-        q = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-        # each q value equally likely
-        p_q = np.ones_like(q) / len(q)
+        q = np.array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
 
+        # Truncate q distribution based on smallest possible q value
+        q = q[q > self._q_min]
+
+        p_q = np.ones_like(q) / len(q)
         # here find the individual fb for each q value by adjusting the total fb by P(q)
         fb = self.fb * p_q
 
