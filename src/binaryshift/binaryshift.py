@@ -135,6 +135,8 @@ class BinaryShift:
                 # TODO: So this is sort of working now, but it's not quite right. fb doesn't match
                 # the requested value anymore expect for 30%, check to see if its still taking away
                 # mass and stars properly
+
+                # TODO: refactor this to be more readable, maybe catch the error somewhere?
                 if companion_mass < np.min(mj[: self._nms + 1]) and (
                     np.abs(companion_mass - np.min(mj[: self._nms + 1])) > 0.025
                 ):
@@ -145,6 +147,7 @@ class BinaryShift:
                     new_q = 1.0 / q
                     companion_mass = mj[i] * new_q
                     print(f"new (primary) {companion_mass = :.3f}")
+                    print(f"new q {new_q = :.3f}")
                     if companion_mass > np.max(mj[: self._nms + 1]) and (
                         np.abs(companion_mass - np.max(mj[: self._nms + 1])) > 0.025
                     ):
@@ -152,50 +155,39 @@ class BinaryShift:
                             f"companion mass {companion_mass:.3f} larger than {np.max(mj[:self._nms+1]):.3f}, skipping companion star"
                         )
                         continue
-                else:
 
-                    # find closest bin to companion mass
-                    companion_idx = np.argmin(
-                        np.abs(mj[: self._nms + 1] - companion_mass)
+                # find closest bin to companion mass
+                companion_idx = np.argmin(np.abs(mj[: self._nms + 1] - companion_mass))
+                if self.verbose:
+                    print(f"closest {companion_idx = }")
+                # here change the mass of the companion to the mass of the closest bin
+                companion_mass = mj[companion_idx]
+                if self.verbose:
+                    print(f"closest {companion_mass = :.3f}")
+                # mean mass of new bin
+                binary_mj = mj[i] + companion_mass
+                if self.verbose:
+                    print(f"new mass: {binary_mj:.3f} ")
+                # get total N of new binary bin
+                binary_Nj = Nj[i] * fb  # / 2
+                if self.verbose:
+                    print(f"current bin N: {Nj[i]:.3f} ")
+                    print(f"binary N: {binary_Nj:.3f} ")
+                # add in new binary mean mass bin
+                mj = np.append(mj, binary_mj)
+                # add total N to new binary bin
+                Nj_shifted = np.append(Nj_shifted, binary_Nj)
+                # remove N from both primary, companion bins
+                Nj_shifted[i] -= binary_Nj
+                if Nj_shifted[i] < 0:
+                    raise ValueError(
+                        f"Value of fb is too high: bin {i} {mj[i] = } went negative"
                     )
-                    if self.verbose:
-                        print(f"closest {companion_idx = }")
-                    # here change the mass of the companion to the mass of the closest bin
-                    companion_mass = mj[companion_idx]
-                    if self.verbose:
-                        print(f"closest {companion_mass = :.3f}")
-
-                    # mean mass of new bin
-                    binary_mj = mj[i] + companion_mass
-                    if self.verbose:
-                        print(f"new mass: {binary_mj:.3f} ")
-
-                    # get total N of new binary bin
-                    binary_Nj = Nj[i] * fb  # / 2
-                    if self.verbose:
-                        print(f"current bin N: {Nj[i]:.3f} ")
-                        print(f"binary N: {binary_Nj:.3f} ")
-
-                    # add in new binary mean mass bin
-                    mj = np.append(mj, binary_mj)
-
-                    # add total N to new binary bin
-                    Nj_shifted = np.append(Nj_shifted, binary_Nj)
-
-                    # remove N from both primary, companion bins
-                    Nj_shifted[i] -= binary_Nj
-
-                    if Nj_shifted[i] < 0:
-                        raise ValueError(
-                            f"Value of fb is too high: bin {i} {mj[i] = } went negative"
-                        )
-
-                    Nj_shifted[companion_idx] -= binary_Nj
-
-                    if Nj_shifted[companion_idx] < 0:
-                        raise ValueError(
-                            f"Value of fb is too high: bin {i} {mj[i] = } went negative"
-                        )
+                Nj_shifted[companion_idx] -= binary_Nj
+                if Nj_shifted[companion_idx] < 0:
+                    raise ValueError(
+                        f"Value of fb is too high: bin {i} {mj[i] = } went negative"
+                    )
 
         # set the binary mask
         self.bin_mask = np.array([False] * len(mj))
