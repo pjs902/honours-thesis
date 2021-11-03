@@ -70,7 +70,7 @@ class BinaryShift:
     def shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
-        NOTE: This is the new version that uses the number of stars/binaries instead of their masses.
+        This is wrapped by `shift_solar` and `shift_flat` to make it easier to use for common cases.
         """
 
         self.fb = np.array(fb)
@@ -228,6 +228,7 @@ class BinaryShift:
         # add the removed probabilities to the p(q) distribution
         extra_pq = pq_disallowed / len(q)
         p_q = p_q + extra_pq
+        assert np.isclose(np.sum(p_q), 1.0)
 
         # here find the individual fb for each q value by adjusting the total fb by P(q)
         fb = fb * p_q
@@ -260,5 +261,6 @@ class BinaryShift:
         p_q = np.ones_like(q) / len(q)
         # here find the individual fb for each q value by adjusting the total fb by P(q)
         fb = self.fb * p_q
+        assert np.isclose(np.sum(p_q), 1.0)
 
         return self.shift_q(fb=fb, q=q)
