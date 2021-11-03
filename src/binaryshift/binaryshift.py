@@ -126,14 +126,16 @@ class BinaryShift:
                         )
                     new_q = 1.0 / q
                     companion_mass = mj[i] * new_q
-                    print(f"new (primary) {companion_mass = :.3f}")
-                    print(f"{new_q = :.3f}")
+                    if self.verbose:
+                        print(f"new (primary) {companion_mass = :.3f}")
+                        print(f"{new_q = :.3f}")
                     if companion_mass > np.max(mj[: self._nms + 1]) and (
                         np.abs(companion_mass - np.max(mj[: self._nms + 1])) > 0.025
                     ):
-                        print(
-                            f"companion mass {companion_mass:.3f} larger than {np.max(mj[:self._nms+1]):.3f}, skipping companion star"
-                        )
+                        if self.verbose:
+                            print(
+                                f"companion mass {companion_mass:.3f} larger than {np.max(mj[:self._nms+1]):.3f}, skipping companion star"
+                            )
                         # go to next bin
                         continue
 
@@ -168,12 +170,12 @@ class BinaryShift:
                 Nj_shifted[i] -= binary_Nj
                 if Nj_shifted[i] < 0:
                     raise ValueError(
-                        f"Value of fb is too high: bin {i} {mj[i] = } went negative"
+                        f"Value of {fb=} is too high: bin {i} {mj[i] = } went negative"
                     )
                 Nj_shifted[companion_idx] -= binary_Nj
                 if Nj_shifted[companion_idx] < 0:
                     raise ValueError(
-                        f"Value of fb is too high: bin {i} {mj[i] = } went negative"
+                        f"Value of {fb=} is too high: bin {i} {mj[i] = } went negative"
                     )
 
         # set the binary mask
@@ -193,6 +195,11 @@ class BinaryShift:
         # Mj = Mj[cs]
         # print(f"{cs = }")
         # print(f"{self.BH_mask = }")
+
+        # Here it might be nice to compute the "true fb" especially while we're troubleshooting
+        self.fb_true = np.sum(Nj_shifted[self.bin_mask]) / (
+            np.sum(Nj_shifted[self.bin_mask]) + np.sum(Nj_shifted[self.MS_mask_new])
+        )
 
         return mj, Mj
 
