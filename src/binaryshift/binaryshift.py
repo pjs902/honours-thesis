@@ -91,11 +91,14 @@ class BinaryShift:
 
         self.binary_components = []
 
+        #####################################
         # loop through the binary mass ratios
+        #####################################
         for _fb, q in zip(self.fb, self.q):
 
-            # NOTE: Here's a conversion from one way of counting to the other, works great for
-            # larger fb, seems slightly off for smaller fb?
+            #################################################
+            # Conversion from binary ratio to binary fraction
+            #################################################
             fb = _fb / (1.0 + _fb)
 
             # loop through the MS mass bins
@@ -104,21 +107,16 @@ class BinaryShift:
                     print()
                     print(f"current mj: {mj[i]:.3f}")
 
+                ###############################################
+                # Choosing the companion bin to the current bin
+                ###############################################
+
                 # get mass of companion
                 companion_mass = mj[i] * q
                 if self.verbose:
                     print(f"{companion_mass = :.3f}")
 
-                # TODO: Here what we actually want to do is to use these low mass bins as
-                # companions, so when we reach a point where there are no availible low mass bin for
-                # companions we should instead look for a high mass primary star that still
-                # satisfies the q value.
-
-                # TODO: So this is sort of working now, but it's not quite right. fb doesn't match
-                # the requested value anymore expect for 30%, check to see if its still taking away
-                # mass and stars properly
-
-                # TODO: refactor this to be more readable, maybe catch the error somewhere?
+                # TODO: refactor this to be more readable?
                 if companion_mass < np.min(mj[: self._nms + 1]) and (
                     np.abs(companion_mass - np.min(mj[: self._nms + 1])) > 0.025
                 ):
@@ -141,6 +139,10 @@ class BinaryShift:
                         # go to next bin
                         continue
 
+                ##################################
+                # Selecting the corresponding bins
+                ##################################
+
                 # find closest bin to companion mass
                 companion_idx = np.argmin(np.abs(mj[: self._nms + 1] - companion_mass))
                 if self.verbose:
@@ -151,6 +153,9 @@ class BinaryShift:
                 if self.verbose:
                     print(f"closest {companion_mass = :.3f}")
 
+                ########################
+                # Moving the mass around
+                ########################
                 # mean mass of new bin
                 binary_mj = mj[i] + companion_mass
                 if self.verbose:
@@ -194,7 +199,7 @@ class BinaryShift:
         self.BH_mask_new = np.append(self.BH_mask, [False] * nbins_added)
 
         Mj = Nj_shifted * mj
-        # TODO: here check if any bins are empty (doesn't really seem to be needed)
+        # TODO: here check if any bins are empty (doesn't really seem to be needed but might as well)
         # cs = Nj_shifted > 10* self._mf.Nmin
         # mj = mj[cs]
         # Mj = Mj[cs]
