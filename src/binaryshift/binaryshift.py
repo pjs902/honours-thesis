@@ -89,6 +89,8 @@ class BinaryShift:
         Nj = Mj / mj
         Nj_shifted = Nj.copy()
 
+        self.binary_components = []
+
         # loop through the binary mass ratios
         for _fb, q in zip(self.fb, self.q):
 
@@ -132,9 +134,9 @@ class BinaryShift:
                     if companion_mass > np.max(mj[: self._nms + 1]) and (
                         np.abs(companion_mass - np.max(mj[: self._nms + 1])) > 0.025
                     ):
-                        if self.verbose:
+                        if True:
                             print(
-                                f"companion mass {companion_mass:.3f} larger than {np.max(mj[:self._nms+1]):.3f}, skipping companion star"
+                                f"companion mass {companion_mass:.3f} larger than {np.max(mj[:self._nms+1]):.3f}, skipping companion star, original {q=}"
                             )
                         # go to next bin
                         continue
@@ -165,6 +167,9 @@ class BinaryShift:
 
                 # add total N to new binary bin
                 Nj_shifted = np.append(Nj_shifted, binary_Nj)
+
+                # update binary components
+                self.binary_components.append((mj[i], mj[companion_idx]))
 
                 # remove N from both primary, companion bins
                 Nj_shifted[i] -= binary_Nj
@@ -200,6 +205,7 @@ class BinaryShift:
         self.fb_true = np.sum(Nj_shifted[self.bin_mask]) / (
             np.sum(Nj_shifted[self.bin_mask]) + np.sum(Nj_shifted[self.MS_mask_new])
         )
+        self.Nj_shifted = Nj_shifted
 
         return mj, Mj
 
