@@ -67,20 +67,24 @@ class BinaryShift:
 
         # TODO: dump masks?
 
-    def shift_q(self, fb, q):
+    def _shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
         This is wrapped by `shift_solar` and `shift_flat` to make it easier to use for common cases.
+
+        NOTE: this is not a public method, it is used internally by the other recipes and assumes
+        that `fb` has already been converted to the internal `fb_ratio` quantity which we use for
+        moving the mass around
         """
 
-        self.fb = np.array(fb)
-        self.q = np.array(q)
+        fb_arr = np.array(fb)
+        q_arr = np.array(q)
 
         # check for invalid values
-        if np.any(self.q > 1.0) or np.any(self.q < 0):
+        if np.any(q_arr > 1.0) or np.any(q_arr < 0):
             raise ValueError("q must be between 0 and 1.")
 
-        if np.any(self.fb > 1.0) or np.any(self.fb < 0):
+        if np.any(fb_arr > 1.0) or np.any(fb_arr < 0):
             raise ValueError("fb must be between 0 and 1.")
 
         # don't mess with original
@@ -94,12 +98,12 @@ class BinaryShift:
         #####################################
         # loop through the binary mass ratios
         #####################################
-        for _fb, q in zip(self.fb, self.q):
+        for fb, q in zip(fb_arr, q_arr):
 
             #################################################
             # Conversion from binary ratio to binary fraction
             #################################################
-            fb = _fb / (1.0 + _fb)
+            # fb = _fb   / (1.0 + _fb)
 
             # loop through the MS mass bins
             for i in range(self._nms + 1):
@@ -156,6 +160,7 @@ class BinaryShift:
                 ########################
                 # Moving the mass around
                 ########################
+
                 # mean mass of new bin
                 binary_mj = mj[i] + companion_mass
                 if self.verbose:
@@ -248,17 +253,21 @@ class BinaryShift:
         p_q = p_q + extra_pq
         assert np.isclose(np.sum(p_q), 1.0)
 
-        # here find the individual fb for each q value by adjusting the total fb by P(q)
-        fb = fb * p_q
+        # switch to the internal quantity we use for fb
+        self.fb_ratio = self.fb / (1.0 + self.fb)
 
-        return self.shift_q(fb=fb, q=q)
+        # here find the individual fb for each q value by adjusting the total fb by P(q)
+        fb_arr = self.fb_ratio * p_q
+
+        return self._shift_q(fb=fb_arr, q=q)
 
     def shift_equal(self, fb):
         """
         Shift mass to create binaries of equal mass, amount of mass shifted is determined by `fb`.
         """
 
-        return self.shift_q([fb], [1.0])
+        self.fb_ratio = fb / (1.0 + fb)
+        return self._shift_q([self.fb_ratio], [1.0])
 
     def shift_flat(self, fb):
         """
@@ -278,7 +287,11 @@ class BinaryShift:
 
         p_q = np.ones_like(q) / len(q)
         # here find the individual fb for each q value by adjusting the total fb by P(q)
-        fb = self.fb * p_q
+
+        # switch to the internal quantity we use for fb
+        self.fb_ratio = self.fb / (1.0 + self.fb)
+
+        fb_arr = self.fb_ratio * p_q
         assert np.isclose(np.sum(p_q), 1.0)
 
-        return self.shift_q(fb=fb, q=q)
+        return self._shift_q(fb=fb_arr, q=q)
