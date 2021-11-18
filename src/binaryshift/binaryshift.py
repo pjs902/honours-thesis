@@ -41,6 +41,7 @@ class BinaryShift:
     def dump(self):
         """
         Dump current config of `BinaryShift`.
+        TODO: is this needed anymore?
         """
         # Mass bins
         print(f"{self.mj = }")
@@ -65,8 +66,6 @@ class BinaryShift:
 
         print(f"{self._mBH_min = }")
 
-        # TODO: dump masks?
-
     def _shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
@@ -75,6 +74,9 @@ class BinaryShift:
         NOTE: this is not a public method, it is used internally by the other recipes and assumes
         that `fb` has already been converted to the internal `fb_ratio` quantity which we use for
         moving the mass around
+
+        TODO: make wrapper which lets you use this nicely without worrying about converting between
+        `fb` and `fb_ratio`
         """
 
         fb_arr = np.array(fb)
@@ -100,11 +102,6 @@ class BinaryShift:
         #####################################
         for fb, q in zip(fb_arr, q_arr):
 
-            #################################################
-            # Conversion from binary ratio to binary fraction
-            #################################################
-            # fb = _fb   / (1.0 + _fb)
-
             # loop through the MS mass bins
             for i in range(self._nms + 1):
                 if self.verbose:
@@ -120,7 +117,6 @@ class BinaryShift:
                 if self.verbose:
                     print(f"{companion_mass = :.3f}")
 
-                # TODO: refactor this to be more readable?
                 if companion_mass < np.min(mj[: self._nms + 1]) and (
                     np.abs(companion_mass - np.min(mj[: self._nms + 1])) > 0.025
                 ):
@@ -136,7 +132,7 @@ class BinaryShift:
                     if companion_mass > np.max(mj[: self._nms + 1]) and (
                         np.abs(companion_mass - np.max(mj[: self._nms + 1])) > 0.025
                     ):
-                        if True:
+                        if self.verbose:
                             print(
                                 f"companion mass {companion_mass:.3f} larger than {np.max(mj[:self._nms+1]):.3f}, skipping companion star, original {q=}"
                             )
@@ -204,7 +200,7 @@ class BinaryShift:
         self.BH_mask_new = np.append(self.BH_mask, [False] * nbins_added)
 
         Mj = Nj_shifted * mj
-        # TODO: here check if any bins are empty (doesn't really seem to be needed but might as well)
+        # TODO: here check if any bins are empty (doesn't really seem to be needed but might as well to make binning easier later)
         # cs = Nj_shifted > 10* self._mf.Nmin
         # mj = mj[cs]
         # Mj = Mj[cs]
