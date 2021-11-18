@@ -193,12 +193,12 @@ def test_fb(binshift):
     #check that for high values, we're within 5% and we don't exceed fb
     binshift.shift_flat(fb=0.3)
     assert np.isclose(binshift.fb_true, 0.3, atol=5.0/100)
-    assert binshift.fb_true < 0.3
+    assert binshift.fb_true <= 0.3
 
     binshift.shift_solar(fb=0.3)
     assert np.isclose(binshift.fb_true, 0.3, atol=5.0/100)
-    assert binshift.fb_true < 0.3
+    assert binshift.fb_true <= 0.3
 
     binshift.shift_equal(fb=0.3)
     assert np.isclose(binshift.fb_true, 0.3, atol=5.0/100)
-    assert binshift.fb_true < 0.3
+    assert binshift.fb_true <= 0.3
