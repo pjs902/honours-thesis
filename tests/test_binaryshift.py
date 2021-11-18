@@ -79,7 +79,7 @@ def test_shift_q(mj_Mj, binshift):
 
     # do the shifting
     mj, Mj = mj_Mj
-    mj_new, Mj_new = binshift.shift_q(fb=[0.1, 0.1, 0.1], q=[0.3, 0.5, 0.8])
+    mj_new, Mj_new = binshift._shift_q(fb=[0.1, 0.1, 0.1], q=[0.3, 0.5, 0.8])
 
     # check mass conservation
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
@@ -96,10 +96,10 @@ def test_shift_q(mj_Mj, binshift):
 
     # these are bad values for q, fb
     with pytest.raises(ValueError):
-        binshift.shift_q(fb=[0.3, 0, 4, 0.3], q=[3, 0.5, 0.8])
+        binshift._shift_q(fb=[0.3, 0, 4, 0.3], q=[3, 0.5, 0.8])
 
     with pytest.raises(ValueError):
-        binshift.shift_q(fb=[2, 0.5], q=[0.5, 0.8])
+        binshift._shift_q(fb=[2, 0.5], q=[0.5, 0.8])
 
 
 def test_shift_equal(mj_Mj, binshift):
@@ -176,3 +176,29 @@ def test_shift_flat(mj_Mj, binshift):
 
 def test_shift_dump(binshift):
     binshift.dump()
+
+
+def test_fb(binshift):
+
+    # check that the binary fraction is within 1% of target for low values of fb
+    binshift.shift_flat(fb=0.1)
+    assert np.isclose(binshift.fb_true, 0.1, atol=1.0/100)
+
+    binshift.shift_solar(fb=0.1)
+    assert np.isclose(binshift.fb_true, 0.1, atol=1.0/100)
+
+    binshift.shift_equal(fb=0.1)
+    assert np.isclose(binshift.fb_true, 0.1, atol=1.0/100)
+
+    #check that for high values, we're within 5% and we don't exceed fb
+    binshift.shift_flat(fb=0.3)
+    assert np.isclose(binshift.fb_true, 0.3, atol=5.0/100)
+    assert binshift.fb_true < 0.3
+
+    binshift.shift_solar(fb=0.3)
+    assert np.isclose(binshift.fb_true, 0.3, atol=5.0/100)
+    assert binshift.fb_true < 0.3
+
+    binshift.shift_equal(fb=0.3)
+    assert np.isclose(binshift.fb_true, 0.3, atol=5.0/100)
+    assert binshift.fb_true < 0.3
