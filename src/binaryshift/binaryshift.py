@@ -51,12 +51,12 @@ class BinaryShift:
         # These ones might be set
         try:
             print(f"{self.q = }")
-        except:
+        except Exception:
             pass
 
         try:
             print(f"{self.fb = }")
-        except:
+        except Exception:
             pass
 
         # IFMR Stuff
@@ -178,6 +178,7 @@ class BinaryShift:
                 self.binary_components.append((mj[i], mj[companion_idx]))
 
                 # remove N from both primary, companion bins
+                # TODO: in both these failure cases we shouldn't actually fail, just keep going with bins set to zero
                 Nj_shifted[i] -= binary_Nj
                 if Nj_shifted[i] < 0:
                     raise ValueError(
