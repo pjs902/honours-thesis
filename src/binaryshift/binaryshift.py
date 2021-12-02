@@ -38,34 +38,6 @@ class BinaryShift:
 
         self.verbose = verbose
 
-    def dump(self):
-        """
-        Dump current config of `BinaryShift`.
-        TODO: is this needed anymore?
-        """
-        # Mass bins
-        print(f"{self.mj = }")
-
-        print(f"{self.Mj = }")
-
-        # These ones might be set
-        try:
-            print(f"{self.q = }")
-        except Exception:
-            pass
-
-        try:
-            print(f"{self.fb = }")
-        except Exception:
-            pass
-
-        # IFMR Stuff
-        print(f"{self._nms = }")
-
-        print(f"{self._mWD_max = }")
-
-        print(f"{self._mBH_min = }")
-
     def _shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.

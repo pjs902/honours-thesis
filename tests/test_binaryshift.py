@@ -174,10 +174,6 @@ def test_shift_flat(mj_Mj, binshift):
         binshift.shift_flat(fb=2)
 
 
-def test_shift_dump(binshift):
-    binshift.dump()
-
-
 def test_fb(binshift):
 
     # check that the binary fraction is within 1% of target for low values of fb
