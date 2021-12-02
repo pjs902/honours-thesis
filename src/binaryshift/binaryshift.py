@@ -150,17 +150,21 @@ class BinaryShift:
                 self.binary_components.append((mj[i], mj[companion_idx]))
 
                 # remove N from both primary, companion bins
-                # TODO: in both these failure cases we shouldn't actually fail, just keep going with bins set to zero
+                # NOTE: This is set up so that if a bin gets below zero, we set it to zero and
+                # correct the binary_Nj by the corresponding amount, this lets us go to higher
+                # fb without breaking but it does mean that above ~45% we see more than 5%
+                # errors in fb, which is not ideal but for realistic values of fb it's fine.
                 Nj_shifted[i] -= binary_Nj
                 if Nj_shifted[i] < 0:
-                    raise ValueError(
-                        f"Value of {fb=} is too high: bin {i} {mj[i] = } went negative"
-                    )
+                    Nj_shifted[-1] += Nj_shifted[i]
+                    Nj_shifted[i] = 0
+                    continue
+
                 Nj_shifted[companion_idx] -= binary_Nj
                 if Nj_shifted[companion_idx] < 0:
-                    raise ValueError(
-                        f"Value of {fb=} is too high: bin {i} {mj[i] = } went negative"
-                    )
+                    Nj_shifted[-1] += Nj_shifted[companion_idx]
+                    Nj_shifted[companion_idx] = 0
+                    continue
 
         # set the binary mask
         self.bin_mask = np.array([False] * len(mj))
@@ -173,7 +177,9 @@ class BinaryShift:
         self.BH_mask_new = np.append(self.BH_mask, [False] * nbins_added)
 
         Mj = Nj_shifted * mj
-        # TODO: here check if any bins are empty (doesn't really seem to be needed but might as well to make binning easier later)
+        # TODO: here check if any bins are empty (might want to do this depending on
+        # if we use the original bins from SSPTools without removing the empty bins
+        # first in order to use all of the bin edges)
         # cs = Nj_shifted > 10* self._mf.Nmin
         # mj = mj[cs]
         # Mj = Mj[cs]
@@ -234,6 +240,11 @@ class BinaryShift:
         """
         Shift mass to create binaries of equal mass, amount of mass shifted is determined by `fb`.
         """
+
+        # validate fb
+        self.fb = float(fb)
+        if self.fb > 1.0 or self.fb < 0:
+            raise ValueError("fb must be between 0 and 1.")
 
         self.fb_ratio = fb / (1.0 + fb)
         return self._shift_q([self.fb_ratio], [1.0])
