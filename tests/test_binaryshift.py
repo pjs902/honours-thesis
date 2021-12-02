@@ -69,11 +69,6 @@ def binshift(mj_Mj, f):
     return bs
 
 
-# Test Shifts
-
-# TODO: we should probably do some test where we make sure the binary fraction matches, at least for
-# the equal mass shifting
-
 
 def test_shift_q(mj_Mj, binshift):
 
@@ -145,7 +140,6 @@ def test_shift_solar(mj_Mj, binshift):
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
 
     # check bad values
-
     with pytest.raises(ValueError):
         binshift.shift_solar(fb=2)
 
@@ -169,7 +163,6 @@ def test_shift_flat(mj_Mj, binshift):
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
 
     # check bad values
-
     with pytest.raises(ValueError):
         binshift.shift_flat(fb=2)
 
