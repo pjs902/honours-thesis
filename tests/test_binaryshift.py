@@ -191,3 +191,17 @@ def test_fb(binshift):
     binshift.shift_equal(fb=0.45)
     assert np.isclose(binshift.fb_true, 0.45, atol=5.0 / 100)
     assert round(binshift.fb_true, 5) <= 0.45
+
+    # Test very high values of fb
+
+    binshift.shift_flat(fb=0.75)
+    assert np.isclose(binshift.fb_true, 0.75, atol=15.0 / 100)
+    assert round(binshift.fb_true, 5) <= 0.75
+
+    binshift.shift_solar(fb=0.75)
+    assert np.isclose(binshift.fb_true, 0.75, atol=15.0 / 100)
+    assert round(binshift.fb_true, 5) <= 0.75
+
+    binshift.shift_equal(fb=0.75)
+    assert np.isclose(binshift.fb_true, 0.75, atol=15.0 / 100)
+    assert round(binshift.fb_true, 5) <= 0.75
