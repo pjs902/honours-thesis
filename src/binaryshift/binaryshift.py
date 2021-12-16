@@ -192,6 +192,13 @@ class BinaryShift:
         )
         self.Nj_shifted = Nj_shifted
 
+        # lets also compute the q value for each binary bin
+        qs = []
+        for masses in self.binary_components:
+            q = np.min(masses) / np.max(masses)
+            qs.append(q)
+        self.q_values = qs
+
         return mj, Mj
 
     def shift_solar(self, fb):
