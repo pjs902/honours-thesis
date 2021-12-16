@@ -289,7 +289,6 @@ class BinaryShift:
 
     def rebin(self, bins=15):
         """
-        TODO
         Down-sample the number of binary bins to a reasonable number for running models. Testing
         seems to indicate 15 bins is still fast enough to run models while keeping lots of
         resolution, but this can be adjusted to fit the use-case.
@@ -321,24 +320,24 @@ class BinaryShift:
         ]
 
         # hold the q values for each bin
-        rebinned_q_vals = [[] * bins]
+        rebinned_q_vals = [[] for _ in range(bins)]
 
         # loop over each binary bin
         for i in range(len(self.mj_shifted[self.bin_mask])):
             new_Mj_binned[bin_idxs[i]] += self.Mj_shifted[self.bin_mask][i]
             new_Nj_binned[bin_idxs[i]] += self.Nj_shifted[self.bin_mask][i]
             # keep track of the q values for each bin
-            # rebinned_q_vals[bin_idxs[i]].append(self.q_values[i])
+            rebinned_q_vals[bin_idxs[i]].append(
+                (self.q_values[i], self.Nj_shifted[self.bin_mask][i])
+            )
 
         # get new mean masses of rebinned binaries
         new_mj_binned = new_Mj_binned / new_Nj_binned
 
-        # return these for now for testing.
+        # then replace all the old values
+        self.q_values = rebinned_q_vals
+        # TODO: we should actually append the new binary bins to the end of the original arrays
         return new_mj_binned, new_Mj_binned
 
         # then remake the masks
-
-        # then replace all the old values
-
-        # still need to figure out exactly how we want to track q values, probably a list of lists
-        # of tuples?
+        # just chop off the end of the masks?
