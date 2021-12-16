@@ -190,7 +190,11 @@ class BinaryShift:
         self.fb_true = np.sum(Nj_shifted[self.bin_mask]) / (
             np.sum(Nj_shifted[self.bin_mask]) + np.sum(Nj_shifted[self.MS_mask_new])
         )
+
+        # keep these around for rebinning and such
         self.Nj_shifted = Nj_shifted
+        self.Mj_shifted = Mj
+        self.mj_shifted = mj
 
         # lets also compute the q value for each binary bin
         qs = []
@@ -282,3 +286,59 @@ class BinaryShift:
         assert np.isclose(np.sum(p_q), 1.0)
 
         return self._shift_q(fb=fb_arr, q=q)
+
+    def rebin(self, bins=15):
+        """
+        TODO
+        Down-sample the number of binary bins to a reasonable number for running models. Testing
+        seems to indicate 15 bins is still fast enough to run models while keeping lots of
+        resolution, but this can be adjusted to fit the use-case.
+        """
+
+        # first we should make sure that we've already done the shifting and
+        # mj_shifted and bin_mask exist
+        if not hasattr(self, "mj_shifted") or not hasattr(self, "bin_mask"):
+            raise ValueError("Must shift before you can rebin!")
+
+        # now we can do the rebinning
+
+        # first calculate the bins
+        _, binned = np.histogram(self.mj_shifted[self.bin_mask], bins=bins)
+        # switch from bin edges to bin centers
+        binned = np.array(
+            [(binned[i] + binned[i + 1]) / 2 for i in range(len(binned) - 1)]
+        )
+
+        # then rebin the data
+
+        # empty arrays to hold the new data
+        new_Mj_binned = np.zeros_like(binned)
+        new_Nj_binned = np.zeros_like(binned)
+
+        # rebinned indexes for each binary mj
+        bin_idxs = [
+            (np.abs(binned - mj)).argmin() for mj in self.mj_shifted[self.bin_mask]
+        ]
+
+        # hold the q values for each bin
+        rebinned_q_vals = [[] * bins]
+
+        # loop over each binary bin
+        for i in range(len(self.mj_shifted[self.bin_mask])):
+            new_Mj_binned[bin_idxs[i]] += self.Mj_shifted[self.bin_mask][i]
+            new_Nj_binned[bin_idxs[i]] += self.Nj_shifted[self.bin_mask][i]
+            # keep track of the q values for each bin
+            # rebinned_q_vals[bin_idxs[i]].append(self.q_values[i])
+
+        # get new mean masses of rebinned binaries
+        new_mj_binned = new_Mj_binned / new_Nj_binned
+
+        # return these for now for testing.
+        return new_mj_binned, new_Mj_binned
+
+        # then remake the masks
+
+        # then replace all the old values
+
+        # still need to figure out exactly how we want to track q values, probably a list of lists
+        # of tuples?

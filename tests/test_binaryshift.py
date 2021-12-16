@@ -69,7 +69,6 @@ def binshift(mj_Mj, f):
     return bs
 
 
-
 def test_shift_q(mj_Mj, binshift):
 
     # do the shifting
@@ -205,3 +204,9 @@ def test_fb(binshift):
     binshift.shift_equal(fb=0.75)
     assert np.isclose(binshift.fb_true, 0.75, atol=15.0 / 100)
     assert round(binshift.fb_true, 5) <= 0.75
+
+
+def test_rebin(binshift):
+    # TODO check mass conservation, number conservation etc.
+
+    pass
