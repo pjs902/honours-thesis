@@ -27,14 +27,14 @@ class BinaryShift:
         self._len_mj_init = len(mj)
 
         # Here are a bunch of masks for the bins
-        self.MS_mask = np.ones_like(self.mj, dtype=bool)
-        self.MS_mask[self._nms + 1 :] = False
-        self.WD_mask = (self.mj <= self._mWD_max) & ~self.MS_mask
-        self.NS_mask = (self.mj < self._mBH_min) & (self.mj > self._mWD_max)
-        self.BH_mask = self.mj >= self._mBH_min
+        self.MS_mask_original = np.ones_like(self.mj, dtype=bool)
+        self.MS_mask_original[self._nms + 1 :] = False
+        self.WD_mask_original = (self.mj <= self._mWD_max) & ~self.MS_mask_original
+        self.NS_mask_original = (self.mj < self._mBH_min) & (self.mj > self._mWD_max)
+        self.BH_mask_original = self.mj >= self._mBH_min
 
         # minimum possible q value based on the mass bins
-        self._q_min = np.min(self.mj[self.MS_mask]) / np.max(self.mj[self.MS_mask])
+        self._q_min = np.min(self.mj[self.MS_mask_original]) / np.max(self.mj[self.MS_mask_original])
 
         self.verbose = verbose
 
@@ -170,11 +170,11 @@ class BinaryShift:
         self.bin_mask = np.array([False] * len(mj))
         self.bin_mask[self._len_mj_init :] = True
         # add the extra Falses onto the ends of the other masks
-        nbins_added = len(self.bin_mask) - len(self.MS_mask)
-        self.MS_mask_new = np.append(self.MS_mask, [False] * nbins_added)
-        self.WD_mask_new = np.append(self.WD_mask, [False] * nbins_added)
-        self.NS_mask_new = np.append(self.NS_mask, [False] * nbins_added)
-        self.BH_mask_new = np.append(self.BH_mask, [False] * nbins_added)
+        nbins_added = len(self.bin_mask) - len(self.MS_mask_original)
+        self.MS_mask = np.append(self.MS_mask_original, [False] * nbins_added)
+        self.WD_mask = np.append(self.WD_mask_original, [False] * nbins_added)
+        self.NS_mask = np.append(self.NS_mask_original, [False] * nbins_added)
+        self.BH_mask = np.append(self.BH_mask_original, [False] * nbins_added)
 
         Mj = Nj_shifted * mj
         # TODO: here check if any bins are empty (might want to do this depending on
@@ -188,7 +188,7 @@ class BinaryShift:
 
         # Here it might be nice to compute the "true fb" especially while we're troubleshooting
         self.fb_true = np.sum(Nj_shifted[self.bin_mask]) / (
-            np.sum(Nj_shifted[self.bin_mask]) + np.sum(Nj_shifted[self.MS_mask_new])
+            np.sum(Nj_shifted[self.bin_mask]) + np.sum(Nj_shifted[self.MS_mask])
         )
 
         # keep these around for rebinning and such
@@ -352,20 +352,20 @@ class BinaryShift:
         # then remake the masks
         # remove old binaries from masks, append new ones
         binned_binaires_added = len(new_mj_binned)
-        self.BH_mask_new = np.append(
-            self.BH_mask_new[~self.bin_mask],
+        self.BH_mask = np.append(
+            self.BH_mask[~self.bin_mask],
             np.zeros(binned_binaires_added, dtype=bool),
         )
-        self.MS_mask_new = np.append(
-            self.MS_mask_new[~self.bin_mask],
+        self.MS_mask = np.append(
+            self.MS_mask[~self.bin_mask],
             np.zeros(binned_binaires_added, dtype=bool),
         )
-        self.WD_mask_new = np.append(
-            self.WD_mask_new[~self.bin_mask],
+        self.WD_mask = np.append(
+            self.WD_mask[~self.bin_mask],
             np.zeros(binned_binaires_added, dtype=bool),
         )
-        self.NS_mask_new = np.append(
-            self.NS_mask_new[~self.bin_mask],
+        self.NS_mask = np.append(
+            self.NS_mask[~self.bin_mask],
             np.zeros(binned_binaires_added, dtype=bool),
         )
         self.bin_mask = np.append(

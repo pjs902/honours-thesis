@@ -79,11 +79,11 @@ def test_shift_q(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask] / mj[binshift.MS_mask])
+    Ntotal_initial = np.sum(Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original])
     Nj = Mj_new / mj_new
 
     Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
-        Nj[binshift.MS_mask_new]
+        Nj[binshift.MS_mask]
     )
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
@@ -106,11 +106,11 @@ def test_shift_equal(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask] / mj[binshift.MS_mask])
+    Ntotal_initial = np.sum(Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original])
     Nj = Mj_new / mj_new
 
     Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
-        Nj[binshift.MS_mask_new]
+        Nj[binshift.MS_mask]
     )
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
@@ -129,11 +129,11 @@ def test_shift_solar(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask] / mj[binshift.MS_mask])
+    Ntotal_initial = np.sum(Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original])
     Nj = Mj_new / mj_new
 
     Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
-        Nj[binshift.MS_mask_new]
+        Nj[binshift.MS_mask]
     )
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
@@ -152,11 +152,11 @@ def test_shift_flat(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask] / mj[binshift.MS_mask])
+    Ntotal_initial = np.sum(Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original])
     Nj = Mj_new / mj_new
 
     Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
-        Nj[binshift.MS_mask_new]
+        Nj[binshift.MS_mask]
     )
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
