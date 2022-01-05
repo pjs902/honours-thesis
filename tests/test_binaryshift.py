@@ -79,12 +79,12 @@ def test_shift_q(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original])
+    Ntotal_initial = np.sum(
+        Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original]
+    )
     Nj = Mj_new / mj_new
 
-    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
-        Nj[binshift.MS_mask]
-    )
+    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask])
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
 
@@ -106,12 +106,12 @@ def test_shift_equal(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original])
+    Ntotal_initial = np.sum(
+        Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original]
+    )
     Nj = Mj_new / mj_new
 
-    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
-        Nj[binshift.MS_mask]
-    )
+    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask])
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
 
@@ -129,12 +129,12 @@ def test_shift_solar(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original])
+    Ntotal_initial = np.sum(
+        Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original]
+    )
     Nj = Mj_new / mj_new
 
-    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
-        Nj[binshift.MS_mask]
-    )
+    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask])
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
 
@@ -152,12 +152,12 @@ def test_shift_flat(mj_Mj, binshift):
     assert np.isclose(np.sum(Mj), np.sum(Mj_new))
 
     # check number conservation
-    Ntotal_initial = np.sum(Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original])
+    Ntotal_initial = np.sum(
+        Mj[binshift.MS_mask_original] / mj[binshift.MS_mask_original]
+    )
     Nj = Mj_new / mj_new
 
-    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(
-        Nj[binshift.MS_mask]
-    )
+    Ntotal_shifted = 2 * np.sum(Nj[binshift.bin_mask]) + np.sum(Nj[binshift.MS_mask])
 
     assert np.isclose(Ntotal_initial, Ntotal_shifted)
 
@@ -228,3 +228,11 @@ def test_rebin(mj_Mj, binshift):
     Ntotal_rebinned = (2 * np.sum(Nj_binary)) + np.sum(Nj_single)
 
     assert np.isclose(Ntotal_initial, Ntotal_rebinned)
+
+    # test rebinning multiple times
+
+    # should'nt fail if the number of bins is the same
+    binshift.rebin()
+    # things break when we try to rebin to a different number of bins
+    with pytest.raises(ValueError):
+        binshift.rebin(bins=10)

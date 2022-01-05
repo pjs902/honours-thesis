@@ -38,6 +38,10 @@ class BinaryShift:
 
         self.verbose = verbose
 
+        # Keep track of the rebinning
+        self.previous_rebin = None
+
+
     def _shift_q(self, fb, q):
         """
         Shift mass in to binaries with mass fraction `q`, amount of mass shifted determined by `fb`.
@@ -294,10 +298,19 @@ class BinaryShift:
         resolution, but this can be adjusted to fit the use-case.
         """
 
+
+
         # first we should make sure that we've already done the shifting and
         # mj_shifted and bin_mask exist
         if not hasattr(self, "mj_shifted") or not hasattr(self, "bin_mask"):
             raise ValueError("Must shift before you can rebin!")
+
+        # now check that we haven't already rebinned
+        if self.previous_rebin is not None:
+            if self.previous_rebin != bins:
+                raise ValueError("Cannot rebin to a different number of bins!")
+            if self.previous_rebin == bins:
+                return self.mj_shifted, self.Mj_shifted
 
         # now we can do the rebinning
 
@@ -371,6 +384,9 @@ class BinaryShift:
         self.bin_mask = np.append(
             self.bin_mask[~self.bin_mask], np.ones(binned_binaires_added, dtype=bool)
         )
+
+        # now we can set the already_rebinned flag
+        self.previous_rebin = bins
 
         # return mj, Mj here to be consistent with shift_q
         return self.mj_shifted, self.Mj_shifted
