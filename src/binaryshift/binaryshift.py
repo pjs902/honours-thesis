@@ -1,5 +1,5 @@
 import numpy as np
-import warnings
+from collections import namedtuple
 
 __all__ = ["BinaryShift"]
 
@@ -320,6 +320,10 @@ class BinaryShift:
         ]
 
         # hold the q values for each bin
+
+        # NamedTuple to hold the info for binary population in a combined bin
+        BinaryPop = namedtuple("BinaryPop", ["mj", "q", "Mj"])
+
         rebinned_q_vals = [[] for _ in range(bins)]
 
         # loop over each binary bin
@@ -328,7 +332,11 @@ class BinaryShift:
             new_Nj_binned[bin_idxs[i]] += self.Nj_shifted[self.bin_mask][i]
             # keep track of the q values for each bin
             rebinned_q_vals[bin_idxs[i]].append(
-                (self.q_values[i], self.Nj_shifted[self.bin_mask][i])
+                BinaryPop(
+                    self.mj_shifted[self.bin_mask][i],
+                    self.q_values[i],
+                    self.Mj_shifted[self.bin_mask][i],
+                )
             )
 
         # get new mean masses of rebinned binaries
