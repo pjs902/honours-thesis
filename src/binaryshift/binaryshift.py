@@ -344,8 +344,33 @@ class BinaryShift:
 
         # then replace all the old values
         self.q_values = rebinned_q_vals
-        # TODO: we should actually append the new binary bins to the end of the original arrays
-        return new_mj_binned, new_Mj_binned
+
+        # remove old binaries, append new ones
+        self.mj_shifted = np.append(self.mj_shifted[~self.bin_mask], new_mj_binned)
+        self.Mj_shifted = np.append(self.Mj_shifted[~self.bin_mask], new_Mj_binned)
 
         # then remake the masks
-        # just chop off the end of the masks?
+        # remove old binaries from masks, append new ones
+        binned_binaires_added = len(new_mj_binned)
+        self.BH_mask_new = np.append(
+            self.BH_mask_new[~self.bin_mask],
+            np.zeros(binned_binaires_added, dtype=bool),
+        )
+        self.MS_mask_new = np.append(
+            self.MS_mask_new[~self.bin_mask],
+            np.zeros(binned_binaires_added, dtype=bool),
+        )
+        self.WD_mask_new = np.append(
+            self.WD_mask_new[~self.bin_mask],
+            np.zeros(binned_binaires_added, dtype=bool),
+        )
+        self.NS_mask_new = np.append(
+            self.NS_mask_new[~self.bin_mask],
+            np.zeros(binned_binaires_added, dtype=bool),
+        )
+        self.bin_mask = np.append(
+            self.bin_mask[~self.bin_mask], np.ones(binned_binaires_added, dtype=bool)
+        )
+
+        # return mj, Mj here to be consistent with shift_q
+        return self.mj_shifted, self.Mj_shifted

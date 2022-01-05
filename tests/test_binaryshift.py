@@ -216,18 +216,15 @@ def test_rebin(mj_Mj, binshift):
     mj_rebin, Mj_rebin = binshift.rebin()
 
     # check mass conservation
-    assert np.isclose(
-        np.sum(Mj),
-        (np.sum(Mj_rebin) + np.sum(Mj_new[~binshift.bin_mask])),
-    )
+    assert np.isclose(np.sum(Mj), (np.sum(Mj_rebin)))
 
     # check number conservation
     # initial number of stars
     Ntotal_initial = np.sum(Mj / mj)
 
     # number of stars in rebinned mf
-    Nj_single = Mj_new[~binshift.bin_mask] / mj_new[~binshift.bin_mask]
-    Nj_binary = Mj_rebin / mj_rebin
+    Nj_single = Mj_rebin[~binshift.bin_mask] / mj_rebin[~binshift.bin_mask]
+    Nj_binary = Mj_rebin[binshift.bin_mask] / mj_rebin[binshift.bin_mask]
     Ntotal_rebinned = (2 * np.sum(Nj_binary)) + np.sum(Nj_single)
 
     assert np.isclose(Ntotal_initial, Ntotal_rebinned)
