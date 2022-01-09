@@ -32,7 +32,10 @@
 \usepackage[round]{natbib}
 \bibliographystyle{plainnat}
 \newcommand{\code}[1]{\texttt{#1}}%allows \code{stuff} to be \textt{stuff} used for code variables
+\usepackage{microtype}
+\usepackage[dvipsnames]{xcolor}
 %
+
 %---> TITLE PAGE <------------------------------------------------------------------------
 \def\figurebox#1#2#3{%
     \def\arg{#3}%
@@ -45,6 +48,7 @@
 \degreetitle{Bachelor of Science}
 \numberofsignatures{5}
 %
+
 %---> BEGIN DOCUMENT <--------------------------------------------------------------------
 \begin{document}
 \frontmatter
@@ -57,15 +61,23 @@
 \maketitle
 \pagestyle{headings}
 
+
+
+
+
+%---> Commands <--------------------------------------------------------------------------
+\newcommand{\ps}[1]{{\color{NavyBlue} Peter: #1}}
+
+
 %---> ABSTRACT <--------------------------------------------------------------------------
 %% Apparently they want the title and name of the author in the abstract ...
 \begin{center}
-\section*{\center \sc Abstract}
-\paragraph*{\center \sc Effects of Binary Stars on Recovered Remnant Populations in Globular Clusters\\}
-by {\em Peter Smith}\\
-submitted on \today:\\
+    \section*{\center \sc Abstract}
+    \paragraph*{\center \sc Effects of Binary Stars on Recovered Remnant Populations in Globular Clusters\\}
+    by {\em Peter Smith}\\
+    submitted on \today:\\
 
-Abstract Here
+    Abstract Here
 
 
 \end{center}
@@ -77,78 +89,36 @@ Abstract Here
 \listoftables
 \newpage
 %
-%---> INTRODUCTION <---------------------------------------------------------------------
+
+%---> CHAPTERS <---------------------------------------------------------------------
+
 \mainmatter
-\chapter{\sc Introduction}
-\paragraph*{}
-
-Some of this already written from proposal.
-
-
-\citet{Abbate2018}
-
-\section{\sc A Section}
-
-This is how you put in a section within a chapter.
-Here is how you make reference to a Figure, like Figure~\ref{fig:samplefig}
- below.
-
-
-\subsection{\sc Sub-Section}
-
-You can make subsections, too.
-
+\chapter{Introduction}
+\input{chapters/intro.tex}
 \newpage
 
-\chapter{Another Chapter}
+\chapter{Methods}
+\input{chapters/methods.tex}
+\newpage
 
-Here is how you add in another chapter.
-Here is how you make a table. \\
 
-\begin{table}
-\caption{Comparison of Indices of Refraction for Various Materials}
-\label{tab:refindex}
-\centering
-\begin{tabular}{l|c}
-\hline \hline
-Medium    & Index of Refraction(n) \\
-\hline
-Vacuum    & 1                     \\
-$CO_{2}$  & 1.00045               \\
-Aerogel   & 1.0-1.05              \\
-Water     & 1.33                  \\
-\hline \hline
-\end{tabular}
-\end{table}
+\chapter{Results}
+\input{chapters/results.tex}
+\newpage
 
-Here is how you can put in an equation (although this one isn't labeled). \\
 
-\begin{displaymath}
-\centering
-\tan(\theta_{tg}) = \frac{x_{tg}}{Z_{0}} \: and \:
-\tan(\phi_{tg}) = \frac{y_{tg}}{Z_{0}}
-\end{displaymath}
-
-Here is an equation done differently, labeled properly, which could be 
-referenced using equation~\ref{equ:mom}:
-
-\begin{equation}
-\centering
-p = (\delta + 1)\cdot p_{cent}
-\label{equ:mom}
-\end{equation}
+\chapter{Discussion}
+\input{chapters/discussion.tex}
+\newpage
 
 
 \appendix
+\chapter{Appendix}
 
-\chapter{Name of your first Appendix}
-\label{app:optics}
 
-If you wanted an appendix, it would go in like this.  It would be 
-referenced using Appendix~\ref{app:optics}.
-
+%---> BIBLIOGRAPHY <---------------------------------------------------------------------
 
 \begin{singlespace}
-\bibliography{research}
+    \bibliography{research}
 \end{singlespace}
 \end{document}
