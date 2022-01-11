@@ -40,6 +40,28 @@ modelling work. For each paper have the author, title and short summary or impor
     segregation. Here they are actually able to fit Keplerian orbits to $95$ stars with `The JOKER`
     which gives some insight into their properties.
 
+- ### Lucatello+2015 - The incidence of binaries in globular cluster stellar populations
+
+    Uses VLT FLAMES data to look for binaries in clusters, obviously observing far fewer stars than
+    the MUSE data. Overall like $2\%$ binary fraction, but they mostly look at the differences in
+    multiple populations.
+
+- ### Albrow+2001 - The Frequency of Binary Stars in the Core of 47 Tucanae
+
+    They use differential photometry to get time-series photometry for many stars and then look for
+    variability in these stars, fairly uncommon method I think, would be good to mention it. They
+    find core binary fraction of $\sim 13\%$ which seems pretty in line for other studies.
+
+- ### Raghavan+2010 - A survey of stellar families: Multiplicity of solar-type stars
+
+    Look at solar type stars, gives some info on their multiplicity and other parameters, maybe we
+    can use something form a discussion of mass ratio distributions?
+
+- ### Davis+2008 - Deep advanced camera for surveys imaging in the globular cluster NGC 6397: The binary fraction
+
+    Uses main-sequence photometry to find binaries in NGC 6397, doesn't look like it has anything
+    more than Milone+2012.
+
 ## Modelling
 
 - ### Ivanova+2005 - The evolution of binary fractions in globular clusters
@@ -65,6 +87,19 @@ modelling work. For each paper have the author, title and short summary or impor
     period binaries, so the ionization process will be more efficient.). Initial conditions from
     Hurley are closer to the low-density clusters discussed in Sollima+2007 instead of the
     higher-density clusters in Ivanova+2005.
+
+- ### Rodriguez+2021 - Modelling Dense Star Clusters in the Milky Way and Beyond with the Cluster Monte Carlo Code
+
+    CMC paper. Can use for any info needed about monte-carlo models.
+
+- ### Giersz+2013, Hypki+2013, MOCCA Code for Star Cluster Simulation
+
+    Some of the MOCCA papers, should at least mention these when discussing modelling.
+
+- ### Fregeau+2009 - EVOLUTION OF THE BINARY FRACTION IN DENSE STELLAR SYSTEMS
+
+    Use a Monte Carlo code to look at the evolution of binary fractions in GCs. Discusses the
+    differences between Hurley and Ivanova like Sollima+2008 does.
 
 ## Other
 
