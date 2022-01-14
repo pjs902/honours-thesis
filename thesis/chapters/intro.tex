@@ -8,6 +8,8 @@ GCs are found in most galaxies and in the Milky Way are located both in the halo
 typically represent some of the oldest stellar populations in the universe and are usually in excess
 of 10 billion years old.
 
+Any nice review paper I can cite or something similar?
+
 Mention mass segregation
 
 \subsection{Binaries in Globular Clusters}
@@ -45,30 +47,26 @@ typically too close to the regular main-sequence to confidently classify as bina
 underlying mass-ratio distribution if they wish to place any limits on the overall binary fraction
 of a cluster.
 
-\ps{Put fig 1 from milone2012 here}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{"./figures/main_sequence_binaries.pdf"}
 	\label{fig:1/main_sequence_binaries}
-	\caption{Reproduced from Figure 1 of \citet{Milone2012}. Binaries are observed as being above the
-		main-sequence of the cluster. Higher mass ratios are further above the main-sequence
-		and smaller mass ratios are indistinguishable from the main-sequence.}
+\caption{\ps{TODO: write proper caption} Reproduced from Figure 1 of \citet{Milone2012}.}
 \end{figure}
 
 
-Radical Velocity Searches \citet{Giesers2019}. Large-scale campaigns to measure the radial
-velocities for many stars in a cluster over several epochs are another method which can be used to
-detect binaries in GCs. Systems which are found to have periodically varying radial velocities can
-typically be confidently classified as binary systems. \citet{Giesers2019} used the MUSE integral
-field spectrograph installed at the European Southern Observatory's Very Large Telescope to observe
-several GCs and reported the results for NGC 3201. Integral field spectrographs provide spatially
-resolved spectra for the entire field of view of the detector which enables far more time-efficient
-surveys than previous methods. Because this methods measure radial velocities and periods, it can be
-used to constrain most of a binary system's orbital parameters allowing us to verify our assumptions
-\ps{does it validate them? some binaries with periods up to 1000 days there?} about the period
-distributions of binaries in globular clusters. \ps{grab a figure from the MUSE paper with period
-distribution?}
+Large-scale campaigns to measure the radial velocities for many stars in a cluster over several
+epochs are another method which can be used to detect binaries in GCs. Systems which are found to
+have periodically varying radial velocities can typically be confidently classified as binary
+systems. \citet{Giesers2019} used the MUSE integral field spectrograph installed at the European
+Southern Observatory's Very Large Telescope to observe several GCs and reported the results for NGC
+3201. Integral field spectrographs provide spatially resolved spectra for the entire field of view
+of the detector which enables far more time-efficient surveys than previous methods. Because this
+methods measure radial velocities and periods, it can be used to constrain most of a binary system's
+orbital parameters allowing us to verify our assumptions \ps{does it validate them? some binaries
+	with periods up to 1000 days there?} about the period distributions of binaries in globular
+clusters. \ps{grab a figure from the MUSE paper with period distribution?}
 
 
 
@@ -85,7 +83,18 @@ which approximate the gravitational interactions between object according to the
 they are very computationally expensive with even the fastest models taking on the order of a day
 to model a realistic globular cluster \citep{Rodriguez2021}.
 
-The second approach is to model just the present-day conditions of the cluster.
+The second approach is to model just the present-day conditions of the cluster. These models, which
+we call "equilibrium models", capture none of the dynamical history of the cluster but fully
+describe the present-day state of the cluster and are orders of magnitude faster to compute with
+typical models being on the order of a second. The comparative efficiency of these models enables
+the use of statistical fitting techniques like MCMC or Nested Sampling which would be prohibitively
+expensive to use with evolutionary models. This means that instead of a computing a grid of models
+and finding the "best-fitting" model we can instead recover posterior distributions for key cluster
+parameters.
 
-DF models (LIMEPY \citet{Gieles2015})
-
+In this work we use the \code{LIMEPY} family of models presented by \citet{Gieles2015}. \ps{Describe
+	how the models work}. In their current implementation, these models assume that all objects
+within the cluster are single and make no attempt to model the dynamical effects of stellar
+multiplicity. In this project we adapt these models to incorporate some of the effects of
+binary stars under the assumption that all long-period binaries have been ionized by the
+present-day.
