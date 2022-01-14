@@ -62,6 +62,11 @@ modelling work. For each paper have the author, title and short summary or impor
     Uses main-sequence photometry to find binaries in NGC 6397, doesn't look like it has anything
     more than Milone+2012.
 
+- ### Sollima+2017 - The global mass functions of 35 Galactic globular clusters: I. Observational data and correlations with cluster parameters
+
+    The main paper for the mass function measurements, goes over how binaries are extracted and the
+    details for the observational effects we need to correct for.
+
 ## Modelling
 
 - ### Ivanova+2005 - The evolution of binary fractions in globular clusters
