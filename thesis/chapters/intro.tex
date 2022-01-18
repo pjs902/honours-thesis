@@ -55,22 +55,23 @@ hardening during interactions.
 
 The primary way that binaries can effect the dynamics of a cluster is through three-body
 interactions with other cluster members. When a single star (or another binary) interacts with a
-binary system at a close enough range, the binary system will "tighten", imparting some of its energy
-to the ejected star. Through this process binary systems can act as a reserve of kinetic energy for
-a cluster and are thought to be one of the primary mechanisms through which core-collapse is halted
-in some clusters \citep{Chatterjee2013}.
+binary system at a close enough range, the binary system will "tighten", imparting some of its
+energy to the ejected star. Through this process binary systems can act as a reserve of kinetic
+energy for a cluster and are thought to be one of the primary mechanisms through which core-collapse
+is halted in some clusters \citep{Chatterjee2013}. Because the models that we will be focusing on do
+not model individual objects within the cluster we will instead focus of the second way that
+binaries can effect the dynamics of a cluster.
 
-
-The second way that binaries can impact the dynamics of a cluster is simply due to their higher mass
-when compared to single stars. Because binaries are tightly bound, for all interaction except for
-the very closest, they effectively act as a single point mass equal to the sum of each component's
-mass. In this way, binaries can affect cluster dynamics in much the same way that a large population
-of white dwarfs or neutron star would (see for example \citet{Kremer2021}) \ps{discuss what these
-effects would be}. Through simple two-body interactions with other cluster members, binaries will
-begin to migrate to the central regions of the cluster due to mass segregation. This predicted
-increase in binary fraction as you get closer to the centre of a cluster is also seen in
-observations \ps{cite something here }. \ps{maybe refer to the effects of black hole burning?
-	\citet{Kremer2019}} Check some of those "Binary Burning" papers.
+Because binaries are tightly bound, for all interactions except for the very closest, they
+effectively act as a single point mass equal to the sum of each component's mass. In this way,
+binaries can affect cluster dynamics in much the same way that a large population of heavy remnants
+might. Much like black holes and neutron stars, binary systems will migrate to the centre of a
+cluster due to the effect of mass-segregation. \citet{Kremer2019} found that a central population of
+black holes can fulfill a similar role to binary systems in halting core collapse by injecting
+kinetic energy through two-body interactions within the core of the cluster. This same mechanism
+could apply with tightly-bound binary systems that have mass-segregated to the centre of the
+cluster. This predicted increase in binary fraction as you get closer to the centre of a cluster is
+also seen in observations \ps{cite something here, sollima? giersz? }.
 
 \subsection{Observations of Binary Stars in Globular Clusters}
 
@@ -122,6 +123,9 @@ clusters. \ps{grab a figure from the MUSE paper with period distribution?}
 \section{Modelling Globular Clusters}
 
 \paragraph{}
+
+\ps{clean this up}
+
 When modelling globular clusters, there are generally two approaches you can take. The first is to
 model the entire evolutionary history of the cluster from initial conditions to the present. The
 most commonly employed versions of these "evolutionary models" are direct N-body integration (see
@@ -135,15 +139,46 @@ to model a realistic globular cluster \citep{Rodriguez2021}.
 The second approach is to model just the present-day conditions of the cluster. These models, which
 we call "equilibrium models", capture none of the dynamical history of the cluster but fully
 describe the present-day state of the cluster and are orders of magnitude faster to compute with
-typical models being on the order of a second. The comparative efficiency of these models enables
-the use of statistical fitting techniques like MCMC or Nested Sampling which would be prohibitively
-expensive to use with evolutionary models. This means that instead of a computing a grid of models
-and finding the "best-fitting" model we can instead recover posterior distributions for key cluster
-parameters.
+typical models being on the order of a second.
 
-In this work we use the \code{LIMEPY} family of models presented by \citet{Gieles2015}. \ps{Describe
-	how the models work}. In their current implementation, these models assume that all objects
-within the cluster are single and make no attempt to model the dynamical effects of stellar
-multiplicity. In this project we adapt these models to incorporate some of the effects of
-binary stars under the assumption that all long-period binaries have been ionized by the
-present-day.
+These equilibrium models are much less computationally demanding than evolutionary models (N-body or
+Monte Carlo models). Their relative efficiency allows us to explore a significantly larger parameter
+space when fitting the models to observations to constrain the present-day properties of a cluster.
+In particular, it is worth highlighting that by using equilibrium models we are able to vary the
+stellar mass function of the cluster as well as the black hole and remnant retention fractions with
+more flexibility than what might be possible with evolutionary models, due to the computational cost
+of computing extensive grids of evolutionary models with many parameters varied in the initial
+conditions (e.g. various stellar initial mass functions, initial cluster radii, masses, etc.).
+
+The comparative efficiency of these models further enables the use of statistical fitting techniques
+like MCMC or Nested Sampling which would be prohibitively expensive to use with evolutionary models.
+This means that instead of a computing a grid of models and finding the "best-fitting" model we can
+instead recover posterior distributions for key cluster parameters.
+
+In this work we use the \code{LIMEPY} family of models presented by \citet{Gieles2015}. In their
+current implementation, these models assume that all objects within the cluster are single and make
+no attempt to model the dynamical effects of stellar multiplicity. In this project we adapt these
+models to incorporate some of the effects of binary stars under the assumption that all long-period
+binaries have been ionized by the present-day.
+
+
+The \code{LIMEPY} models are a set of distribution function based equilibrium models that are
+isothermal for the most bound stars near the cluster centre and described by polytropes in the outer
+regions near the escape energy. The models have been extensively tested against $N$-body models
+\citep{Zocchi2016, Peuten2017} and are able to effectively reproduce the effects of mass
+segregation. Their suitability for mass modelling globular clusters has been tested on mock data
+\citep{Henault-Brunet2019} and they have recently been applied to real datasets as well
+\citep[e.g.][]{Gieles2018, Henault-Brunet2020}.
+
+
+
+The input parameters needed to compute our models include the central concentration parameter $W_0$,
+the truncation parameter $g$\footnote{Woolley models \citep{Woolley1954} have $g=0$, King models
+	\citep{King1966} $g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$
+which determines the degree of radial anisotropy in the models, $\delta$ which sets the mass
+dependence of the velocity scale and thus governs the degree of mass segregation, and finally the
+specific mass bins to use as defined by the mean stellar mass ($m_j$) and total mass ($M_j$) of each
+bin, which together specify the stellar mass function. In order to scale the model units into
+physical units, the total mass of the cluster $M$ and a size scale (the half-mass radius of the
+cluster $r_h$) are provided as well.
+
