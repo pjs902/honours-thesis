@@ -14,22 +14,126 @@ GCs are found in most galaxies, with the Milky Way hosting roughly 150, mostly l
 halo. GCs typically represent some of the oldest stellar populations in the universe and are usually
 in excess of 10 billion years old. The dynamics of globular clusters are almost entirely governed by
 the interactions between individual cluster members, with small effects from the galactic potential
-of its host galaxy as well as mass loss due to stellar evolution. Despite the fact that this one
-simple process is essentially the sole driver of the evolution of GCs, they nonetheless display a
-wide range dynamical phenomena. Among these phenomena, mass segregation is a process through which
+of its host galaxy as well as mass loss due to stellar evolution. Despite the fact that two-body
+relaxation is essentially the sole driver of the evolution of GCs, they nonetheless display a wide
+range dynamical phenomena. Among these phenomena, mass segregation is a process through which
 heavier objects migrate to the centre of a cluster and lighter objects move to the outer regions. As
 objects interact with each other, their energies will tend to equalize which leads to heavier
 objects slowing down and lighter objects speeding up \citep{Heggie2003}. This process leads to the
 core of cluster containing a much higher proportion of high-mass stars and heavy remnants than the
-rest of the clusters. When the process of mass segregation continues without halting, the core of
-the cluster becomes extremely dense leading to a density profile that rises all the way to the
-centre of the cluster and a core that is visually very compact \citep{Heggie2003}. The distinction
-between core-collapsed and non-core-collapsed clusters is an area of active study and the halting of
-core-collapse has been attributed to both populations of binary stars \citep{Chatterjee2013} and to
-large populations of heavy remnants \citep{Kremer2019}.
+rest of the clusters. Figure \ref{fig:1/ngc7006} show the globular cluster NGC\,7006, imaged by the
+Hubble Space Telescope's Advanced Camera for Surveys. The dense core of the cluster is clearly
+visible and is made up of tens of thousands of stars.
 
-\ps{expand}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/c42.jpg}
+	\caption{The globular cluster NGC 7006 imaged by the Hubble Space Telescope's Advanced
+		Camera for Surveys, photo courtesy of ESA/Hubble \& NASA}
+	\label{fig:1/ngc7006}
+\end{figure}
 
+
+
+The study of stellar remnants in globular clusters has far-reaching implications for diverse fields
+of astrophysics. Globular clusters are one of the most commonly proposed candidates to host
+intermediate-mass black holes (IMBHs). Due to  the effects of mass segregation and the high
+densities of the cores of globular clusters, the cores of globular cluster are an ideal environment
+for mergers of compact objects. These mergers can be detected through their resultant gravitational
+waves and the expected rates for gravitational wave events depend significantly on the compact
+object populations in globular clusters. These mergers are also thought to be one of the most
+promising formation channels for IMBHs, a so-far undetected class of black holes whose masses fall
+between those of stellar mass black holes and those of supermassive black holes. The formation of
+these black holes have important implications for understanding the formation of the supermassive
+black holes that we find at the centre of galaxies.
+
+
+This work builds on a previous project I worked on which used pulsar timing data to constrain the
+properties of the globular cluster 47\,Tuc. In that work, we were able to place strong limits on the
+mass in dark remnants (black holes, neutron stars, white dwarfs) within the cluster, establishing a
+strong upper limit on the black hole content specifically.
+
+
+
+\ps{TODO: find a figure that illustrates mass segregation nicely, something like mean mass vs radius
+	would be cool, even better if it's for annuli overlaid on a cluster.}
+
+
+
+
+\section{Modelling Globular Clusters}
+
+\paragraph{}
+
+
+When modelling globular clusters, there are generally two approaches commonly used. The first is to
+model the entire evolutionary history of the cluster from initial conditions to the present-day. The
+most commonly employed versions of these "evolutionary models" are direct N-body integration (see
+for example \citet{Baumgardt2017a}) which directly calculate the gravitational interactions between
+each object in the cluster and Monte-Carlo models (see \citet{Rodriguez2021} or \cite{Hypki2013})
+which approximate the gravitational interactions between object according to the method of
+\citet{Henon1971}. While these models provide insight into the dynamical history of the cluster,
+they are very computationally expensive with even the fastest models taking on the order of a day to
+model a realistic globular cluster \citep{Rodriguez2021}.
+
+The second approach is to model just the present-day conditions of the cluster. These models, which
+we call "equilibrium models", capture none of the dynamical history of the cluster but fully
+describe the present-day state of the cluster. These equilibrium models are much less
+computationally demanding than evolutionary models. Their relative efficiency allows us to explore a
+significantly larger parameter space when fitting the models to observations to constrain the
+present-day properties of a cluster. In particular, it is worth highlighting that by using
+equilibrium models we are able to vary the stellar mass function of the cluster as well as the black
+hole and remnant retention fractions with more flexibility than what might be possible with
+evolutionary models, due to the computational cost of computing extensive grids of evolutionary
+models with many parameters varied in the initial conditions (e.g. various stellar initial mass
+functions, initial cluster radii, masses, etc.).
+
+The comparative efficiency of these models further enables the use of statistical fitting techniques
+like MCMC or Nested Sampling which would be prohibitively expensive to use with evolutionary models.
+This means that instead of a computing a grid of models and finding the "best-fitting" model we can
+instead recover posterior distributions for key cluster parameters.
+
+
+In this work we use the \code{LIMEPY} family of models presented by \citet{Gieles2015}. The
+\code{LIMEPY} models are a set of distribution function based equilibrium models that are isothermal
+for the most bound stars near the cluster centre and described by polytropes in the outer regions
+near the escape energy. The models have been extensively tested against $N$-body models
+\citep{Zocchi2016, Peuten2017} and are able to effectively reproduce the effects of mass
+segregation. Their suitability for mass modelling globular clusters has been tested on mock data
+\citep{Henault-Brunet2019} and they have recently been applied to real datasets as well
+\citep[e.g.][]{Gieles2018, Henault-Brunet2020}.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{"./figures/limepy_veldisp.png"}
+	\includegraphics[width=0.8\textwidth]{"./figures/limepy_numdens.png"}
+	\label{fig:1/limepy_models}
+	\caption{\ps{TODO: write proper caption} Some fits of limepy models to 47 Tuc}
+\end{figure}
+
+
+The input parameters needed to compute our models include the central concentration parameter $W_0$,
+the truncation parameter $g$\footnote{Woolley models \citep{Woolley1954} have $g=0$, King models
+	\citep{King1966} $g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$
+which determines the degree of radial anisotropy in the models, $\delta$ which sets the mass
+dependence of the velocity scale and thus governs the degree of mass segregation, and finally the
+specific mass bins to use as defined by the mean stellar mass ($m_j$) and total mass ($M_j$) of each
+bin, which together specify the stellar mass function. In order to scale the model units into
+physical units, the total mass of the cluster $M$ and a size scale (the half-mass radius of the
+cluster $r_h$) are provided as well.
+
+
+In their current implementation, these models assume that all objects within the cluster are single
+and make no attempt to model the dynamical effects of stellar multiplicity. In this project we adapt
+these models to incorporate some of the effects of binary stars under the assumption that all
+long-period binaries have been ionized by the present-day. This allows us to treat binary systems as
+point-masses and lets us model their dynamics by simply moving some of the mass in stars into
+heavier bins according to the specified binary population.
+
+
+
+\section{Binary Stars}
 \subsection{Binaries in Globular Clusters}
 
 \ps{Discuss binaries in general, mention terminology, then why binaries in clusters are different
@@ -115,7 +219,7 @@ of a cluster.
 	\centering
 	\includegraphics[width=0.8\textwidth]{"./figures/main_sequence_binaries.pdf"}
 	\label{fig:1/main_sequence_binaries}
-\caption{\ps{TODO: write proper caption} Reproduced from Figure 1 of \citet{Milone2012}.}
+	\caption{\ps{TODO: write proper caption} Reproduced from Figure 1 of \citet{Milone2012}.}
 \end{figure}
 
 
@@ -130,64 +234,3 @@ measures radial velocities over time, periods for the binaries can be accurately
 given enough measurements, many other parameters like eccentricity and companion mass can be
 accurately constrained in contrast to photometric methods which can only provide the mass ratio.
 
-
-
-\section{Modelling Globular Clusters}
-
-\paragraph{}
-
-
-When modelling globular clusters, there are generally two approaches commonly used. The first is to
-model the entire evolutionary history of the cluster from initial conditions to the present-day. The
-most commonly employed versions of these "evolutionary models" are direct N-body integration (see
-for example \citet{Baumgardt2017a}) which directly calculate the gravitational interactions between
-each object in the cluster and Monte-Carlo models (see \citet{Rodriguez2021} or \cite{Hypki2013})
-which approximate the gravitational interactions between object according to the method of
-\citet{Henon1971}. While these models provide insight into the dynamical history of the cluster,
-they are very computationally expensive with even the fastest models taking on the order of a day to
-model a realistic globular cluster \citep{Rodriguez2021}.
-
-The second approach is to model just the present-day conditions of the cluster. These models, which
-we call "equilibrium models", capture none of the dynamical history of the cluster but fully
-describe the present-day state of the cluster. These equilibrium models are much less
-computationally demanding than evolutionary models. Their relative efficiency allows us to explore a
-significantly larger parameter space when fitting the models to observations to constrain the
-present-day properties of a cluster. In particular, it is worth highlighting that by using
-equilibrium models we are able to vary the stellar mass function of the cluster as well as the black
-hole and remnant retention fractions with more flexibility than what might be possible with
-evolutionary models, due to the computational cost of computing extensive grids of evolutionary
-models with many parameters varied in the initial conditions (e.g. various stellar initial mass
-functions, initial cluster radii, masses, etc.).
-
-The comparative efficiency of these models further enables the use of statistical fitting techniques
-like MCMC or Nested Sampling which would be prohibitively expensive to use with evolutionary models.
-This means that instead of a computing a grid of models and finding the "best-fitting" model we can
-instead recover posterior distributions for key cluster parameters.
-
-
-In this work we use the \code{LIMEPY} family of models presented by \citet{Gieles2015}. The
-\code{LIMEPY} models are a set of distribution function based equilibrium models that are isothermal
-for the most bound stars near the cluster centre and described by polytropes in the outer regions
-near the escape energy. The models have been extensively tested against $N$-body models
-\citep{Zocchi2016, Peuten2017} and are able to effectively reproduce the effects of mass
-segregation. Their suitability for mass modelling globular clusters has been tested on mock data
-\citep{Henault-Brunet2019} and they have recently been applied to real datasets as well
-\citep[e.g.][]{Gieles2018, Henault-Brunet2020}.
-
-The input parameters needed to compute our models include the central concentration parameter $W_0$,
-the truncation parameter $g$\footnote{Woolley models \citep{Woolley1954} have $g=0$, King models
-\citep{King1966} $g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$
-which determines the degree of radial anisotropy in the models, $\delta$ which sets the mass
-dependence of the velocity scale and thus governs the degree of mass segregation, and finally the
-specific mass bins to use as defined by the mean stellar mass ($m_j$) and total mass ($M_j$) of each
-bin, which together specify the stellar mass function. In order to scale the model units into
-physical units, the total mass of the cluster $M$ and a size scale (the half-mass radius of the
-cluster $r_h$) are provided as well.
-
-
-In their current implementation, these models assume that all objects within the cluster are single
-and make no attempt to model the dynamical effects of stellar multiplicity. In this project we adapt
-these models to incorporate some of the effects of binary stars under the assumption that all
-long-period binaries have been ionized by the present-day. This allows us to treat binary systems as
-point-masses and lets us model their dynamics by simply moving some of the mass in  stars into
-heavier bins according to the specified binary population.
