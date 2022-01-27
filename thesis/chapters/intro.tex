@@ -5,18 +5,21 @@
 Globular clusters (GCs) are dense, spheroidal collection of stars bound by their own self-gravity.
 GCs are found in most galaxies, with the Milky Way hosting roughly 150, mostly located in the outer
 halo. GCs typically represent some of the oldest stellar populations in the universe and are usually
-in excess of 10 billion years old. The dynamics of globular clusters are almost entirely governed by
-the interactions between individual cluster members, with small effects from the galactic potential
-of its host galaxy as well as mass loss due to stellar evolution. Despite the fact that two-body
-relaxation is essentially the sole driver of the evolution of GCs, they nonetheless display a wide
-range dynamical phenomena. Among these phenomena, mass segregation is a process through which
-heavier objects migrate to the centre of a cluster and lighter objects move to the outer regions. As
-objects interact with each other, their energies will tend to equalize which leads to heavier
-objects slowing down and lighter objects speeding up \citep{Heggie2003}. This process leads to the
-core of cluster containing a much higher proportion of high-mass stars and heavy remnants than the
-rest of the clusters. Figure \ref{fig:1/ngc7006} show the globular cluster NGC\,7006, imaged by the
-Hubble Space Telescope's Advanced Camera for Surveys. The dense core of the cluster is clearly
-visible and is made up of tens of thousands of stars.
+in excess of 10 billion years old. Figure \ref{fig:1/ngc7006} shows the globular cluster NGC\,7006,
+imaged by the Hubble Space Telescope's Advanced Camera for Surveys. The dense core of the cluster is
+clearly visible and is made up of tens of thousands of stars. The dynamics of globular clusters are
+almost entirely governed by the interactions between individual cluster members, with small effects
+from the galactic potential of its host galaxy as well as mass loss due to stellar evolution.
+Despite the fact that two-body relaxation is essentially the sole driver of the evolution of GCs,
+they nonetheless display a wide range dynamical phenomena. Among these phenomena, mass segregation
+is a process through which heavier objects migrate to the centre of a cluster and lighter objects
+move to the outer regions. As objects interact with each other, their energies will tend to equalize
+which leads to heavier objects slowing down and lighter objects speeding up \citep{Heggie2003}. This
+process leads to the core of cluster containing a much higher proportion of high-mass stars and
+heavy remnants than the rest of the cluster. Figure \ref{fig:1/radial_mean_mass} shows the mean mass
+of objects within a realistic model of a globular cluster as a function of radius. The regions
+closest to the core of the cluster have a much higher mean mass due to the increased presence of
+heavy remnants and high-mass stars due to the effects of mass segregation.
 
 \begin{figure}
 	\centering
@@ -31,14 +34,14 @@ visible and is made up of tens of thousands of stars.
 The study of stellar remnants in globular clusters has far-reaching implications for diverse fields
 of astrophysics. Globular clusters are one of the most commonly proposed candidates to host
 intermediate-mass black holes (IMBHs). Due to  the effects of mass segregation and the high
-densities of the cores of globular clusters, the cores of globular cluster are an ideal environment
-for mergers of compact objects. These mergers can be detected through their resultant gravitational
-waves and the expected rates for gravitational wave events depend significantly on the compact
-object populations in globular clusters. These mergers are also thought to be one of the most
-promising formation channels for IMBHs, a so-far undetected class of black holes whose masses fall
-between those of stellar mass black holes and those of supermassive black holes. The formation of
-these black holes have important implications for understanding the formation of the supermassive
-black holes that we find at the centre of galaxies.
+densities within the cores of globular clusters, the central regions of globular clusters are an
+ideal environment for mergers of compact objects. These mergers can be detected through their
+resultant gravitational waves and the expected rates for gravitational wave events depend
+significantly on the compact object populations in globular clusters. These mergers are also thought
+to be one of the most promising formation channels for IMBHs, a so-far undetected class of black
+holes whose masses fall between those of stellar mass black holes and those of supermassive black
+holes. The formation of these black holes have important implications for understanding the
+formation of the supermassive black holes that we find at the centre of galaxies.
 
 
 This work builds on a previous project I worked on which used pulsar timing data to constrain the
@@ -61,7 +64,7 @@ on the recovered remnant content of the cluster is still somewhat unclear and wo
 	\caption{Mean mass of objects within a realistic model of the globular cluster 47\,Tuc, as a
 		function of radius. The concentration of high-mass objects in the central regions of
 		the cluster is obvious, as is the preference for low-mas objects in the outskirts of
-		the cluster.}
+		the cluster, clearly demonstrating the effects of mass segregation.}
 	\label{fig:1/radial_mean_mass}
 \end{figure}
 
@@ -72,17 +75,16 @@ on the recovered remnant content of the cluster is still somewhat unclear and wo
 
 \paragraph{}
 
-\ps{TODO: go through and make sure any jargon is properly explained}
 
 When modelling globular clusters, there are generally two approaches commonly used. The first is to
 model the entire evolutionary history of the cluster from initial conditions to the present-day. The
 most commonly employed versions of these "evolutionary models" are direct N-body integration (see
-for example \citet{Baumgardt2017a}) which directly calculate the gravitational interactions between
-each object in the cluster and Monte-Carlo models (see \citet{Rodriguez2021} or \cite{Hypki2013})
-which approximate the gravitational interactions between object according to the method of
-\citet{Henon1971}. While these models provide insight into the dynamical history of the cluster,
-they are very computationally expensive with even the fastest models taking on the order of a day to
-model a realistic globular cluster \citep{Rodriguez2021}.
+for example \citealt{Baumgardt2017a}) which directly calculate the gravitational interactions
+between each object in the cluster and Monte-Carlo models (see \citealt{Rodriguez2021} or
+\citealt{Hypki2013}) which approximate the gravitational interactions between objects according to
+the method of \citet{Henon1971}. While these models provide insight into the dynamical history of
+the cluster, they are very computationally expensive with even the fastest models taking on the
+order of a day to model a realistic globular cluster \citep{Rodriguez2021}.
 
 The second approach is to model just the present-day conditions of the cluster. These models, which
 we call "equilibrium models", capture none of the dynamical history of the cluster but fully
@@ -116,20 +118,25 @@ segregation. Their suitability for mass modelling globular clusters has been tes
 	\centering
 	\includegraphics[width=0.8\textwidth]{"./figures/limepy_veldisp.png"}
 	\includegraphics[width=0.8\textwidth]{"./figures/limepy_numdens.png"}
+	\caption{The line-of-sight velocity dispersion profile and number density profile of
+		47\,Tuc, simultaneously fit by a \code{LIMEPY} model. The \code{LIMEPY} models are able to
+		very accurately reproduce a range of cluster observables.}
 	\label{fig:1/limepy_models}
-	\caption{\ps{TODO: write proper caption} Some fits of limepy models to 47 Tuc}
 \end{figure}
 
 
 The input parameters needed to compute our models include the central concentration parameter $W_0$,
-the truncation parameter $g$\footnote{Woolley models \citep{Woolley1954} have $g=0$, King models
-	\citep{King1966} $g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$
-which determines the degree of radial anisotropy in the models, $\delta$ which sets the mass
-dependence of the velocity scale and thus governs the degree of mass segregation, and finally the
-specific mass bins to use as defined by the mean stellar mass ($m_j$) and total mass ($M_j$) of each
-bin, which together specify the stellar mass function. In order to scale the model units into
-physical units, the total mass of the cluster $M$ and a size scale (the half-mass radius of the
-cluster $r_h$) are provided as well.
+the truncation parameter $g$\footnote{Several well-known classes of models are reproduced by
+	specific values of $g$: Woolley models \citep{Woolley1954} have $g=0$, King models \citep{King1966}
+	$g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$ which determines
+the degree of radial anisotropy in the models, $\delta$ which sets the mass dependence of the
+velocity scale and thus governs the degree of mass segregation, and finally the specific mass bins
+to use as defined by the mean stellar mass ($m_j$) and total mass ($M_j$) of each bin, which
+together specify the stellar mass function. In order to scale the model units into physical units,
+the total mass of the cluster $M$ and a size scale (the half-mass radius of the cluster $r_h$) are
+provided as well. Figure \ref{fig:1/limepy_models} demonstrates the ability of the models to
+simultaneously fit many cluster observables, specifically pictured are the line-of-sight velocity
+dispersion profile and the number density profile.
 
 
 In their current implementation, these models assume that all objects within the cluster are single
@@ -144,36 +151,33 @@ heavier bins according to the specified binary population.
 \section{Binary Stars}
 \subsection{Binaries in Globular Clusters}
 
-\ps{Discuss binaries in general, mention terminology, then why binaries in clusters are different
-	from field binaries, then the dynamical effects of binaries}
 
 In general, the binary systems found within present-day clusters differ significantly from the field
 binaries that are more easily observed. In particular, we expect to little no long-period binaries,
-on account of them being ionized by the frequent interactions with other cluster members. We
-frequently use the terms "hard" and "soft" to describe binaries where "soft binaries" have a binding
-energy comparable to the average kinetic energy of a cluster member while "hard binaries" have
-larger binding energy. Due to the frequent interactions within clusters we expect that all soft
-binaries have long since been ionized by the present-day leaving only a population of hard binaries
-with a truncated period distribution compared to field binaries.
-\ps{Cite some papers here}
+on account of them being ionized by the frequent interactions with other cluster members
+\citep{Heggie2003}. We frequently use the terms "hard" and "soft" to describe binaries where "soft
+binaries" have a binding energy less than or comparable to the average kinetic energy of a cluster
+member while "hard binaries" have a larger binding energy. Due to the frequent interactions within
+clusters we expect that all soft binaries have long since been ionized by the present-day leaving
+only a population of hard binaries with a truncated period distribution compared to field binaries
+\citep{Heggie2003}.
 
-% Binary Burning: \citet{Chatterjee2013}
-
-
-% Black Hole Burning: \citet{Kremer2019}
 
 
 
 The most obvious way that binaries can effect the dynamics of a cluster is through three-body
 interactions with other cluster members. When a single star (or another binary) interacts with a
-binary system at a close enough range, the binary system will either impart some of its energy to
-the ejected star and "harden" or it will capture the approaching star, while ejecting one of its
-original components, forming a "harder" binary \citep{Heggie2003}. In either of these cases the
-binary system will impart some extra kinetic energy to the ejected star, through this process binary
-systems can act as a reserve of kinetic energy for a cluster and are thought to be one of the
-primary mechanisms through which core-collapse is halted in some clusters \citep{Chatterjee2013}.
-Because the models that we will be focusing on do not model individual objects within the cluster we
-will instead focus of the second way that binaries can effect the dynamics of a cluster.
+binary system at a close enough range, if the binary is hard, it will impart some of its energy to
+the ejected star and "harden" further. If the binary is soft, it will further "soften", potentially
+becoming unbound. Through these processes, soft binaries are slowly disrupted while hard binaries
+become harder. Hard binary systems can act as a reserve of kinetic energy for a cluster through
+these three-body interactions with passing cluster members \citep{Heggie2003}. Binary stars are
+thought to be one of the primary mechanisms through which core-collapse (the collapse of the core of
+a cluster into extremely high density cause by run-away mass segregation) is halted in some clusters
+by continually adding to the energy of stars which migrate to the central regions, thereby pushing
+them back out into the extended regions of the cluster \citep{Chatterjee2013}. Because the models
+that we will be focusing on do not model individual objects within the cluster we will instead focus
+of the second way that binaries can effect the dynamics of a cluster.
 
 Because binaries are tightly bound, for all interactions except for the very closest, they
 effectively act as a single point mass equal to the sum of each component's mass. In this way,
@@ -188,12 +192,13 @@ also seen in observations, and is illustrated in Figure \ref{fig:1/radial_binary
 3201.
 
 The effect of having a large central population of binaries could be that our models are
-overestimating the amount of mass needed in dark mark and therefore overestimating the number of
-black holes and high-mass objects in general. Because the gravitational potential in the central
-regions is fairly well constrained by kinematic measurements, if we are missing a significant
-contribution from binaries, the models may be compensating for this "missing mass" by adding more
-mass to the heavy end of the IMF which would lead to overestimation of the number of neutron stars
-and black holes.
+overestimating the number of black holes and high-mass objects in the core of the cluster. Because
+the gravitational potential in the central regions of the cluster is fairly well constrained by
+kinematic measurements, if we are missing a significant contribution from binaries, the models may
+be compensating for this "missing mass" by adding more mass to the heavy end of the IMF which would
+lead to an overestimation of the number of neutron stars and black holes. By including realistic
+populations of binary stars in our models, we hope to recover more accurate remnant populations for
+present-day clusters.
 
 
 
@@ -201,7 +206,11 @@ and black holes.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/radial_binarity.pdf}
-	\caption{Reproduced from Figure 8 of \citet{Giesers2019} \ps{TODO: Caption, mention what MOCCA is}}
+	\caption{Observed binary fraction vs distance from cluster centre for NG\,3201 as measure by
+		the MUSE instrument. The slight trend in radial binary fraction is visible. Also plotted is
+		the observed binary fraction in a MOCCA model which matches well with NGC\,3201. MOCCA is a
+		monte-carlo model designed to model globular clusters for which there is a large grid of
+		pre-computed models available. Reproduced from Figure 8 of \citet{Giesers2019}.}
 	\label{fig:1/radial_binary_fraction}
 \end{figure}
 
@@ -213,12 +222,15 @@ photometric observations and radial velocity surveys.
 
 \paragraph{}
 High-precision photometry can be used to detect binaries along the main sequence which have a
-significant difference in the mass of their components ( typically these systems have a mass ratio,
-$q$, larger than $0.5$). These systems will appear to be raised above the main-sequence when plotted
-on a colour-magnitude diagram as their colour will match that of a typical main-sequence star
-however their luminosity will be the sum of both components. Figure
-\ref{fig:1/main_sequence_binaries} shows the main-sequence of the cluster NGC 2298, the binary stars
-in this cluster are visible above the main-sequence according to their mass ratio.
+significant difference in the mass of their components. We often use the ratio between the mass of
+the primary star and the companion star to quantify this difference, an equal mass binary will have
+a mass ratio of $q=1$ while a binary with a large difference in the masses of its components will
+have a mass ratio closer to zero. Binaries that are detectable through this method typically have a
+mass ratio grater than $q=0.5$. These systems will appear to be raised above the main-sequence when
+plotted on a colour-magnitude diagram as their colour will match that of a typical main-sequence
+star however their luminosity will be the sum of each component. Figure
+\ref{fig:1/main_sequence_binaries} shows the main-sequence of the cluster NGC\,2298, the binary
+stars in this cluster are visible above the main-sequence, raised according to their mass ratio.
 \citet{Milone2012} performed high-precision photometry on several globular clusters using the Hubble
 Space Telescope's (HST) Advanced Camera for Surveys and was able to place strong constraints on the
 binary fraction for binaries with a mass ratio above $q=0.5$. This method allows for large studies
@@ -233,8 +245,12 @@ of a cluster.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{"./figures/main_sequence_binaries.pdf"}
+	\caption{The main sequence portion of the color-magnitude diagram for NGC\,2298. Binary
+		systems are visible as being raised above the primary main sequence with systems with a
+		higher mass ratio being raised further off of the main sequence. Systems below a mass ratio
+		of $q=0.5$ are nearly indistinguishable from the regular spread in main sequence stars.
+		Reproduced from Figure 1 of \citet{Milone2012}.}
 	\label{fig:1/main_sequence_binaries}
-	\caption{\ps{TODO: write proper caption} Reproduced from Figure 1 of \citet{Milone2012}.}
 \end{figure}
 
 
@@ -248,4 +264,9 @@ detector which enables far more time-efficient surveys than previous methods. Be
 measures radial velocities over time, periods for the binaries can be accurately determined and
 given enough measurements, many other parameters like eccentricity and companion mass can be
 accurately constrained in contrast to photometric methods which can only provide the mass ratio.
+This method also suffers from biases in that it requires the primary star of a binary to be bright
+enough to enable good spectroscopic measurements which may bias the sample towards systems with more
+massive primary stars.
+
+
 
