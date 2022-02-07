@@ -42,6 +42,6 @@ def model(obs):
 def binshift(model):
     return from_gcfit(model)
 
-@pytest.mark.skipif(!GCFIT, reason="GCFit is not installed")
+@pytest.mark.skipif(GCFIT==False, reason="GCFit is not installed")
 def test_from_gcfit(binshift):
     pass
