@@ -25,17 +25,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.9
+    - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
-        python-version: '3.9'
+        python-version: '3.8'
     - name: Install dependencies
       run: |
         sudo apt-get install gsl-bin libgsl0-dev build-essential
         python -m pip install --upgrade pip
         pip install wheel
         pip install flake8 pytest
-        # pip install gala --no-binary numpy
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install git+https://github.com/nmdickson/GCfit.git
         pip install -e .
