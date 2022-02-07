@@ -1,3 +1,4 @@
+wheel
 numpy
 git+https://github.com/pjs902/ssptools
 pytest
