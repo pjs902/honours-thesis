@@ -35,7 +35,7 @@ jobs:
         pip install wheel
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install git@github.com:nmdickson/GCfit.git
+        pip install git+https://github.com/nmdickson/GCfit.git
         pip install -e .
     - name: Test with pytest
       run: |
