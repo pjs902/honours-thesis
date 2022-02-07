@@ -1,3 +1,7 @@
+"""
+Core Module for BinaryShift, has most of the functionality that is not specific to interacting with `GCFit`.
+"""
+
 import numpy as np
 from collections import namedtuple
 
@@ -5,14 +9,16 @@ __all__ = ["BinaryShift"]
 
 
 class BinaryShift:
-    def __init__(self, mj, Mj, MF, verbose=False):
+    def __init__(self, mj, Mj, MF, *, GCFit=False, model=None, verbose=False):
         """
-        Initialize an instance of `BinaryShift` with the provided mass bins and MF, (TODO)
-        the IFMR will (eventually) be used to label the object type of each bin.
+        Initialize an instance of `BinaryShift` with the provided mass bins and MF.
+        TODO: full docstring
         """
 
         if len(mj) != len(Mj):
             raise ValueError("mj and Mj must have the same length.")
+
+        self.__gcfit = GCFit
 
         self.mj = mj
         self.Mj = Mj
@@ -34,13 +40,25 @@ class BinaryShift:
         self.BH_mask_original = self.mj >= self._mBH_min
 
         # minimum possible q value based on the mass bins
-        self._q_min = np.min(self.mj[self.MS_mask_original]) / np.max(self.mj[self.MS_mask_original])
+        self._q_min = np.min(self.mj[self.MS_mask_original]) / np.max(
+            self.mj[self.MS_mask_original]
+        )
+
+        # Add units if we are using GCFit (need to do this after the masks are set for some reason)
+        if self.__gcfit:
+            self.model = model
+            self._mass_units = self.model.mj[0].unit
+            self._mWD_max <<= self._mass_units
+            self._mBH_min <<= self._mass_units
+
+            # do these after shiftting though
+            # TODO update masks
+            # TODO rescale density profiles
 
         self.verbose = verbose
 
         # Keep track of the rebinning
         self.previous_rebin = None
-
 
     def _shift_q(self, fb, q):
         """
@@ -297,8 +315,6 @@ class BinaryShift:
         seems to indicate 15 bins is still fast enough to run models while keeping lots of
         resolution, but this can be adjusted to fit the use-case.
         """
-
-
 
         # first we should make sure that we've already done the shifting and
         # mj_shifted and bin_mask exist
