@@ -34,6 +34,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install wheel
         pip install flake8 pytest
+        pip install gala --no-binary numpy
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install git+https://github.com/nmdickson/GCfit.git
         pip install -e .
