@@ -5,9 +5,12 @@ import warnings
 from binaryshift import BinaryShift
 from binaryshift.gcfit import from_gcfit
 
-from fitter import Observations
-from fitter import Model
-
+try:
+    from fitter import Observations
+    from fitter import Model
+    GCFIT = True
+except ImportError:
+    GCFIT = False
 
 @pytest.fixture
 def obs():
@@ -39,6 +42,6 @@ def model(obs):
 def binshift(model):
     return from_gcfit(model)
 
-
+@pytest.mark.skipif(!GCFIT, reason="GCFit is not installed")
 def test_from_gcfit(binshift):
     pass
