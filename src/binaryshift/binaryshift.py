@@ -2,8 +2,9 @@
 Core Module for BinaryShift, has most of the functionality that is not specific to interacting with `GCFit`.
 """
 
-import numpy as np
 from collections import namedtuple
+
+import numpy as np
 
 __all__ = ["BinaryShift"]
 

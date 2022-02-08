@@ -1,16 +1,16 @@
-import numpy as np
-import pytest
+import random
 import warnings
 from importlib import resources
-import random
+
+import numpy as np
 import pandas as pd
+import pytest
 
 from binaryshift import BinaryShift
 from binaryshift.gcfit import from_gcfit
 
 try:
-    from fitter import Observations
-    from fitter import Model
+    from fitter import Model, Observations
 
     GCFIT = True
 except ImportError:

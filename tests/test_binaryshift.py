@@ -1,10 +1,11 @@
-from ssptools import evolve_mf_3 as emf3
-import numpy as np
-import pytest
+import random
 import warnings
 from importlib import resources
+
+import numpy as np
 import pandas as pd
-import random
+import pytest
+from ssptools import evolve_mf_3 as emf3
 
 from binaryshift import BinaryShift
 
@@ -239,4 +240,3 @@ def test_rebin(mj_Mj, binshift):
     # things break when we try to rebin to a different number of bins
     with pytest.raises(ValueError):
         binshift.rebin(bins=10)
-
