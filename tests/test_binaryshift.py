@@ -240,10 +240,3 @@ def test_rebin(mj_Mj, binshift):
     with pytest.raises(ValueError):
         binshift.rebin(bins=10)
 
-
-# test that the isochrones are included and we can read them
-def test_isochrones():
-    with resources.files("binaryshift") / "resources" as path:
-        isochrones = list(path.glob("*.dat"))
-    test_isochrone = random.choice(isochrones)
-    pd.read_csv(test_isochrone)

@@ -3,7 +3,6 @@ Module which contains all the functionality specifc to interacting with `GCFit`.
 """
 
 from .binaryshift import BinaryShift
-import numpy as np
 
 
 def from_gcfit(model):
@@ -22,6 +21,13 @@ def from_gcfit(model):
 def update_masks(binshift, model):
     """
     TODO: Remake GCFit masks, specific BH/NS quantities
+    """
+    pass
+
+
+def get_isochrone(model):
+    """
+    TODO: return the isochrone closest to the Fe/H of the model
     """
     pass
 

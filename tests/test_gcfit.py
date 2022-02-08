@@ -1,6 +1,9 @@
 import numpy as np
 import pytest
 import warnings
+from importlib import resources
+import random
+import pandas as pd
 
 from binaryshift import BinaryShift
 from binaryshift.gcfit import from_gcfit
@@ -8,9 +11,11 @@ from binaryshift.gcfit import from_gcfit
 try:
     from fitter import Observations
     from fitter import Model
+
     GCFIT = True
 except ImportError:
     GCFIT = False
+
 
 @pytest.fixture
 def obs():
@@ -42,6 +47,15 @@ def model(obs):
 def binshift(model):
     return from_gcfit(model)
 
-@pytest.mark.skipif(GCFIT==False, reason="GCFit is not installed")
+
+@pytest.mark.skipif(GCFIT == False, reason="GCFit is not installed")
 def test_from_gcfit(binshift):
     pass
+
+
+# test that the isochrones are included and we can read them
+def test_isochrones():
+    with resources.files("binaryshift") / "resources" as path:
+        isochrones = list(path.glob("*.dat"))
+    test_isochrone = random.choice(isochrones)
+    pd.read_csv(test_isochrone)
