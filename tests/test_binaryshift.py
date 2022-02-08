@@ -2,6 +2,9 @@ from ssptools import evolve_mf_3 as emf3
 import numpy as np
 import pytest
 import warnings
+from importlib import resources
+import pandas as pd
+import random
 
 from binaryshift import BinaryShift
 
@@ -236,3 +239,11 @@ def test_rebin(mj_Mj, binshift):
     # things break when we try to rebin to a different number of bins
     with pytest.raises(ValueError):
         binshift.rebin(bins=10)
+
+
+# test that the isochrones are included and we can read them
+def test_isochrones():
+    with resources.files("binaryshift") / "resources" as path:
+        isochrones = list(path.glob("*.dat"))
+    test_isochrone = random.choice(isochrones)
+    pd.read_csv(test_isochrone)

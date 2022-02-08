@@ -11,5 +11,7 @@ setup(  # pragma: no cover
     description="Shift mass bins to emulate binary stars",
     copyright="Copyright 2021 Peter Smith",
     python_requires=">=3.8",
-    version="0.1.0",
+    version="0.2.0",
+    include_package_data=True,
+    package_data={"binaryshift": ["resources/*.dat"]},
 )
