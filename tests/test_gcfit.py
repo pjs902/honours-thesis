@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
+import binaryshift
 from binaryshift import BinaryShift
-from binaryshift.gcfit import from_gcfit
 
 try:
     from fitter import Model, Observations
@@ -45,12 +45,7 @@ def model(obs):
 
 @pytest.fixture
 def binshift(model):
-    return from_gcfit(model)
-
-
-@pytest.mark.skipif(GCFIT == False, reason="GCFit is not installed")
-def test_from_gcfit(binshift):
-    pass
+    return binaryshift.gcfit.from_gcfit(model)
 
 
 # test that the isochrones are included and we can read them
@@ -59,3 +54,13 @@ def test_isochrones():
         isochrones = list(path.glob("*.dat"))
     test_isochrone = random.choice(isochrones)
     pd.read_csv(test_isochrone)
+
+
+@pytest.fixture
+def isochrone(model):
+    return binaryshift.gcfit.get_isochrone(model)
+
+
+def test_observed_mass(isochrone):
+    observed = binaryshift.gcfit.get_observed_mass(isochrone=isochrone, mj=1, q=0.5)
+    assert np.isclose(observed, 0.6735)

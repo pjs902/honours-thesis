@@ -1,3 +1,9 @@
+from importlib import resources
+
+import numpy as np
+import pandas as pd
+import scipy as sp
+
 """
 Module which contains all the functionality specifc to interacting with `GCFit`.
 """
@@ -27,12 +33,52 @@ def update_masks(binshift, model):
 
 def get_isochrone(model):
     """
-    TODO: return the isochrone closest to the Fe/H of the model
+    Get the isochrone closest to the Fe/H of the model
     """
-    pass
+
+    # get Fe/H from model
+    feh = model._mf.FeHe
+
+    # get isochrone list
+    with resources.files("binaryshift") / "resources" as path:
+        isochrones = list(path.glob("*.dat"))
+
+    fehs = [float(str(i).split("FEH=")[1].split(".dat")[0]) for i in isochrones]
+
+    # get isochrone closest to Fe/H
+    best = isochrones[np.abs(np.array(fehs) - feh).argmin()]
+    return pd.read_csv(best, engine="pyarrow")
 
 
 def rescale_densities(binshift, model):
     """
     TODO: Functionality to rescale density profiles for MF fitting
     """
+
+
+def get_observed_mass(isochrone, mj, q):
+
+    MS_isochrone = isochrone[0 : int(1463 / 7)]
+
+    mass_to_lum = sp.interpolate.InterpolatedUnivariateSpline(
+        x=MS_isochrone.star_mass,
+        y=(10 ** (MS_isochrone.WFC3_UVIS_F814W / -2.5)),
+        k=3,
+        ext=2,
+    )
+    lum_to_mass = sp.interpolate.InterpolatedUnivariateSpline(
+        x=(10 ** (MS_isochrone.WFC3_UVIS_F814W / -2.5)),
+        y=MS_isochrone.star_mass,
+        k=3,
+        ext=2,
+    )
+
+    # first calculate the individual masses
+    mb = mj / (1 + q)
+    ma = mj - mb
+    # then get observed mass
+    lum1 = mass_to_lum(ma)
+    lum2 = mass_to_lum(mb)
+
+    observed_mass = lum_to_mass(lum1 + lum2)
+    return float(observed_mass)
