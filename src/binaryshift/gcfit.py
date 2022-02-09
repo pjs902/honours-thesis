@@ -28,6 +28,10 @@ def update_masks(binshift, model):
     """
     TODO: Remake GCFit masks, specific BH/NS quantities
     """
+
+    # TODO: So here we need to update the masks that GCFit uses internally, also need to update
+    # anything else similar as well as add in our own binary masks
+
     pass
 
 
@@ -54,6 +58,17 @@ def rescale_densities(binshift, model):
     """
     TODO: Functionality to rescale density profiles for MF fitting
     """
+
+    # first get isochrone
+    isochrone = get_isochrone(model)
+
+    # create copies of the original profiles
+    rhoj_rescaled = model.rhoj.copy()
+
+    # loop over each binary component in each binary bin, and rescale the matching density profile
+
+    # add the rescaled profiles to the model
+    model.rhoj_rescaled = rhoj_rescaled
 
 
 def get_observed_mass(isochrone, mj, q):

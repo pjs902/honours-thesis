@@ -1,5 +1,4 @@
 import random
-import warnings
 from importlib import resources
 
 import numpy as np
@@ -62,5 +61,6 @@ def isochrone(model):
 
 
 def test_observed_mass(isochrone):
+    # hardcoded values from testing
     observed = binaryshift.gcfit.get_observed_mass(isochrone=isochrone, mj=1, q=0.5)
     assert np.isclose(observed, 0.6735)
