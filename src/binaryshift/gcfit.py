@@ -16,23 +16,23 @@ def from_gcfit(model):
     Create a `BinaryShift` object from a `GCFit` `Model` object. Sets the correct flags to use units properly.
     """
 
+    _mf = model._mf
+
+    # Set bins that should be empty to empty
+    cs = _mf.Ns[-1] > 10 * _mf.Nmin
+    ms, Ms = _mf.ms[-1][cs], _mf.Ms[-1][cs]
+
+    cr = _mf.Nr[-1] > 10 * _mf.Nmin
+    mr, Mr = _mf.mr[-1][cr], _mf.Mr[-1][cr]
+
+    # Collect mean mass and total mass bins
+    mj = np.r_[ms, mr]
+    Mj = np.r_[Ms, Mr]
+
     # make binshift instance
-    binshift = BinaryShift(
-        mj=model.mj.value, Mj=model.Mj.value, MF=model._mf, GCFit=True, model=model
-    )
+    binshift = BinaryShift(mj=mj, Mj=Mj, MF=_mf, GCFit=True, model=model)
 
     return binshift
-
-
-def update_masks(binshift, model):
-    """
-    TODO: Remake GCFit masks, specific BH/NS quantities
-    """
-
-    # TODO: So here we need to update the masks that GCFit uses internally, also need to update
-    # anything else similar as well as add in our own binary masks
-
-    pass
 
 
 def get_isochrone(model):
@@ -73,6 +73,7 @@ def rescale_densities(binshift, model):
 
 def get_observed_mass(isochrone, mj, q):
 
+    # TODO: this hardcoded stuff is not good, find a better way to do this
     MS_isochrone = isochrone[0 : int(1463 / 7)]
 
     mass_to_lum = sp.interpolate.InterpolatedUnivariateSpline(

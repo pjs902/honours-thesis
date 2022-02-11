@@ -4,6 +4,7 @@ Core Module for BinaryShift, has most of the functionality that is not specific 
 
 from collections import namedtuple
 
+import astropy.units as u
 import numpy as np
 
 __all__ = ["BinaryShift"]
@@ -48,7 +49,7 @@ class BinaryShift:
         # Add units if we are using GCFit (need to do this after the masks are set for some reason)
         if self.__gcfit:
             self.model = model
-            self._mass_units = self.model.mj[0].unit
+            self._mass_units = u.Msun
             self._mWD_max <<= self._mass_units
             self._mBH_min <<= self._mass_units
 
