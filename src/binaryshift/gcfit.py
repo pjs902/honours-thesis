@@ -1,14 +1,16 @@
 from importlib import resources
 
+import astropy.units as u
 import numpy as np
 import pandas as pd
 import scipy as sp
 
+from .binaryshift import BinaryShift
+
+
 """
 Module which contains all the functionality specifc to interacting with `GCFit`.
 """
-
-from .binaryshift import BinaryShift
 
 
 def from_gcfit(model):
@@ -54,21 +56,49 @@ def get_isochrone(model):
     return pd.read_csv(best, engine="pyarrow")
 
 
-def rescale_densities(binshift, model):
+def flatten(t):
     """
-    TODO: Functionality to rescale density profiles for MF fitting
+    Flatten a nested list
+    https://stackoverflow.com/a/952952/13577036
     """
+    return [item for sublist in t for item in sublist]
 
-    # first get isochrone
+
+def rescale_densities(model):
+
+    # make copy of density profile, Mj
+    rescaled_rhoj = model.rhoj[model._single_mask].copy()
+    scaled_Mj = model.Mj[model._single_mask].copy()
+
+    # get binaries
+    binaries = flatten(model._binshift.q_values)
+
+    # get isochrone
     isochrone = get_isochrone(model)
 
-    # create copies of the original profiles
-    rhoj_rescaled = model.rhoj.copy()
+    # loop through each binary population
+    for binary in binaries:
 
-    # loop over each binary component in each binary bin, and rescale the matching density profile
+        # find "observed" mass
+        observed_mass = (
+            get_observed_mass(isochrone=isochrone, mj=binary.mj, q=binary.q) << u.Msun
+        )
 
-    # add the rescaled profiles to the model
-    model.rhoj_rescaled = rhoj_rescaled
+        # find closest mass bin
+        closest_idx = np.argmin(np.abs(model.mj[model._single_mask] - observed_mass))
+
+        # scale the corresponding density bin
+
+        # find scale factor
+        scale_factor = (scaled_Mj[closest_idx] + binary.Mj * u.Msun) / scaled_Mj[
+            closest_idx
+        ]
+        # apply scale
+        scaled_Mj[closest_idx] *= scale_factor
+        rescaled_rhoj[closest_idx] *= scale_factor
+
+        # add rescaled density profiles to model
+        model.rescaled_rhoj = rescaled_rhoj
 
 
 def get_observed_mass(isochrone, mj, q):

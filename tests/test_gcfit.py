@@ -64,3 +64,8 @@ def test_observed_mass(isochrone):
     # hardcoded values from testing
     observed = binaryshift.gcfit.get_observed_mass(isochrone=isochrone, mj=1, q=0.5)
     assert np.isclose(observed, 0.6735)
+
+
+def test_rescale_densities(model):
+    # rescale
+    binaryshift.gcfit.rescale_densities(model)
