@@ -1,14 +1,50 @@
-
-
+\newcommand{\evolvemf}{\code{evolve\_mf }}
 
 \section{Generating mass functions}
 
+\subsection{Single Star Mass Functions}
+The bulk of project deals with generating mass functions to use as inputs to the \code{LIMEPY}
+models, we do this in two main steps, we first generate a present day mass function comprised of
+only single stars, and we then modify it to include binary stars.
+
+To generate the mass functions comprised of single stars we use the \evolvemf algorithm from
+\code{SSPTools}\footnote{\url{www.github.com/pjs902/ssptools}}, a publicly available package for
+working with simple stellar populations. We provide to \evolvemf the initial mass function slopes,
+breakpoints, cluster age, cluster metallicity and escape velocity, and it returns a sampled present
+day mass function which fully accounts for stellar evolution and effects like the natal-kicks of black
+holes.
+
+\ps{This section is proving to be hard to write, ill do the other ones first}
+
+\subsection{Binary Mass Functions}
+
+In order to include binary stars in our mass functions we make use of the assumption that for the
+vast majority of their interaction with other objects, binary systems behave essentially as point
+masses given the fact that they are tightly bound. This means that in order to replicate the effects
+of a binary population in our mass function, we simply need to shift some of the mass in single
+stars into heavier bins which act as the "binary bins".
+
+\section{Fitting Models to Data}
+
+\subsection{Data}
+
+Go over all the data we use
+
+Grab most of this from the paper
+
+\subsection{GCfit}
+
+Maybe? Discuss GCfit and nested sampling/MCMC
 
 
+\subsection{Likelihoods}
+
+Go over Gaussian likelihoods
+
+check paper for this
+
+\subsubsection{Fitting Mass Functions to Observations}
 
 
-
-
-
-
-\section{Fitting mass functions to observations}
+Here just need to discuss how binaries are handled in the observational data and how we mimic that
+process with our synthetic binaries.
