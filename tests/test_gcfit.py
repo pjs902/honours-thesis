@@ -69,3 +69,4 @@ def test_observed_mass(isochrone):
 def test_rescale_densities(model):
     # rescale
     binaryshift.gcfit.rescale_densities(model)
+    assert np.sum(model.rescaled_Sigmaj) >= 0

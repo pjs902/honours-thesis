@@ -3,9 +3,9 @@ import warnings
 import numpy as np
 import pandas as pd
 import pytest
+from ssptools import evolve_mf_3 as emf3
 
 from binaryshift import BinaryShift
-from ssptools import evolve_mf_3 as emf3
 
 
 @pytest.fixture

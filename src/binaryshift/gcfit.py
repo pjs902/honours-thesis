@@ -7,7 +7,6 @@ import scipy as sp
 
 from .binaryshift import BinaryShift
 
-
 """
 Module which contains all the functionality specifc to interacting with `GCFit`.
 """
@@ -67,7 +66,7 @@ def flatten(t):
 def rescale_densities(model):
 
     # make copy of density profile, Mj
-    rescaled_rhoj = model.rhoj[model._single_mask].copy()
+    rescaled_Sigmaj = model.Sigmaj[model._single_mask].copy()
     scaled_Mj = model.Mj[model._single_mask].copy()
 
     # get binaries
@@ -95,10 +94,10 @@ def rescale_densities(model):
         ]
         # apply scale
         scaled_Mj[closest_idx] *= scale_factor
-        rescaled_rhoj[closest_idx] *= scale_factor
+        rescaled_Sigmaj[closest_idx] *= scale_factor
 
         # add rescaled density profiles to model
-        model.rescaled_rhoj = rescaled_rhoj
+        model.rescaled_Sigmaj = rescaled_Sigmaj
 
 
 def get_observed_mass(isochrone, mj, q):
