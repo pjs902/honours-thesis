@@ -72,6 +72,8 @@ only single stars, and we then modify it to include binary stars.
 
 \subsection{Single Star Mass Functions}
 
+\ps{Probably want more details here}
+
 To generate the mass functions comprised of single stars we use the \evolvemf{} algorithm from
 \code{SSPTools}\footnote{\url{www.github.com/pjs902/ssptools}}, a publicly available package for
 working with simple stellar populations.
@@ -95,6 +97,31 @@ masses given the fact that they are tightly bound. This means that in order to r
 of a binary population in our mass function, we simply need to shift some of the mass in single
 stars into heavier bins which act as the "binary bins".
 
+We do this shifting in an iterative process where we first divide the total binary fraction among
+the mass ratios in the requested distribution, weighted to the specific distribution. For example, a
+binary popular with a total binary fraction of 50\% and a mass ratio distribution with 5 values of
+$q$ would be split into 5 individual components of 5\% for a "flat" mass ratio distribution. For a
+"solar" distribution the mass ratios nearest to $q=1.0$ would receive a higher portion of the total
+binary fraction.
+
+
+\ps{Rewrite this so it reads nicely}
+Once the individual binary fractions for each value of $q$ are calculated, we then go through each
+bin of main sequence stars and attempt to make binaries. The companion mass for a given bin is
+calculated using the current value of $q$ and number of binaries to make is calculated using the
+binary fraction for the current value of $q$. After the companion mass and number of binaries are
+set, we then find the closest bin to the companion mass and subtract the mass corresponding to the
+calculated number of binaries, adding the subtracted mass to a new bin with a mass equal to the sum
+of each binary component. We then repeat this process for each bin of main sequence stars until all
+bins have a binary fraction equal to that of the current value of $q$. We do this process for each
+value of q in the mass ratio distribution, resulting in each main sequence bin having a total binary
+fraction equal to the requested total and a mass ratio distribution identical to the requested
+distribution.
+
+This process created on the order of 150 new bins in our mass function which would dramatically
+increase the runtime for the \code{LIMEPY} models. In order to prevent this we group together binary
+bins of similar masses, forming on the order of 15 binary bins containing binary system of similar
+total mass but differing mass ratios.
 
 
 
@@ -104,8 +131,9 @@ stars into heavier bins which act as the "binary bins".
 
 \subsection{GCfit}
 
-Maybe? Discuss GCfit and nested sampling/MCMC
-
+To fit our models to the data we use the GCfit package\footnote{\url{github.com/nmdickson/gcfit}}.
+GCfit provides a uniform interface for fitting \evolvemf{} and \code{LIMEPY} models to observations
+of clusters using either MCMC or Nested Sampling.
 
 \subsection{Likelihoods}
 
