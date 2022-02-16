@@ -4,6 +4,8 @@
 
 \section{Data}
 
+\ps{TODO: Are we using pulsar data?}
+
 We use a wide range of data to constrain the parameters of our models. In general, for both 47\,Tuc
 and NGC\,3201 we use archival kinematic data from ground based spectroscopy, number density profiles from
 \emph{Gaia} and stellar mass function data from HST photometry.
@@ -105,7 +107,7 @@ $q$ would be split into 5 individual components of 5\% for a "flat" mass ratio d
 binary fraction.
 
 
-\ps{Rewrite this so it reads nicely}
+\ps{Rewrite this so that it reads nicely}
 Once the individual binary fractions for each value of $q$ are calculated, we then go through each
 bin of main sequence stars and attempt to make binaries. The companion mass for a given bin is
 calculated using the current value of $q$ and number of binaries to make is calculated using the
@@ -129,20 +131,46 @@ total mass but differing mass ratios.
 
 \section{Fitting Models to Data}
 
-\subsection{GCfit}
 
-To fit our models to the data we use the GCfit package\footnote{\url{github.com/nmdickson/gcfit}}.
-GCfit provides a uniform interface for fitting \evolvemf{} and \code{LIMEPY} models to observations
-of clusters using either MCMC or Nested Sampling.
+To fit our models to the data we use the \code{GCfit}
+package\footnote{\url{www.github.com/nmdickson/gcfit}}. \code{GCfit} provides a uniform interface for
+fitting \evolvemf{} and \code{LIMEPY} models to observations of clusters using either MCMC or Nested
+Sampling.
 
 \subsection{Likelihoods}
 
-Go over Gaussian likelihoods
+The majority of the likelihood functions we use are simple Gaussian likelihoods of the following form:
 
-check paper for this
+\begin{equation}
+	\ln \left(\mathcal{L}_{i}\right)=\frac{1}{2}
+	\sum_{r}\left(\frac{\left(\sigma_{\mathrm{obs}}(r)
+		-\sigma_{\mathrm{model}}(r)\right)^{2}}{\delta \sigma_{\mathrm{obs}}^{2}(r)}
+	-\ln \left(\delta \sigma_{\mathrm{obs}}^{2}(r)\right)\right)
+\end{equation}
+
+Where $\mathcal{L}$ is the likelihood, $\sigma$ is the line-of-sight velocity dispersion, $r$ is the
+projected distance from the cluster centre, and $\delta \sigma$ is the uncertainty in the velocity
+dispersion. The likelihoods for other observables are formulated in the same way, and the specifics
+are discussed in \code{GCfit}'s documentation\footnote{\url{gcfit.readthedocs.io}}.
+\ps{do we need more details?}
+
+
+
 
 \subsubsection{Fitting Mass Functions to Observations}
 
+When the mass function data is collected, the mass is recorded based on the position of the star on
+the CMD with an isochrone fit to the cluster. This means that any binary stars in the sample are
+recorded as single stars a mass corresponding to a star with the average colour of the two binary
+components and a luminosity corresponding to the sum of the two components.
 
-Here just need to discuss how binaries are handled in the observational data and how we mimic that
-process with our synthetic binaries.
+Additionally, when we move mass around to create binary bins we remove mass from the surface density
+profiles which would be compared to the mass function data. In order to compensate for these
+effects, we rescale the surface density profiles to include the stars which are in binary bins,
+according to how they would have been observed using the observational method described above.
+
+In order to determine the observed mass we use a grid of MIST isochrones computed at a range of
+metallicities, at the age of the cluster. We use the isochrone to determine the luminosity of the
+binary components and then use the isochrone to determine the observed mass of the combined
+luminosities. We then scale the surface density profile of the main sequence bin which most closely
+matches the observed mass of the binary system by the total mass of the binary system. 
