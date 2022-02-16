@@ -45,14 +45,18 @@ def get_isochrone(model):
     feh = model._mf.FeHe
 
     # get isochrone list
-    with resources.files("binaryshift") / "resources" as path:
-        isochrones = list(path.glob("*.dat"))
+    try:
+        with resources.files("binaryshift") / "resources" as path:
+            isochrones = list(path.glob("*.dat"))
+    except AttributeError:
+        with resources.path('binaryshift', 'resources') as path:
+            isochrones = list(path.glob("*.dat"))
 
     fehs = [float(str(i).split("FEH=")[1].split(".dat")[0]) for i in isochrones]
 
     # get isochrone closest to Fe/H
     best = isochrones[np.abs(np.array(fehs) - feh).argmin()]
-    return pd.read_csv(best, engine="pyarrow")
+    return pd.read_csv(best)
 
 
 def flatten(t):
