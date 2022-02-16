@@ -1,20 +1,91 @@
-\newcommand{\evolvemf}{\code{evolve\_mf }}
+\newcommand{\evolvemf}{\code{evolve\_mf}}
+
+
+
+\section{Data}
+
+We use a wide range of data to constrain the parameters of our models. In general, for both 47\,Tuc
+and NGC\,3201 we use archival kinematic data from ground based spectroscopy, number density profiles from
+\emph{Gaia} and stellar mass function data from HST photometry.
+
+\subsection{Kinematics and density profiles}
+
+\subsubsection{Proper motion dispersion profiles}
+
+For 47 Tuc, we use two sets of {\it Hubble Space Telescope} (HST) proper motion data that are not
+available for NGC\,3201. To probe the inner regions of the cluster we use the proper motion
+dispersion profiles (both tangential and radial components) from \citet{Watkins2015} which are based
+on a catalogue of proper motions of bright stars from \citet{Bellini2014}. These dispersion profiles
+are built from stars brighter than the main sequence turn-off ($0.85 \ \mathrm{M}_\odot$ and $0.8 \
+	\mathrm{M}_\odot$ for 47\,Tuc and NGC\,3201). To probe the kinematics in the outer regions of the
+cluster, we also use the data from \citet{Heyl2017}, for which the mean mass of the measured stars
+is $0.38 \ \mathrm{M}_{\odot}$. The outer proper motion data also allows us to constrain the amount
+of radial anisotropy present in the cluster, which can mimic the effect of central dark mass in
+isotropic models by raising the central velocity dispersion \citep{Zocchi2017}.
+
+
+\subsubsection{Line-of-sight velocity dispersion profiles}
+
+For both 47\,Tuc and NGC\,3201 we use the line-of-sight velocity dispersion profiles from
+\citet{Baumgardt2018} to further constrain the kinematics of the clusters. These dispersion profiles
+are based on archival ESO/VLT and Keck spectra along with previously published radial velocity data
+from the literature. As these radial velocity samples are dominated by bright stars, we assume that
+the velocity dispersion profile traces the kinematics of upper main-sequence and evolved stars in
+our models.
+
+\subsubsection{Number density profiles}
+We use the number density profiles from \citet{DeBoer2019} to constrain the size and structural
+parameters of the clusters. These profiles are made up of a combination of cluster members based on
+Gaia DR2 data in the outer regions and data from various literature sources in the central regions.
+The Gaia data used only includes bright stars ($m > 0.6 \ \mathrm{M}_\odot$, for both clusters) and
+the literature data is dominated by bright stars, therefore in our models we assume the profiles
+probe the distribution of upper main sequence and evolved stars.
+
+\subsection{Stellar mass functions}
+
+As a constraint on the global present-day stellar mass function of the clusters, we use a
+compilation of HST based stellar mass function data from
+Baumgardt\footnote{\url{https://people.smp.uq.edu.au/HolgerBaumgardt/globular/}} (2021, priv.
+comm.), which represent an updated and augmented version of the stellar mass functions found in
+\citet{Sollima2017}. This compilation is made up of several HST fields at varying distances from the
+cluster centre. These fields extend out to $14 '$ and $8.33 '$ from the cluster centres for 47\,Tuc
+and NGC\,3201 respectively and cover a mass range of $0.16 - 0.8 \ \mathrm{M}_\odot$. The large
+radial and mass ranges allow us to constrain the degree mass segregation in the cluster.
+
+
+\subsection{Binary Data}
+
+\ps{Expand this, if we even need it here, might be better to discuss this when we discuss generating
+	the binaries} When creating realistic binary populations we use the data from \citet{Milone2012} to
+inform our choices of binary fraction and mass ratio distribution. For NGC\,3201 we have
+\citet{Giesers2019} as an additional measurement of the binary population.
+
+
+
+
 
 \section{Generating mass functions}
 
-\subsection{Single Star Mass Functions}
 The bulk of project deals with generating mass functions to use as inputs to the \code{LIMEPY}
 models, we do this in two main steps, we first generate a present day mass function comprised of
 only single stars, and we then modify it to include binary stars.
 
-To generate the mass functions comprised of single stars we use the \evolvemf algorithm from
-\code{SSPTools}\footnote{\url{www.github.com/pjs902/ssptools}}, a publicly available package for
-working with simple stellar populations. We provide to \evolvemf the initial mass function slopes,
-breakpoints, cluster age, cluster metallicity and escape velocity, and it returns a sampled present
-day mass function which fully accounts for stellar evolution and effects like the natal-kicks of black
-holes.
+\subsection{Single Star Mass Functions}
 
-\ps{This section is proving to be hard to write, ill do the other ones first}
+To generate the mass functions comprised of single stars we use the \evolvemf{} algorithm from
+\code{SSPTools}\footnote{\url{www.github.com/pjs902/ssptools}}, a publicly available package for
+working with simple stellar populations.
+
+The \evolvemf{} algorithm combines precomputed grids of stellar evolution models and isochrones to
+accurate model the evolution of the initial mass function, fully including the effects of stellar
+evolution, mass loss due to escaping stars and dynamical ejections. The algorithm returns a sampled
+mass functions for a requested time, ideal for use in the \code{LIMEPY} models.
+
+We provide to \evolvemf{} the initial mass function slopes and breakpoints, the cluster age,
+metallicity and escape velocity, as well as parameters which control the mass loss due to escaping
+stars the specific binning to be used when the present day mass function is sampled.
+
+
 
 \subsection{Binary Mass Functions}
 
@@ -24,13 +95,12 @@ masses given the fact that they are tightly bound. This means that in order to r
 of a binary population in our mass function, we simply need to shift some of the mass in single
 stars into heavier bins which act as the "binary bins".
 
+
+
+
+
+
 \section{Fitting Models to Data}
-
-\subsection{Data}
-
-Go over all the data we use
-
-Grab most of this from the paper
 
 \subsection{GCfit}
 
