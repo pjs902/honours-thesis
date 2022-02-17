@@ -45,6 +45,7 @@ def get_isochrone(model):
     feh = model._mf.FeHe
 
     # get isochrone list
+    # this ugly stuff is python 3.8 to 3.9 compatability
     try:
         with resources.files("binaryshift") / "resources" as path:
             isochrones = list(path.glob("*.dat"))
@@ -70,8 +71,8 @@ def flatten(t):
 def rescale_densities(model):
 
     # make copy of density profile, Mj
-    rescaled_Sigmaj = model.Sigmaj[model._single_mask].copy()
-    scaled_Mj = model.Mj[model._single_mask].copy()
+    rescaled_Sigmaj = model.Sigmaj.copy()
+    scaled_Mj = model.Mj.copy()
 
     # get binaries
     binaries = flatten(model._binshift.q_values)
@@ -93,7 +94,7 @@ def rescale_densities(model):
         # scale the corresponding density bin
 
         # find scale factor
-        scale_factor = (scaled_Mj[closest_idx] + binary.Mj * u.Msun) / scaled_Mj[
+        scale_factor = (scaled_Mj[closest_idx] + (binary.Mj * u.Msun)) / scaled_Mj[
             closest_idx
         ]
         # apply scale
@@ -106,7 +107,7 @@ def rescale_densities(model):
 
 def get_observed_mass(isochrone, mj, q):
 
-    # TODO: this hardcoded stuff is not good, find a better way to do this
+    # TODO: this hardcoded stuff is not great, find a better way to do this
     MS_isochrone = isochrone[0 : int(1463 / 7)]
 
     mass_to_lum = sp.interpolate.InterpolatedUnivariateSpline(
