@@ -99,33 +99,49 @@ masses given the fact that they are tightly bound. This means that in order to r
 of a binary population in our mass function, we simply need to shift some of the mass in single
 stars into heavier bins which act as the "binary bins".
 
-We do this shifting in an iterative process where we first divide the total binary fraction among
-the mass ratios in the requested distribution, weighted to the specific distribution. For example, a
-binary popular with a total binary fraction of 50\% and a mass ratio distribution with 5 values of
-$q$ would be split into 5 individual components of 5\% for a "flat" mass ratio distribution. For a
-"solar" distribution the mass ratios nearest to $q=1.0$ would receive a higher portion of the total
-binary fraction.
+
+We do this by splitting the process up into several steps. First we divide the total binary fraction
+among the values if $q$ in the requested mass ration distribution. We weight the $f_b$ values
+assigned to the individual values of $q$ by the chosen mass ration distribution, so a flat mass
+ratio distribution would have the total binary fraction divided evenly among the values while a
+"solar distribution" (see \citealt{Fisher2005}) would have a significantly higher portion of the
+total $f_b$ assigned to equal mass binaries.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{figures/q-dists.png}
+	\caption{\ps{TODO: add caption}}
+	\label{fig:2/q-dists}
+\end{figure}
 
 
-\ps{Rewrite this so that it reads nicely}
-Once the individual binary fractions for each value of $q$ are calculated, we then go through each
-bin of main sequence stars and attempt to make binaries. The companion mass for a given bin is
+After we have calculated the individual binary fractions for each value of $q$, we then go through
+each bin of main sequence stars and attempt to make binaries. The companion mass for a given bin is
 calculated using the current value of $q$ and number of binaries to make is calculated using the
 binary fraction for the current value of $q$. After the companion mass and number of binaries are
 set, we then find the closest bin to the companion mass and subtract the mass corresponding to the
 calculated number of binaries, adding the subtracted mass to a new bin with a mass equal to the sum
-of each binary component. We then repeat this process for each bin of main sequence stars until all
-bins have a binary fraction equal to that of the current value of $q$. We do this process for each
-value of q in the mass ratio distribution, resulting in each main sequence bin having a total binary
-fraction equal to the requested total and a mass ratio distribution identical to the requested
-distribution.
+of each binary component.
 
-This process created on the order of 150 new bins in our mass function which would dramatically
-increase the runtime for the \code{LIMEPY} models. In order to prevent this we group together binary
-bins of similar masses, forming on the order of 15 binary bins containing binary system of similar
+
+We repeat this process for each bin of main sequence stars until all bins have a binary fraction
+equal to that of the current value of $q$. We do this process for each value of q in the mass ratio
+distribution, resulting in each main sequence bin having a total binary fraction equal to the
+requested total and a mass ratio distribution identical to the requested distribution.
+
+
+This process tends to create on the order of 150 new bins in our mass function which dramatically
+increases the runtime of the \code{LIMEPY} models. In order to prevent this we group together binary
+bins of similar masses, forming on the order of 15 binary bins containing binary systems of similar
 total mass but differing mass ratios.
 
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/shifted-mf.png}
+	\caption{\ps{TODO: add caption}}
+	\label{fig:2/shifted-mf}
+\end{figure}
 
 
 
@@ -173,4 +189,4 @@ In order to determine the observed mass we use a grid of MIST isochrones compute
 metallicities, at the age of the cluster. We use the isochrone to determine the luminosity of the
 binary components and then use the isochrone to determine the observed mass of the combined
 luminosities. We then scale the surface density profile of the main sequence bin which most closely
-matches the observed mass of the binary system by the total mass of the binary system. 
+matches the observed mass of the binary system by the total mass of the binary system.
