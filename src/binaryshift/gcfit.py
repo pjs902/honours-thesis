@@ -50,7 +50,7 @@ def get_isochrone(model):
         with resources.files("binaryshift") / "resources" as path:
             isochrones = list(path.glob("*.dat"))
     except AttributeError:
-        with resources.path('binaryshift', 'resources') as path:
+        with resources.path("binaryshift", "resources") as path:
             isochrones = list(path.glob("*.dat"))
 
     fehs = [float(str(i).split("FEH=")[1].split(".dat")[0]) for i in isochrones]
