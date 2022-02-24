@@ -39,7 +39,7 @@ def model(obs):
         4.42,
     ]
 
-    return Model(theta=theta, observations=obs)
+    return Model(theta=theta, observations=obs, binary_fraction=0.1)
 
 
 @pytest.fixture
