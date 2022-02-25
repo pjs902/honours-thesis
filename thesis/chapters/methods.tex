@@ -4,7 +4,6 @@
 
 \section{Data}
 
-\ps{TODO: Are we using pulsar data?}
 
 We use a wide range of data to constrain the parameters of our models. In general, for both 47\,Tuc
 and NGC\,3201 we use archival kinematic data from ground based spectroscopy, number density profiles from
@@ -56,10 +55,17 @@ radial and mass ranges allow us to constrain the degree mass segregation in the 
 
 \subsection{Pulsar Data}
 
-Are we using it? It seems like it's still broken with nested sampling.
+For 47\,Tuc, we make use of its large population of millisecond pulsars (MSPs) to place further
+constraints on its mass distribution. We use both the spin and orbital period timing solutions from
+\citet{Freire2017}, \citet{Ridolfi2016} and \citet{Freire2018}. We also consider the dispersion
+measures of the pulsars which, when combined with internal gas models from \citet{Abbate2018}, allow
+us to constrain the line-of-sight position of the pulsars within the cluster. The work surrounding
+the use of pulsar data to constrain the models was performed as part of an earlier project and so
+will not be discussed in too much detail in this project.
+
+
 
 \subsection{Binary Data}
-
 
 In order to create realistic binary populations we use the data from \citet{Milone2012} to inform
 our choices of binary fraction and mass ratio distribution. For 47\,Tuc this means a flat mass
@@ -87,14 +93,29 @@ To generate the mass functions comprised of single stars we use the \evolvemf{} 
 working with simple stellar populations.
 
 The \evolvemf{} algorithm combines precomputed grids of stellar evolution models and isochrones to
-accurately model the evolution of a given initial mass function, fully including the effects of stellar
-evolution, mass loss due to escaping stars and dynamical ejections. The algorithm returns a sampled
-mass function for a requested time, ideal for use in the \code{LIMEPY} models.
+accurately model the evolution of a given initial mass function, fully including the effects of
+stellar evolution, mass loss due to escaping stars and dynamical ejections. The algorithm returns a
+sampled mass function for a requested time, ideal for use in the \code{LIMEPY} models.
 
-We provide to \evolvemf{} the initial mass function slopes and breakpoints, the cluster age,
-metallicity and escape velocity, as well as parameters which control the mass loss due to escaping
-stars the specific binning to be used when the present day mass function is sampled.
+We parameterize the mass function as a broken power-law with breakpoints at $0.5 \mathrm{M}_\odot$
+and $1.0 \mathrm{M}_\odot$. We provide to \evolvemf{} the initial mass function slopes and
+breakpoints, the cluster age, metallicity and escape velocity, as well as parameters which control
+the mass loss due to escaping stars the specific binning to be used when the present day mass
+function is sampled. Figure \ref{fig:2/evolve_mf} shows the evolution of a mass function over a
+span of $10 \ \mathrm{Gyr}$.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{figures/evolve_mf.png}
+	\caption{The evolution of a typical mass function from $t=0$ to $t=10000 \ \mathrm{Myr}$.
+		The stellar bins are plotted in green while the remnant bins are plotted in black,
+		the current main-sequence turn-off is plotted a dashed black line. As the mass
+		function ages, more and more main sequence stars evolve into remnants. Lower right:
+		The evolution of the total mass of the mass function is plotted as a fraction of the
+		initial mass. Mass loss is dominated by the effects of stellar evolution but also
+		has contribution from dynamical ejected and escaping stars.}
+	\label{fig:2/evolve_mf}
+\end{figure}
 
 
 \subsection{Binary Mass Functions}
@@ -106,17 +127,21 @@ of a binary population in our mass function, we simply need to shift some of the
 stars into heavier bins which act as the "binary bins".
 
 
-We split this process up into several steps. First we divide the total binary fraction
-among the values if $q$ in the requested mass ration distribution. We weight the $f_b$ values
-assigned to the individual values of $q$ by the chosen mass ration distribution, so a flat mass
-ratio distribution would have the total binary fraction divided evenly among the values while a
-"solar distribution" (see \citealt{Fisher2005}) would have a significantly higher portion of the
-total $f_b$ assigned to equal mass binaries. Figure \ref{fig:2/q-dists} shows the resulting mass ratio distributions using this method.
+We split this process up into several steps. First we divide the total binary fraction among the
+values if $q$ in the requested mass ration distribution. We weight the $f_b$ values assigned to the
+individual values of $q$ by the chosen mass ration distribution, so a flat mass ratio distribution
+would have the total binary fraction divided evenly among the values while a "solar distribution"
+(see \citealt{Fisher2005}) would have a significantly higher portion of the total $f_b$ assigned to
+equal mass binaries. Figure \ref{fig:2/q-dists} shows the resulting mass ratio distributions using
+this method.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{figures/q-dists.png}
-\caption{\ps{TODO: add caption, explain the truncation at 0.2 and why 0.2 is lower}}
+	\caption{The resulting mass ratio distributions for the "flat" and "solar" mass ratio
+		prescriptions. Both distributions are truncated and lowered at $q=0.2$ due to the
+		relative lack low very low mass stars within the mass functions, making the creation
+		of very low $q$ binaries impossible.}
 	\label{fig:2/q-dists}
 \end{figure}
 
@@ -147,7 +172,12 @@ bins, plotted with the modified main sequence bins, binary bins and rebinned bin
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/shifted-mf.png}
-	\caption{\ps{TODO: add caption}}
+	\caption{The main-sequence portion of a mass function before and after binaries are added.
+		The blue circles are the original main sequence and the crosses are the modified main
+		sequence. The orange crosses show the single stars after mass has been removed to create
+		binaries and the many green crosses are the binary bins that are initially created. The red
+		crosses are the rebinned binary bins which are actually used in the computation of the
+		\code{LIMEPY} models.}
 	\label{fig:2/shifted-mf}
 \end{figure}
 
@@ -168,7 +198,7 @@ Nested Sampling.
 The majority of the likelihood functions we use are simple Gaussian likelihoods of the following form:
 
 \begin{equation}
-	\ln \left(\mathcal{L}_{i}\right)=\frac{1}{2}
+	\ln \left(\mathcal{L}\right)=\frac{1}{2}
 	\sum_{r}\left(\frac{\left(\sigma_{\mathrm{obs}}(r)
 		-\sigma_{\mathrm{model}}(r)\right)^{2}}{\delta \sigma_{\mathrm{obs}}^{2}(r)}
 	-\ln \left(\delta \sigma_{\mathrm{obs}}^{2}(r)\right)\right)
@@ -177,7 +207,8 @@ The majority of the likelihood functions we use are simple Gaussian likelihoods 
 Where $\mathcal{L}$ is the likelihood, $\sigma$ is the line-of-sight velocity dispersion, $r$ is the
 projected distance from the cluster centre, and $\delta \sigma$ is the uncertainty in the velocity
 dispersion. The likelihoods for other observables are formulated in the same way, and the specifics
-are discussed in \code{GCfit}'s documentation\footnote{\url{gcfit.readthedocs.io}}.
+are discussed in \code{GCfit}'s documentation\footnote{\url{gcfit.readthedocs.io}}. The total
+likelihood is therefore the sum of all the log-likelihoods for each set of observations.
 
 For the mass function and number density likelihoods we include additional nuisance and scaling
 terms to account for extra sources of error in the mass function data and the effects of potential
