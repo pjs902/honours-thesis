@@ -9,6 +9,8 @@ import numpy as np
 
 __all__ = ["BinaryShift"]
 
+# NamedTuple to hold the info for binary population in a combined bin
+BinaryPop = namedtuple("BinaryPop", ["mj", "q", "Mj"])
 
 class BinaryShift:
     def __init__(self, mj, Mj, MF, *, GCFit=False, model=None, verbose=False):
@@ -352,8 +354,6 @@ class BinaryShift:
 
         # hold the q values for each bin
 
-        # NamedTuple to hold the info for binary population in a combined bin
-        BinaryPop = namedtuple("BinaryPop", ["mj", "q", "Mj"])
 
         rebinned_q_vals = [[] for _ in range(bins)]
 
