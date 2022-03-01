@@ -443,3 +443,6 @@ dmypy.json
 .pyre/
 admin
 *latexindent*
+mcmc_runs/*/*.hdf
+mcmc_runs/*/*.png
+mcmc_runs/*/*.py
