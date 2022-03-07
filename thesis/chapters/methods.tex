@@ -5,38 +5,37 @@
 \section{Data}
 
 
-We use a wide range of data to constrain the parameters of our models. In general, for both 47\,Tuc
-and NGC\,3201 we use archival kinematic data from ground based spectroscopy, number density profiles from
-\emph{Gaia} and stellar mass function data from HST photometry.
+We use a wide range of data to constrain the parameters of our models. In general, we use archival
+kinematic data from ground based spectroscopy, number density profiles from \emph{Gaia}, stellar
+mass function data from HST photometry and pulsar timing data.
 
 \subsection{Kinematics and density profiles}
 
 \subsubsection{Proper motion dispersion profiles}
 
-For 47 Tuc, we use two sets of {\it Hubble Space Telescope} (HST) proper motion data that are not
-available for NGC\,3201. To probe the inner regions of the cluster we use the proper motion
-dispersion profiles (both tangential and radial components) from \citet{Watkins2015} which are based
-on a catalogue of proper motions of bright stars from \citet{Bellini2014}. These dispersion profiles
-are built from stars brighter than the main sequence turn-off ($0.85 \ \mathrm{M}_\odot$ and $0.8 \
-	\mathrm{M}_\odot$ for 47\,Tuc and NGC\,3201). To probe the kinematics in the outer regions of the
-cluster, we also use the data from \citet{Heyl2017}, for which the mean mass of the measured stars
-is $0.38 \ \mathrm{M}_{\odot}$. The outer proper motion data also allows us to constrain the amount
-of radial anisotropy present in the cluster, which can mimic the effect of central dark mass in
-isotropic models by raising the central velocity dispersion \citep{Zocchi2017}.
+We use two sets of {\it Hubble Space Telescope} (HST) proper motion data. To probe the inner regions
+of the cluster we use the proper motion dispersion profiles (both tangential and radial components)
+from \citet{Watkins2015} which are based on a catalogue of proper motions of bright stars from
+\citet{Bellini2014}. These dispersion profiles are built from stars brighter than the main sequence
+turn-off ($0.85 \ \mathrm{M}_\odot$ and $0.8 \ \mathrm{M}_\odot$ for 47\,Tuc and NGC\,3201). To
+probe the kinematics in the outer regions of the cluster, we also use the data from
+\citet{Heyl2017}, for which the mean mass of the measured stars is $0.38 \ \mathrm{M}_{\odot}$. The
+outer proper motion data also allows us to constrain the amount of radial anisotropy present in the
+cluster, which can mimic the effect of central dark mass in isotropic models by raising the central
+velocity dispersion \citep{Zocchi2017}.
 
 
 \subsubsection{Line-of-sight velocity dispersion profiles}
 
-For both 47\,Tuc and NGC\,3201 we use the line-of-sight velocity dispersion profiles from
-\citet{Baumgardt2018} to further constrain the kinematics of the clusters. These dispersion profiles
-are based on archival ESO/VLT and Keck spectra along with previously published radial velocity data
-from the literature. As these radial velocity samples are dominated by bright stars, we assume that
-the velocity dispersion profile traces the kinematics of upper main-sequence and evolved stars in
-our models.
+We use the line-of-sight velocity dispersion profiles from \citet{Baumgardt2018} to further
+constrain the kinematics of the clusters. These dispersion profiles are based on archival ESO/VLT
+and Keck spectra along with previously published radial velocity data from the literature. As these
+radial velocity samples are dominated by bright stars, we assume that the velocity dispersion
+profile traces the kinematics of upper main-sequence and evolved stars in our models.
 
 \subsubsection{Number density profiles}
-We use the number density profiles from \citet{DeBoer2019} to constrain the size and structural
-parameters of the clusters. These profiles are made up of a combination of cluster members based on
+We use the number density profile from \citet{DeBoer2019} to constrain the size and structural
+parameters of the cluster. These profiles are made up of a combination of cluster members based on
 Gaia DR2 data in the outer regions and data from various literature sources in the central regions.
 The Gaia data used only includes bright stars ($m > 0.6 \ \mathrm{M}_\odot$, for both clusters) and
 the literature data is dominated by bright stars, therefore in our models we assume the profiles
@@ -44,7 +43,7 @@ probe the distribution of upper main sequence and evolved stars.
 
 \subsection{Stellar mass functions}
 
-As a constraint on the global present-day stellar mass function of the clusters, we use a
+As a constraint on the global present-day stellar mass function of the cluster, we use a
 compilation of HST based stellar mass function data from
 Baumgardt\footnote{\url{https://people.smp.uq.edu.au/HolgerBaumgardt/globular/}} (2021, priv.
 comm.), which represent an updated and augmented version of the stellar mass functions found in
@@ -69,10 +68,10 @@ will not be discussed in too much detail in this project.
 
 In order to create realistic binary populations we use the data from \citet{Milone2012} to inform
 our choices of binary fraction and mass ratio distribution. For 47\,Tuc this means a flat mass
-ration distribution and a binary fraction of roughly $2\%$ \ps{This is so small, do we want to use
-	something larger for testing the effects?}.  For NGC\,3201 \citet{Milone2012} find a binary fraction
-of around $10\%$ with a flat mass ratio distribution while \citet{Giesers2019} find a value closer
-to $f_b = 0.0675$ without constraining the mass ratio distribution.
+ration distribution and a binary fraction of roughly $2\%$. Because this estimate of the binary
+fraction is so small, we will use it as a lower limit for the binary fraction and also test a case
+where the binary fraction is around $10\%$ like in NGC\,3201, where \citet{Milone2012} find a binary
+fraction of around $10\%$, again with a flat mass ratio distribution.
 
 
 
@@ -86,35 +85,35 @@ only single stars, and we then modify it to include binary stars.
 
 \subsection{Single Star Mass Functions}
 
-\ps{More details here?}
 
 To generate the mass functions comprised of single stars we use the \evolvemf{} algorithm from
-\code{SSPTools}\footnote{\url{www.github.com/pjs902/ssptools}}, a publicly available package for
-working with simple stellar populations.
+\code{SSPTools}\footnote{\url{www.github.com/pjs902/ssptools}} (first presented in
+\citealt{Balbinot2018}), a publicly available package for working with simple stellar populations.
 
 The \evolvemf{} algorithm combines precomputed grids of stellar evolution models and isochrones to
 accurately model the evolution of a given initial mass function, fully including the effects of
-stellar evolution, mass loss due to escaping stars and dynamical ejections. The algorithm returns a
-sampled mass function for a requested time, ideal for use in the \code{LIMEPY} models.
+stellar evolution as well as mass loss due to escaping stars and dynamical ejections. The algorithm
+returns a sampled mass function at a requested evolutionary time, ideal for use in the \code{LIMEPY}
+models.
 
 We parameterize the mass function as a broken power-law with breakpoints at $0.5 \mathrm{M}_\odot$
 and $1.0 \mathrm{M}_\odot$. We provide to \evolvemf{} the initial mass function slopes and
 breakpoints, the cluster age, metallicity and escape velocity, as well as parameters which control
-the mass loss due to escaping stars the specific binning to be used when the present day mass
-function is sampled. Figure \ref{fig:2/evolve_mf} shows the evolution of a mass function over a
-span of $10 \ \mathrm{Gyr}$.
+the mass loss due to escaping stars and the specific binning to be used when the present day mass
+function is sampled. Figure \ref{fig:2/evolve_mf} shows the evolution of a mass function over a span
+of $10 \ \mathrm{Gyr}$.
 
 \begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{figures/evolve_mf.png}
-	\caption{The evolution of a typical mass function from $t=0$ to $t=10000 \ \mathrm{Myr}$.
-		The stellar bins are plotted in green while the remnant bins are plotted in black,
-		the current main-sequence turn-off is plotted a dashed black line. As the mass
-		function ages, more and more main sequence stars evolve into remnants. Lower right:
-		The evolution of the total mass of the mass function is plotted as a fraction of the
-		initial mass. Mass loss is dominated by the effects of stellar evolution but also
-		has contribution from dynamical ejected and escaping stars.}
-	\label{fig:2/evolve_mf}
+    \centering
+    \includegraphics[width=\textwidth]{figures/evolve_mf.png}
+    \caption{The evolution of a typical mass function from $t=0$ to $t=10000 \ \mathrm{Myr}$.
+        The stellar bins are plotted in green while the remnant bins are plotted in black,
+        the current main-sequence turn-off is plotted a dashed black line. As the mass
+        function ages, more and more main sequence stars evolve into remnants. Lower right:
+        The evolution of the total mass of the mass function is plotted as a fraction of the
+        initial mass. Mass loss is dominated by the effects of stellar evolution but also
+        has contribution from dynamical ejected and escaping stars.}
+    \label{fig:2/evolve_mf}
 \end{figure}
 
 
@@ -122,32 +121,32 @@ span of $10 \ \mathrm{Gyr}$.
 
 In order to include binary stars in our mass functions we make use of the assumption that for the
 vast majority of their interactions with other objects, binary systems behave essentially as point
-masses given the fact that they are tightly bound. This means that in order to replicate the effects
+masses due to the fact that they are tightly bound. This means that in order to replicate the effects
 of a binary population in our mass function, we simply need to shift some of the mass in single
 stars into heavier bins which act as the "binary bins".
 
 
 We split this process up into several steps. First we divide the total binary fraction among the
-values if $q$ in the requested mass ration distribution. We weight the $f_b$ values assigned to the
-individual values of $q$ by the chosen mass ration distribution, so a flat mass ratio distribution
+values of $q$ in the requested mass ratio distribution. We weight the $f_b$ values assigned to the
+individual values of $q$ by the chosen mass ration distribution, a flat mass ratio distribution
 would have the total binary fraction divided evenly among the values while a "solar distribution"
 (see \citealt{Fisher2005}) would have a significantly higher portion of the total $f_b$ assigned to
-equal mass binaries. Figure \ref{fig:2/q-dists} shows the resulting mass ratio distributions using
-this method.
+equal mass binaries ($q=1$). Figure \ref{fig:2/q-dists} shows the resulting mass ratio distributions
+using this method.
 
 \begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{figures/q-dists.png}
-	\caption{The resulting mass ratio distributions for the "flat" and "solar" mass ratio
-		prescriptions. Both distributions are truncated and lowered at $q=0.2$ due to the
-		relative lack low very low mass stars within the mass functions, making the creation
-		of very low $q$ binaries impossible.}
-	\label{fig:2/q-dists}
+    \centering
+    \includegraphics[width=\textwidth]{figures/q-dists.png}
+    \caption{The resulting mass ratio distributions for the "flat" and "solar" mass ratio prescriptions.
+        Both distributions are truncated and lowered at $q=0.2$ due to the relative lack low very low mass
+        stars within the mass functions, making the creation of binary systems with a very low mass ratio
+        impossible.}
+    \label{fig:2/q-dists}
 \end{figure}
 
 
 After we have calculated the individual binary fractions for each value of $q$, we then go through
-each bin of main sequence stars and attempt to make binaries. The companion mass for a given bin is
+each bin of main-sequence stars and attempt to make binaries. The companion mass for a given bin is
 calculated using the current value of $q$ and the number of binaries to make is calculated using the
 binary fraction for the current value of $q$. After the companion mass and number of binaries are
 set, we then find the closest bin to the companion mass and subtract from the primary and companion
@@ -155,30 +154,29 @@ bins the mass corresponding to the calculated number of binaries, adding the sub
 new bin with a mean mass equal to the sum of each binary component.
 
 
-We repeat this process for each bin of main sequence stars until all bins have a binary fraction
-equal to that of the current value of $q$. We do this process for each value of $q$ in the mass
-ratio distribution, resulting in each main sequence bin having a binary fraction equal to the
-requested total binary fraction and a mass ratio distribution identical to the requested
-distribution.
+We repeat this process for each bin of main-sequence stars until all bins have a binary fraction
+corresponding to the weighted $f_b$ of the current value of $q$. We do this process for each value
+of $q$ in the mass ratio distribution, resulting in each main-sequence bin having a binary fraction
+equal to the total requested binary fraction and a mass ratio distribution identical to the
+requested distribution.
 
 
 This process tends to create on the order of 150 new bins in our mass function which dramatically
 increases the runtime of the \code{LIMEPY} models. In order to prevent this we group together binary
-bins of similar masses, forming on the order of 15 binary bins containing binary systems of similar
-total mass but differing mass ratios. Figure \ref{fig:2/shifted-mf} shows the original main sequence
-bins, plotted with the modified main sequence bins, binary bins and rebinned binary bins.
+bins of similar masses, forming 15 binary bins containing binary systems of similar total mass but
+differing mass ratios. Figure \ref{fig:2/shifted-mf} shows the original main sequence bins, plotted
+with the modified main sequence bins, binary bins and rebinned binary bins.
 
 
 \begin{figure}
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/shifted-mf.png}
-	\caption{The main-sequence portion of a mass function before and after binaries are added.
-		The blue circles are the original main sequence and the crosses are the modified main
-		sequence. The orange crosses show the single stars after mass has been removed to create
-		binaries and the many green crosses are the binary bins that are initially created. The red
-		crosses are the rebinned binary bins which are actually used in the computation of the
-		\code{LIMEPY} models.}
-	\label{fig:2/shifted-mf}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/shifted-mf.png}
+    \caption{The main-sequence portion of a mass function before and after binaries are added. The blue
+        circles are the original main sequence and the crosses are the modified main sequence. The orange
+        crosses show the single stars after mass has been removed to create binaries and the many green
+        crosses are the binary bins that are initially created. The red crosses are the rebinned binary bins
+        which are actually used in the computation of the \code{LIMEPY} models.}
+    \label{fig:2/shifted-mf}
 \end{figure}
 
 
@@ -191,17 +189,20 @@ package\footnote{\url{www.github.com/nmdickson/gcfit}}. \code{GCfit} provides a 
 for fitting \evolvemf{} and \code{LIMEPY} models to observations of clusters using either MCMC or
 Nested Sampling.
 
-\ps{Here we should say if we use Nested Sampling or MCMC and why  and what the setup is like.}
+For this project we use the MCMC backend which is powered by \code{EMCEE}
+\citet{Foreman-Mackey2013,Foreman-Mackey2019}. We use 1024 walkers, initialized at a reasonable
+estimate of the best-fit parameters. We run the chain for at least 2000 steps and discard the
+initial burn-in period.
 
 \subsection{Likelihoods}
 
 The majority of the likelihood functions we use are simple Gaussian likelihoods of the following form:
 
 \begin{equation}
-	\ln \left(\mathcal{L}\right)=\frac{1}{2}
-	\sum_{r}\left(\frac{\left(\sigma_{\mathrm{obs}}(r)
-		-\sigma_{\mathrm{model}}(r)\right)^{2}}{\delta \sigma_{\mathrm{obs}}^{2}(r)}
-	-\ln \left(\delta \sigma_{\mathrm{obs}}^{2}(r)\right)\right)
+    \ln \left(\mathcal{L}\right)=\frac{1}{2}
+    \sum_{r}\left(\frac{\left(\sigma_{\mathrm{obs}}(r)
+        -\sigma_{\mathrm{model}}(r)\right)^{2}}{\delta \sigma_{\mathrm{obs}}^{2}(r)}
+    -\ln \left(\delta \sigma_{\mathrm{obs}}^{2}(r)\right)\right)
 \end{equation}
 
 Where $\mathcal{L}$ is the likelihood, $\sigma$ is the line-of-sight velocity dispersion, $r$ is the
@@ -214,24 +215,41 @@ For the mass function and number density likelihoods we include additional nuisa
 terms to account for extra sources of error in the mass function data and the effects of potential
 escapers at the cluster boundary.
 
+\subsubsection{Pulsar Likelihood}
+
+\ps{I think we might want more detail here}
+
+As stated previously, the development of a method to use pulsar acceleration measurements to
+constrain the models was performed as part of an earlier project, but we will provide a brief
+description of the likelihood function.
+
+In order to assign a likelihood to a particular acceleration measurement we first use the
+\texttt{LIMEPY} models to generate a line-of-sight acceleration profile for the given model. We then
+use this acceleration profile to interpolate the possible line-of-sight positions for the pulsar.
+These line-of-sight positions are then assigned a likelihood based on a Gaussian centred at the
+line-of-sight position as calculated from the dispersion measure (DM) of the pulsar with a width
+equal to the uncertainty of the DM-based line-of-sight position. The likelihood is the sum of the
+height of the Gaussian at the interpolated line-of-sight positions from the model.
+
 
 
 
 \subsection{Fitting Mass Functions to Observations}
 
 When the mass function data was originally collected, the mass was recorded based on the position of
-the star on an isochrone fit to the cluster. This means that any binary stars in the sample are
-recorded as single stars a mass corresponding to a star with the average colour of the two binary
-components and a luminosity corresponding to the sum of the two components.
+the star on an isochrone fit to the cluster (see \citealt{Sollima2017} for details). This means that
+any binary stars in the sample are recorded as single stars a mass corresponding to a star with the
+average colour of the two binary components and a luminosity corresponding to the sum of the two
+components.
 
 Additionally, when we move mass around to create binary bins we remove mass from the surface density
 profiles which would be compared to the mass function data. In order to compensate for these
 effects, we rescale the surface density profiles to include the stars which are in binary bins,
 according to how they would have been observed using the observational method described above.
 
-In order to determine the observed mass we use a grid of MIST isochrones computed at a range of
-metallicities, at the age of the cluster. We use the isochrone to determine the luminosity of the
-binary components and then use the isochrone to determine the observed mass of the combined
-luminosities. We then scale the surface density profile of the main sequence bin which most closely
-matches the observed mass of the binary system by the total mass of the binary system which allows
-us to correct for both effects.
+In order to determine the observed mass we use a grid of MIST isochrones \citep{Dotter2016,Choi2016}
+computed at a range of metallicities, at the age of the cluster. We use the isochrone closest to the
+model parameters to determine the luminosity of the binary components and then use the isochrone to
+determine the observed mass of the combined luminosities. We then scale the surface density profiles
+of the main-sequence bin which most closely matches the observed mass of the binary system by the
+total mass of the binary system which allows us to correct for both effects.
