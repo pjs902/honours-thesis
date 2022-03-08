@@ -12,11 +12,35 @@ __all__ = ["BinaryShift"]
 # NamedTuple to hold the info for binary population in a combined bin
 BinaryPop = namedtuple("BinaryPop", ["mj", "q", "Mj"])
 
+
 class BinaryShift:
     def __init__(self, mj, Mj, MF, *, GCFit=False, model=None, verbose=False):
         """
         Initialize an instance of `BinaryShift` with the provided mass bins and MF.
-        TODO: full docstring
+
+        Parameters
+        ----------
+        mj : array_like
+            Mean masses of the mass bins.
+        Mj : array_like
+            Total masses of the mass bins.
+        MF : evolve_mf
+            The evolve_mf instance used to create the mass function, used for setting IFMR related
+            quantities.
+        GCFit : bool, optional
+            If True, `BinaryShift` will assume that a `GCfit` instance has been provided and will
+            use astropy units where appropriate. This should probably not be done manually and
+            instead use the `from_GCfit` machinery provided in `binaryshift.gcfit`.
+        model : Model, optional
+            The GCFit model to modify, again this should probably not be done manually and instead
+            should use the `from_GCfit` machinery provided in `binaryshift.gcfit`.
+        verbose : bool, optional
+            If True, print out a bunch of information as the shifting is being done.
+
+        Returns
+        -------
+        self : BinaryShift
+            The initialized instance.
         """
 
         if len(mj) != len(Mj):
@@ -54,10 +78,6 @@ class BinaryShift:
             self._mass_units = u.Msun
             self._mWD_max <<= self._mass_units
             self._mBH_min <<= self._mass_units
-
-            # do these after shiftting though
-            # TODO update masks
-            # TODO rescale density profiles
 
         self.verbose = verbose
 
@@ -203,14 +223,6 @@ class BinaryShift:
         self.BH_mask = np.append(self.BH_mask_original, [False] * nbins_added)
 
         Mj = Nj_shifted * mj
-        # TODO: here check if any bins are empty (might want to do this depending on
-        # if we use the original bins from SSPTools without removing the empty bins
-        # first in order to use all of the bin edges)
-        # cs = Nj_shifted > 10* self._mf.Nmin
-        # mj = mj[cs]
-        # Mj = Mj[cs]
-        # print(f"{cs = }")
-        # print(f"{self.BH_mask = }")
 
         # Here it might be nice to compute the "true fb" especially while we're troubleshooting
         self.fb_true = np.sum(Nj_shifted[self.bin_mask]) / (
@@ -353,7 +365,6 @@ class BinaryShift:
         ]
 
         # hold the q values for each bin
-
 
         rebinned_q_vals = [[] for _ in range(bins)]
 
