@@ -10,53 +10,46 @@
 As mentioned previously, this project is a continuation of a project done over the previous year in
 which we developed a method to use pulsar timing data to constrain our models. The final results of
 that project were a set of models that accurately reproduce all observables and fully incorporated
-the pulsar data. The best fit parameters of this set of models are listed in Table
-\ref{tab:parameters_nobin}. Figure \ref{fig:nobin_obs_panel} shows the model fits to most of
-the observables while Figure \ref{fig:nobin_mass_fun} shows the fit to the stellar mass function
-data.
+the pulsar data. Figure \ref{fig:nobin_obs_panel} shows the model fits to most of the observables
+while Figure \ref{fig:nobin_mass_fun} shows the fit to the stellar mass function data. In both
+cases, the models satisfyingly reproduce all observables. The median and $1\sigma$ intervals of the
+best fit parameters are listed in Table \ref{tab:parameters_nobin}.
 
 One of the most interesting results of the previous project was the models' ability to constrain the
 black hole content within 47\,Tuc. Figure \ref{fig:prev_nobin_BH_dists} shows the distribution of
-black hole mass and number in  our set of best fit models. Both the total mass and number are quite
-well contained especially in comparison to the previous constraints in the literature \citep[see
-	e.g.][]{Henault-Brunet2020,Weatherford2019}.
+mass in black hole mass and number of black holes in our set of best fit models, which come out to
+$240^{+245}_{-146} \mathrm{M}_\odot$ and $41^{+27}_{-22}$ respectively. Both the total mass and
+number are quite well contained especially in comparison to the previous constraints in the
+literature \citep[see e.g.][]{Henault-Brunet2020,Weatherford2019}.
 
 
-BH Mass [Msol] = 239.638 (+245.195 -145.800)
-BH mass percentiles:
-95: 679.2848600704087
-99: 843.6530442277326
-BH Number percentiles:
-95: 89.77947118953271
-99: 107.85053470005765
-BH Number  = 41.143 (+27.184 -21.507)
 
 
-% \begin{table}
-% 	\centering
-% 	\caption{Best fit parameters with $1-\sigma$ intervals.}
-% 	\begin{tabular}{l l}
+\begin{table}
+	\centering
+	\caption{Best fit parameters with $1\sigma$ intervals.}
+	\begin{tabular}{l l}
 
-% 		\hline
-% 		Parameter                 & Value                     \\
-% 		\hline
-% 		$\Phi_0$                  & $6.444^{+0.137}_{-0.126}$ \\
-% 		$M/10^6 \mathrm{M}_\odot$ & $0.864^{+0.009}_{-0.009}$ \\
-% 		$r_h / pc$                & $6.612^{+0.069}_{-0.067}$ \\
-% 		$\log{r_a / pc}$          & $1.425^{+0.039}_{-0.035}$ \\
-% 		$g$                       & $1.264^{+0.064}_{-0.072}$ \\
-% 		$\delta$                  & $0.397^{+0.019}_{-0.020}$ \\
-% 		$s^2$                     & $0.019^{+0.059}_{-0.013}$ \\
-% 		$F$                       & $2.972^{+0.019}_{-0.039}$ \\
-% 		$\alpha_1$                & $0.468^{+0.047}_{-0.041}$ \\
-% 		$\alpha_2$                & $1.178^{+0.053}_{-0.057}$ \\
-% 		$\alpha_3$                & $2.117^{+0.039}_{-0.038}$ \\
-% 		$BH_{ret} (\%)$           & $0.128^{+0.084}_{-0.061}$ \\
-% 		$d$                       & $4.433^{+0.021}_{-0.023}$ \\
-% 		\hline
-% 	\end{tabular}
-% 	\label{tab:parameters_nobin}
-% \end{table}
+		\hline
+		Parameter                 & Value                  \\
+		\hline
+		$\Phi_0$                  & $6.62^{+0.11}_{-0.11}$ \\
+		$M/10^6 \mathrm{M}_\odot$ & $0.88^{+0.01}_{-0.01}$ \\
+		$r_h / pc$                & $6.82^{+0.08}_{-0.07}$ \\
+		$\log{r_a / pc}$          & $1.33^{+0.04}_{-0.04}$ \\
+		$g$                       & $1.03^{+0.08}_{-0.08}$ \\
+		$\delta$                  & $0.37^{+0.02}_{-0.01}$ \\
+		$s^2$                     & $0.01^{+0.03}_{-0.01}$ \\
+		$F$                       & $3.49^{+0.25}_{-0.22}$ \\
+		$\alpha_1$                & $0.47^{+0.06}_{-0.05}$ \\
+		$\alpha_2$                & $1.18^{+0.06}_{-0.07}$ \\
+		$\alpha_3$                & $2.15^{+0.04}_{-0.04}$ \\
+		$BH_{ret} (\%)$           & $0.13^{+0.13}_{-0.08}$ \\
+		$d$                       & $4.42^{+0.02}_{-0.02}$ \\
+		\hline
+	\end{tabular}
+	\label{tab:parameters_nobin}
+\end{table}
 
 \begin{figure}
 	\centering
@@ -70,54 +63,62 @@ BH Number  = 41.143 (+27.184 -21.507)
 \ps{Describe the results for the low binary fraction model.}
 
 
-BH Mass: 114.252 solMass + 79.271 solMass - 144.032 solMass
-BH Number: 22.058 + 13.407 - 18.533
+In the models with a $2\%$ binary fraction, we find a similar ability to reproduce all the
+observables, Figure \ref{fig:low_bin_model_obs_panel} and Figure \ref{fig:low_bin_model_mass_fun}
+show the model fits compared to the data. Once again the models satisfyingly reproduce all
+observables.
+
+The black hole content in these models is also quite well contained, though different from the
+models without binaries. Figure \ref{fig:low_bin_model_BH_dists} shows the distribution of mass in
+black holes and number of black holes \ps{Which no longer gaussian, instead use 95, 99 perentaile
+	limit? Why is this so different from $0\%$ case? This makes me want to rerun the fits for no
+	binaries with all the updated data and any other changes.}
 
 
+$114^{+79}_{-144} \mathrm{M}_\odot$
+$22^{+13}_{-19}$ Number
 
 
-In the low binary fraction case, the model is similar to the model without binaries. Maybe?
+The best-fit parameters and their $1\sigma$ intervals are listed in Table \ref{tab:parameters_lowbin}.
 
-\ps{Figures with usual model quantities, also the binary mass histogram and the density profiles}
 
+\begin{table}
+	\centering
+	\caption{Best fit parameters with $1\sigma$ intervals.}
+	\begin{tabular}{l l}
+
+		\hline
+		Parameter                 & Value                  \\
+		\hline
+		$\Phi_0$                  & $6.28^{+0.10}_{-0.10}$ \\
+		$M/10^6 \mathrm{M}_\odot$ & $0.89^{+0.01}_{-0.01}$ \\
+		$r_h / pc$                & $6.74^{+0.06}_{-0.06}$ \\
+		$\log{r_a / pc}$          & $1.50^{+0.06}_{-0.05}$ \\
+		$g$                       & $1.36^{+0.06}_{-0.06}$ \\
+		$\delta$                  & $0.43^{+0.02}_{-0.02}$ \\
+		$s^2$                     & $0.01^{+0.01}_{-0.00}$ \\
+		$F$                       & $3.24^{+0.13}_{-0.12}$ \\
+		$\alpha_1$                & $0.37^{+0.02}_{-0.02}$ \\
+		$\alpha_2$                & $1.47^{+0.05}_{-0.05}$ \\
+		$\alpha_3$                & $2.18^{+0.04}_{-0.04}$ \\
+		$BH_{ret} (\%)$           & $0.08^{+0.09}_{-0.05}$ \\
+		$d$                       & $4.42^{+0.02}_{-0.02}$ \\
+		\hline
+	\end{tabular}
+	\label{tab:parameters_lowbin}
+\end{table}
 
 \begin{figure}
-	\begin{center}
-\includegraphics[width=0.9\textwidth]{figures/low_bin_model/density.png}
-	\end{center}
-\caption{Density Profiles}
-	\label{fig:low_bin_model_densities}
-\end{figure}
-
-\begin{figure}
-	\begin{center}
-		\includegraphics[width=0.9\textwidth]{figures/low_bin_model/mass_enc.png}
-	\end{center}
-	\caption{Density Profiles}
-	\label{fig:low_bin_model_enclosed_mass}
-\end{figure}
-
-\begin{figure}
-	\begin{center}
-		\includegraphics[width=0.9\textwidth]{figures/low_bin_model/binary_mass.png}
-	\end{center}
-	\caption{Total mass in binaries}
-	\label{fig:low_bin_model_binary_mass}
-\end{figure}
-
-\begin{figure}
-	\begin{center}
-		\includegraphics[width=0.9\textwidth]{figures/low_bin_model/obs_panel.png}
-	\end{center}
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/low_bin_model/obs_panel.png}
 	\caption{Observables}
 	\label{fig:low_bin_model_obs_panel}
 \end{figure}
 
 
 \begin{figure}
-	\begin{center}
-		\includegraphics[width=\textwidth]{figures/low_bin_model/mass_fun.png}
-	\end{center}
+	\centering
+	\includegraphics[width=\textwidth]{figures/low_bin_model/mass_fun.png}
 	\caption{Mass function}
 	\label{fig:low_bin_model_mass_fun}
 \end{figure}
@@ -132,15 +133,50 @@ In the low binary fraction case, the model is similar to the model without binar
 \end{figure}
 
 
+A binary fraction of $2\%$ results in a total mass in binaries of around $15800 \mathrm{M}_\odot$,
+Figure \ref{fig:low_bin_model_Bin_mass} shows the distribution of mass in binaries in our set of
+best-fitting models.
 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/low_bin_model/binary_mass.png}
+	\caption{Mass in Binaries}
+	\label{fig:low_bin_model_Bin_mass}
+\end{figure}
 
 
 \subsection{High Binary Fraction}
-\ps{Describe the results for the high binary fraction model.}
 
-\ps{Figures with usual model quantities, also the binary mass histogram and the density profiles}
+As is the case for the models with a low binary fraction, the models with a $10\%$ binary
+fraction fit the observables very well. Figures \ref{fig:highbin_obs_panel} and
+\ref{fig:highbin_mass_fun} show the model fits compared to the data.
 
+\begin{table}
+	\centering
+	\caption{Best fit parameters with $1\sigma$ intervals.}
+	\begin{tabular}{l l}
 
+		\hline
+		Parameter                 & Value                  \\
+		\hline
+		$\Phi_0$                  & $6.36^{+0.09}_{-0.09}$ \\
+		$M/10^6 \mathrm{M}_\odot$ & $0.89^{+0.01}_{-0.01}$ \\
+		$r_h / pc$                & $6.77^{+0.06}_{-0.06}$ \\
+		$\log{r_a / pc}$          & $1.48^{+0.06}_{-0.05}$ \\
+		$g$                       & $1.34^{+0.06}_{-0.06}$ \\
+		$\delta$                  & $0.41^{+0.01}_{-0.01}$ \\
+		$s^2$                     & $0.01^{+0.01}_{-0.00}$ \\
+		$F$                       & $3.16^{+0.13}_{-0.12}$ \\
+		$\alpha_1$                & $0.45^{+0.02}_{-0.02}$ \\
+		$\alpha_2$                & $1.53^{+0.05}_{-0.04}$ \\
+		$\alpha_3$                & $2.46^{+0.05}_{-0.05}$ \\
+		$BH_{ret} (\%)$           & $0.17^{+0.18}_{-0.12}$ \\
+		$d$                       & $4.43^{+0.02}_{-0.02}$ \\
+		\hline
+	\end{tabular}
+	\label{tab:parameters_highbin}
+\end{table}
 
 BH Mass: 80.697 solMass + 80.697 solMass - 120.702 solMass
 BH Number: 12.162 + 12.162 - 13.332
@@ -152,6 +188,20 @@ BH Number: 12.162 + 12.162 - 13.332
 	\caption{BH distributions}
 	\label{fig:high_bin_model_BH_dists}
 \end{figure}
+
+
+Now around $81000 \mathrm{M}_\odot$ in binaries.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/high_bin_model/binary_mass.png}
+	\caption{Binary Mass}
+	\label{fig:high_bin_model_Bin_mass}
+\end{figure}
+
+
+
+
 
 \section{Discussion}
 
