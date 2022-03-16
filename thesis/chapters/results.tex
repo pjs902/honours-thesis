@@ -70,7 +70,7 @@ observables.
 
 The black hole content in these models is also quite well contained, though different from the
 models without binaries. Figure \ref{fig:low_bin_model_BH_dists} shows the distribution of mass in
-black holes and number of black holes \ps{Which no longer gaussian, instead use 95, 99 perentaile
+black holes and number of black holes \ps{Which no longer Gaussian, instead use 95, 99 percentile
 	limit? Why is this so different from $0\%$ case? This makes me want to rerun the fits for no
 	binaries with all the updated data and any other changes.}
 
@@ -178,9 +178,9 @@ fraction fit the observables very well. Figures \ref{fig:highbin_obs_panel} and
 	\label{tab:parameters_highbin}
 \end{table}
 
-BH Mass: 80.697 solMass + 80.697 solMass - 120.702 solMass
-BH Number: 12.162 + 12.162 - 13.332
 
+$81 ^{+81}_{-121} \mathrm{M}_\odot$
+$12^{+12}_{-13}$
 
 \begin{figure}
 	\centering
@@ -205,15 +205,62 @@ Now around $81000 \mathrm{M}_\odot$ in binaries.
 
 \section{Discussion}
 
+
+
+In each set of models, all observables are very well reproduced, showing the flexibility of the
+\code{LIMEPY} models. Due to this flexibility, it is unlikely that with current observations we
+would be able to infer anything about the binary population of a cluster using this technique.
+Instead, this method should be used in cases where there are existing estimates of the binary
+population within a cluster in order to add a realistic binary component to \code{LIMEPY} models
+
+All three sets of models mostly agrees in terms of the recovered model parameters. In particular,
+the total cluster mass is identical in each set of models.
+
+\ps{I'm thinking this might be even more pronounced after we rerun the no binary case}
+
+
 \subsection{The effects of the binaries}
 
-Generally mimic a small population of remnants?
+
+
+Table \ref{tab:BH_contents} shows the distribution of BHs for each set of models. We can see a clear
+decrease in the black hole content as we add more and more binaries. This effect was also found by
+\citet{Mann2019} (see also associated erratum \citealt{Mann2020}) when they modelled the central
+kinematic of 47\,Tuc.
+
+% Table comparing bh content in each set of models
+\begin{table}
+
+\centering
+\caption{Binary fraction in each set of models}
+\begin{tabular}{c c c}
+	\hline
+	Binary Fraction $(\%)$ & Mass in BHs                          & Number of BHs    \\
+	\hline
+	0                      & $240^{+245}_{-146} \mathrm{M}_\odot$ & $41^{+27}_{-22}$ \\
+	2                      & $114^{+79}_{-144} \mathrm{M}_\odot$  & $22^{+13}_{-19}$ \\
+	10                     & $81 ^{+81}_{-121} \mathrm{M}_\odot$  & $12^{+12}_{-13}$ \\
+	\hline
+\end{tabular}
+\label{tab:BH_contents}
+\end{table}
 
 
 
+When we examine the density profiles for the models with a binary fraction of $10\%$ (see Figure
+\ref{fig:highbin_model_densities}), we can see that the binary stars are indeed more centrally
+concentrated than typical main-sequence stars as predicted and in the central regions, actually
+contribute more to mass density than single stars \ps{Is this true? The MS profile includes the
+	binaries too (I think), why is it lower?}, while they contribute more than the neutron stars at all
+radii.
 
 
-
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/high_bin_model/density.png}
+	\caption{High Binary Densities}
+	\label{fig:highbin_model_densities}
+\end{figure}
 
 
 
