@@ -227,9 +227,21 @@ In order to assign a likelihood to a particular acceleration measurement we firs
 \texttt{LIMEPY} models to generate a line-of-sight acceleration profile for the given model. We then
 use this acceleration profile to interpolate the possible line-of-sight positions for the pulsar.
 These line-of-sight positions are then assigned a likelihood based on a Gaussian centred at the
-line-of-sight position as calculated from the dispersion measure (DM) of the pulsar with a width
-equal to the uncertainty of the DM-based line-of-sight position. The likelihood is the sum of the
-height of the Gaussian at the interpolated line-of-sight positions from the model.
+line-of-sight position as calculated from the dispersion measure (DM) of the pulsar or the density
+of pulsar-mass objects at that radius. This likelihood distribution is then convolved with a
+Gaussian distribution representing the error on the pulsar's acceleration measurement. A resulting
+probability distribution from this method is shown in Figure \ref{fig:pulsar-likelihood}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/pulsar-likelihood.png}
+    \caption{The resulting probability distribution for period derivatives of pulsar 47\,Tuc S from
+        the method described above. The green line is the likelihood of a given period
+        derivative measurement and the yellow line is the measured period derivative. The asymmetry in
+        the distribution is due to the intrinsic spin-down of the pulsar, biasing the distribution to
+        positive values of $\dot{P}/P$.}
+    \label{fig:pulsar-likelihood}
+\end{figure}
 
 
 
@@ -239,17 +251,28 @@ height of the Gaussian at the interpolated line-of-sight positions from the mode
 When the mass function data was originally collected, the mass was recorded based on the position of
 the star on an isochrone fit to the cluster (see \citealt{Sollima2017} for details). This means that
 any binary stars in the sample are recorded as single stars a mass corresponding to a star with the
-average colour of the two binary components and a luminosity corresponding to the sum of the two
+combined colour of the two binary components and a luminosity corresponding to the sum of the two
 components.
 
 Additionally, when we move mass around to create binary bins we remove mass from the surface density
-profiles which would be compared to the mass function data. In order to compensate for these
-effects, we rescale the surface density profiles to include the stars which are in binary bins,
-according to how they would have been observed using the observational method described above.
+profiles which would normally be compared to the mass function data. In order to compensate for
+these effects, we rescale the surface density profiles to include the stars which are in binary
+bins, according to how they would have been observed using the observational method described above.
 
 In order to determine the observed mass we use a grid of MIST isochrones \citep{Dotter2016,Choi2016}
 computed at a range of metallicities, at the age of the cluster. We use the isochrone closest to the
-model parameters to determine the luminosity of the binary components and then use the isochrone to
-determine the observed mass of the combined luminosities. We then scale the surface density profiles
-of the main-sequence bin which most closely matches the observed mass of the binary system by the
-total mass of the binary system which allows us to correct for both effects.
+model parameters to determine the luminosity of the binary components and then again use the
+isochrone to determine the observed mass of the combined luminosities. Figure \ref{fig:2/isochrone}
+shows the derived relation between stellar mass and luminosity used for these conversions. After
+having determined at what mass a binary system would have been "observed", we then scale the surface
+density profiles of the main-sequence bin which most closely matches the observed mass of the binary
+system by the total mass of the binary system which allows us to correct for both effects.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/isochrone_conversion.png}
+    \caption{Relation between stellar mass and luminosity through \emph{HST}/WFC3's F814W filter,
+        derived from a MIST isochrone.}
+    \label{fig:2/isochrone}
+\end{figure}

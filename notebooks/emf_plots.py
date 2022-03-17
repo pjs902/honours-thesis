@@ -531,12 +531,8 @@ class evolve_mf:
 
 if __name__ == "__main__":
 
-
-
     fig, axes = plt.subplots(2, 2, figsize=(14, 10))
     axes = axes.flatten()
-
-
 
     # Some integration settings
     Ndot = 0  # -20  # per Myr
@@ -548,7 +544,13 @@ if __name__ == "__main__":
     FeHe = -0.7  # Metallicity
 
     # tout = np.linspace(3e3, 3e3, 1)
-    tout = np.array([0, 500, 10000,])
+    tout = np.array(
+        [
+            0,
+            500,
+            10000,
+        ]
+    )
     # masses and slopes that define double power-law IMF
     m123 = [0.1, 0.5, 1.0, 100]
     a12 = [-0.5, -1.35, -2.5]
@@ -563,12 +565,11 @@ if __name__ == "__main__":
 
     if plotmf:
 
-
         print(" Nsteps = ", f.nstep)
         print(" Start plotting ...")
         for i in range(len(f.tout)):
 
-            print(f'{axes = }')
+            print(f"{axes = }")
             plt.sca(axes[i])
             # plt.axes([0.13, 0.13, 0.8, 0.8])
             plt.xlim(0.8e-1, 1.3e2)
@@ -599,7 +600,6 @@ if __name__ == "__main__":
             plt.plot([mto, mto], [1e-4, 1e9], "k--")
             plt.tight_layout()
 
-
     if plotm:
         # Some integration settings
         Ndot = 0  # -20  # per Myr
@@ -610,7 +610,7 @@ if __name__ == "__main__":
         BH_ret_dyn = 0.5 / 100  # Dynamical BH retention
         FeHe = -0.7  # Metallicity
 
-        tout = np.r_[[0],np.geomspace(0.1, 11750, 25)]
+        tout = np.r_[[0], np.geomspace(0.1, 11750, 25)]
         # tout = np.array([0, 500, 10000,])
         # masses and slopes that define double power-law IMF
         m123 = [0.1, 0.5, 1.0, 100]
