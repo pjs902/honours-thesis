@@ -61,6 +61,7 @@ def main():
     for model in tqdm(models):
         total_BH_mass = np.sum(model.BH_Mj.value)
         BHs.append(total_BH_mass)
+
         total_BH_N = np.sum(model.BH_Nj)
         N_BHs.append(total_BH_N)
 
@@ -69,6 +70,7 @@ def main():
 
     # do the plots
     plot_BHs(BHs)
+
     plot_N_BHs(N_BHs)
 
     plot_mjs_BHs(mj_BHs, mj_BHs_weights)
@@ -103,8 +105,9 @@ def plot_BHs(BHs):
         f"BH mass percentiles:\n 95: {np.percentile(BHs,95)} \n 99: {np.percentile(BHs,99)}"
     )
 
-    # plt.axvline(np.percentile(BHs, 95), ls="--")
+    plt.axvline(np.percentile(BHs, 95), ls="--")
 
+    np.save("BH_masses", BHs)
     plt.tight_layout()
     plt.plot()
     plt.tight_layout()
@@ -153,7 +156,9 @@ def plot_N_BHs(N_BHs):
         + txt.split("_")[1].split("^")[0].split("{")[1].split("}")[0]
         + ")"
     )
+    plt.axvline(np.percentile(N_BHs, 95), ls="--")
 
+    np.save("N_BHs", N_BHs)
     plt.plot()
     plt.tight_layout()
     plt.savefig("BH_N_contours.png", dpi=300)

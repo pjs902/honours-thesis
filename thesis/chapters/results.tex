@@ -207,45 +207,108 @@ Now around $81000 \mathrm{M}_\odot$ in binaries.
 
 
 
+
+
+
+
+
+\begin{table}
+	\centering
+	\caption{Best fit parameters with $1\sigma$ intervals.}
+	\begin{tabular}{l l l l}
+
+		\hline
+		Parameter                 & Value                                                                    \\
+		\hline
+		$f_b$                     & $0\%$                  & $2\%$                  & $10\%$                 \\
+		$\Phi_0$                  & $6.62^{+0.11}_{-0.11}$ & $6.28^{+0.10}_{-0.10}$ & $6.36^{+0.09}_{-0.09}$ \\
+		$M/10^6 \mathrm{M}_\odot$ & $0.88^{+0.01}_{-0.01}$ & $0.89^{+0.01}_{-0.01}$ & $0.89^{+0.01}_{-0.01}$ \\
+		$r_h / pc$                & $6.82^{+0.08}_{-0.07}$ & $6.74^{+0.06}_{-0.06}$ & $6.77^{+0.06}_{-0.06}$ \\
+		$\log{r_a / pc}$          & $1.33^{+0.04}_{-0.04}$ & $1.50^{+0.06}_{-0.05}$ & $1.48^{+0.06}_{-0.05}$ \\
+		$g$                       & $1.03^{+0.08}_{-0.08}$ & $1.36^{+0.06}_{-0.06}$ & $1.34^{+0.06}_{-0.06}$ \\
+		$\delta$                  & $0.37^{+0.02}_{-0.01}$ & $0.43^{+0.02}_{-0.02}$ & $0.41^{+0.01}_{-0.01}$ \\
+		$s^2$                     & $0.01^{+0.03}_{-0.01}$ & $0.01^{+0.01}_{-0.00}$ & $0.01^{+0.01}_{-0.00}$ \\
+		$F$                       & $3.49^{+0.25}_{-0.22}$ & $3.24^{+0.13}_{-0.12}$ & $3.16^{+0.13}_{-0.12}$ \\
+		$\alpha_1$                & $0.47^{+0.06}_{-0.05}$ & $0.37^{+0.02}_{-0.02}$ & $0.45^{+0.02}_{-0.02}$ \\
+		$\alpha_2$                & $1.18^{+0.06}_{-0.07}$ & $1.47^{+0.05}_{-0.05}$ & $1.53^{+0.05}_{-0.04}$ \\
+		$\alpha_3$                & $2.15^{+0.04}_{-0.04}$ & $2.18^{+0.04}_{-0.04}$ & $2.46^{+0.05}_{-0.05}$ \\
+		$BH_{ret} (\%)$           & $0.13^{+0.13}_{-0.08}$ & $0.08^{+0.09}_{-0.05}$ & $0.17^{+0.18}_{-0.12}$ \\
+		$d$                       & $4.42^{+0.02}_{-0.02}$ & $4.42^{+0.02}_{-0.02}$ & $4.43^{+0.02}_{-0.02}$ \\
+		\hline
+	\end{tabular}
+	\label{tab:parameters_all}
+\end{table}
+
+
+
+
+
+
+
 In each set of models, all observables are very well reproduced, showing the flexibility of the
 \code{LIMEPY} models. Due to this flexibility, it is unlikely that with current observations we
 would be able to infer anything about the binary population of a cluster using this technique.
 Instead, this method should be used in cases where there are existing estimates of the binary
 population within a cluster in order to add a realistic binary component to \code{LIMEPY} models
 
-All three sets of models mostly agrees in terms of the recovered model parameters. In particular,
-the total cluster mass is identical in each set of models.
-
-\ps{I'm thinking this might be even more pronounced after we rerun the no binary case}
 
 
 \subsection{The effects of the binaries}
 
 
+Table \ref{tab:parameters_all} shows the recovered parameters for each set of models, we can see a
+clear agreement in the recovered values which affect the overall structure of the cluster. In
+particular, the total cluster mass, half-mass radius, anisotropy radius, truncation parameter,
+degree of mass segregation and distance are all either identical or within $1\sigma$ of each other
+for all three sets of models.
 
-Table \ref{tab:BH_contents} shows the distribution of BHs for each set of models. We can see a clear
-decrease in the black hole content as we add more and more binaries. This effect was also found by
-\citet{Mann2019} (see also associated erratum \citealt{Mann2020}) when they modelled the central
-kinematic of 47\,Tuc.
+\ps{I'm thinking this might be even more pronounced after we rerun the no binary case, in which case
+	we should highlight which parameters stay mostly the same, and which change.}
+
+
+The most striking change in model parameters are the values pertaining to the mass function, in
+particular, the $\alpha_3$ parameter which controls the slope of the high-mass mass function. In the
+case with a $10\%$ binary fraction, this parameter is much larger than in the other two cases
+showing that the abundance of binary stars reduce the need for high mass stars and remnants.
+
+We can see that there is still some need for BHs in some of the models as the $BH_{ret}$ parameter
+is much larger in the model with many binaries, this means that even though the initial mass
+function produces many fewer black holes, more of these black holes are getting retained throughout
+the evolution of the cluster. \ps{Don't really want this to come off as if we're saying this has
+	huge physical significance, just that some BHs are required and this is how the models get them even
+	with the steeper mass function.}
+
+Table \ref{tab:BH_contents} and Figure \ref{fig:BH_KDEs} shows the distribution of BHs for each set
+of models. We can see a clear decrease in the black hole content as we add more binaries. This
+effect was also found by \citet{Mann2019} (see also associated erratum \citealt{Mann2020}) when they
+modelled the central kinematics of 47\,Tuc.
+
+\ps{Explain this effect, more central binaries contribute to central velocity dispersion, no need
+	for so many heavy remnants}
 
 % Table comparing bh content in each set of models
 \begin{table}
-
-\centering
-\caption{Binary fraction in each set of models}
-\begin{tabular}{c c c}
-	\hline
-	Binary Fraction $(\%)$ & Mass in BHs                          & Number of BHs    \\
-	\hline
-	0                      & $240^{+245}_{-146} \mathrm{M}_\odot$ & $41^{+27}_{-22}$ \\
-	2                      & $114^{+79}_{-144} \mathrm{M}_\odot$  & $22^{+13}_{-19}$ \\
-	10                     & $81 ^{+81}_{-121} \mathrm{M}_\odot$  & $12^{+12}_{-13}$ \\
-	\hline
-\end{tabular}
-\label{tab:BH_contents}
+	\centering
+	\caption{Binary fraction in each set of models}
+	\begin{tabular}{c c c}
+		\hline
+		Binary Fraction $(\%)$ & Mass in BHs                          & Number of BHs    \\
+		\hline
+		0                      & $240^{+245}_{-146} \mathrm{M}_\odot$ & $41^{+27}_{-22}$ \\
+		2                      & $114^{+144}_{-79} \mathrm{M}_\odot$  & $22^{+19}_{-13}$ \\
+		10                     & $81 ^{+121}_{-81} \mathrm{M}_\odot$  & $12^{+13}_{-12}$ \\
+		\hline
+	\end{tabular}
+	\label{tab:BH_contents}
 \end{table}
 
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/BH_KDEs.png}
+	\caption{Distribution of BHs in each set of models}
+	\label{fig:BH_KDEs}
+\end{figure}
 
 When we examine the density profiles for the models with a binary fraction of $10\%$ (see Figure
 \ref{fig:highbin_model_densities}), we can see that the binary stars are indeed more centrally
@@ -253,6 +316,9 @@ concentrated than typical main-sequence stars as predicted and in the central re
 contribute more to mass density than single stars \ps{Is this true? The MS profile includes the
 	binaries too (I think), why is it lower?}, while they contribute more than the neutron stars at all
 radii.
+
+\ps{Figure here showing enclosed mass in black holes, enclosed mass in binaries+black holes to show
+	how binaries make up for some BHs.}
 
 
 \begin{figure}
@@ -268,7 +334,15 @@ radii.
 
 \ps{Implications for past/future work}
 
+If you believe the $2\%$ estimate for 47 Tuc, all is well. If you think it's higher, you should
+consider binaries
+
 \ps{Do binaries in df models actually matter?}
+
+
+For clusters where we expect lots of binaries, maybe 3201, they should probably be considered, if
+your goal is to infer remnant populations. For clusters where we don't expect binaries, probably
+doesn't matter too much.
 
 
 
