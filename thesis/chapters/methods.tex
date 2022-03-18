@@ -47,13 +47,13 @@ of HST based stellar mass function data from
 Baumgardt\footnote{\url{https://people.smp.uq.edu.au/HolgerBaumgardt/globular/}} (2021, priv.
 comm.), which represent an updated and augmented version of the stellar mass functions found in
 \citet{Sollima2017}. This compilation is made up of several HST fields at varying distances from the
-cluster centre. These fields extend out to $14 '$ from the cluster centres for 47\,Tuc and cover a
-mass range of $0.16 - 0.8 \ \mathrm{M}_\odot$. The large radial and mass ranges allow us to
-constrain the degree mass segregation in the clusters.
+cluster centre. These fields extend out to $14 '$ from the cluster centre and cover a mass range of
+$0.16 - 0.8 \ \mathrm{M}_\odot$. The large radial and mass ranges allow us to constrain the degree
+mass segregation in the clusters.
 
 \subsection{Pulsar Data}
 
-For 47\,Tuc, we make use of its large population of millisecond pulsars (MSPs) to place further
+We make use of the large population of millisecond pulsars (MSPs) in 47\,Tuc to place further
 constraints on its mass distribution. We use both the spin and orbital period timing solutions from
 \citet{Freire2017}, \citet{Ridolfi2016} and \citet{Freire2018}. We also consider the dispersion
 measures of the pulsars which, when combined with internal gas models from \citet{Abbate2018}, allow
@@ -189,9 +189,9 @@ for fitting \evolvemf{} and \code{LIMEPY} models to observations of clusters usi
 Nested Sampling.
 
 For this project we use the MCMC backend which is powered by \code{EMCEE}
-\citet{Foreman-Mackey2013,Foreman-Mackey2019}. We use 1024 walkers, initialized at a reasonable
-estimate of the best-fit parameters. We run the chain for at least 2000 steps and discard the
-initial burn-in period.
+\citet{Foreman-Mackey2013,Foreman-Mackey2019}. We use 1024 walkers, initialized at a small
+randomized sphere around a reasonable estimate of the best-fit parameters. We run the chain for 2500
+steps and discard the initial 2000 steps as the burn-in period.
 
 \subsection{Likelihoods}
 
@@ -217,28 +217,32 @@ escapers at the cluster boundary.
 
 \subsubsection{Pulsar Likelihood}
 
-\ps{I think we might want more detail here}
-
 As stated previously, the development of a method to use pulsar acceleration measurements to
 constrain the models was performed as part of an earlier project, but we will provide a brief
 description of the likelihood function.
 
-In order to assign a likelihood to a particular acceleration measurement we first use the
+The pulsar accelerations are derived from measurements of the pulsar's period derivative
+($\dot{P}/P$) which is affected by the pulsar's acceleration, analogously to the Doppler effect. In
+order to assign a likelihood to a particular acceleration measurement we first use the
 \texttt{LIMEPY} models to generate a line-of-sight acceleration profile for the given model. We then
-use this acceleration profile to interpolate the possible line-of-sight positions for the pulsar.
-These line-of-sight positions are then assigned a likelihood based on a Gaussian centred at the
-line-of-sight position as calculated from either the dispersion measure (DM) of the pulsar or the
-density of pulsar-mass objects at that radius. This likelihood distribution is then convolved with a
-Gaussian distribution representing the error on the pulsar's acceleration measurement. A resulting
-probability distribution from this method is shown in Figure \ref{fig:pulsar-likelihood}.
+use this acceleration profile to interpolate the possible line-of-sight positions for the pulsar
+within the cluster. These line-of-sight positions are then assigned a likelihood through one of two
+methods. When possible the likelihood is based on a Gaussian centred at the pulsar's line-of-sight
+position as calculated from the dispersion measure (DM) of the pulsar. When the DM of the pulsar is
+not available, the density of pulsar-mass objects is used to assign a likelihood of observing a
+pulsar at that position. This likelihood distribution is then convolved with a Gaussian distribution
+representing the error on the pulsar's acceleration measurement as well as adjusted for typical
+spin-down of a pulsar, the effects of the pulsar's proper motion and the effects of the galactic
+potential. A resulting probability distribution from this method is shown in Figure
+\ref{fig:pulsar-likelihood}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/pulsar-likelihood.png}
     \caption{The resulting probability distribution for period derivatives of pulsar 47\,Tuc S from
-        the method described above. The green line is the likelihood of a given period
-        derivative measurement and the yellow line is the measured period derivative. The asymmetry in
-        the distribution is due to the intrinsic spin-down of the pulsar, biasing the distribution to
+        the method described above. The green line is the likelihood of a given period derivative
+        measurement and the yellow line is the measured period derivative. The asymmetry in the
+        distribution is due to the intrinsic spin-down of the pulsar, biasing the distribution to
         positive values of $\dot{P}/P$.}
     \label{fig:pulsar-likelihood}
 \end{figure}
@@ -274,7 +278,8 @@ system by the total mass of the binary system which allows us to correct for bot
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/isochrone_conversion.png}
-    \caption{Relation between stellar mass and luminosity through \emph{HST}/WFC3's F814W filter,
-        derived from a MIST isochrone.}
+    \caption{Relation between stellar mass and luminosity through HST/WFC3's F814W filter, derived
+        from a MIST isochrone. The F814W filter is used to replicate the original observations, see
+        \citet{Sollima2017} for further details.}
     \label{fig:2/isochrone}
 \end{figure}
