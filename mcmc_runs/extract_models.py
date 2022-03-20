@@ -33,11 +33,11 @@ plt.rcParams["mathtext.fontset"] = "cm"
 
 
 # Config
-DISCARD = 1500
+DISCARD = 1800
 N_MODELS = 1024
 FB = 0.0
 N_CORES = 6
-filename = "47Tuc_sampler.hdf"
+filename = "NGC0104_sampler.hdf"
 obs = fitter.Observations("NGC0104")
 
 
