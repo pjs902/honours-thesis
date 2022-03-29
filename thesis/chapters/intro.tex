@@ -4,7 +4,7 @@
 
 
 Globular clusters (GCs) are dense, spheroidal collections of hundreds of thousands of stars with
-masses ranging from $10^5$ to $10^6$ solar masses that are bound by their own self-gravity. GCs are
+masses ranging from $10^4$ to $10^6$ solar masses that are bound by their own self-gravity. GCs are
 found in most galaxies, with the Milky Way hosting roughly 150, mostly located in the outer halo
 \citep[e.g.][]{Heggie2003}. GCs represent some of the oldest stellar populations in the universe and
 are usually in excess of 10 billion years old. Figure \ref{fig:1/ngc7006} shows the globular cluster
@@ -39,14 +39,14 @@ of astrophysics. Globular clusters are one of the most commonly proposed candida
 intermediate-mass black holes (IMBHs). Due to the effects of mass segregation and the high densities
 within the cores of globular clusters, the central regions of globular clusters are an ideal
 environment for mergers of compact objects, especially in the early stages their of evolution when
-they are significantly denser than the present day \citep[e.g.][]{Rodriguez2021}. These mergers can
-be detected through their resultant gravitational waves and the expected rates for gravitational
-wave events depend significantly on the compact object populations in globular clusters
-\citep{Weatherford2021}. These mergers are also thought to be one of the most promising formation
-channels for IMBHs \citep[e.g.][]{Giersz2015}, a so-far undetected class of black holes whose masses
-fall between those of stellar-mass black holes and those of supermassive black holes. The formation
-of these black holes has important implications for understanding the formation of the supermassive
-black holes that we find at the centre of galaxies.
+they are significantly denser than the present day \citep[e.g.][]{PortegiesZwart2004,Rodriguez2021}.
+These mergers can be detected through their resultant gravitational waves and the expected rates for
+gravitational wave events depend significantly on the compact object populations in globular
+clusters \citep[e.g][]{Weatherford2021}. These mergers are also thought to be one of the most promising
+formation channels for IMBHs \citep[e.g.][]{Giersz2015}, a so-far undetected class of black holes
+whose masses fall between those of stellar-mass black holes and those of supermassive black holes.
+The formation of these black holes has important implications for understanding the formation of the
+supermassive black holes that we find at the centre of galaxies.
 
 
 The work presented in this thesis builds on a previous project I worked on which used pulsar timing
@@ -111,7 +111,7 @@ models with many parameters varied in the initial conditions (e.g. various stell
 functions, initial cluster radii, masses, etc.).
 
 The comparative efficiency of these models further enables the use of statistical fitting techniques
-like MCMC or Nested Sampling which would be prohibitively expensive to use with evolutionary models.
+like Markov chain Monte Carlo (MCMC) or Nested Sampling which would be prohibitively expensive to use with evolutionary models.
 This means that instead of computing a grid of models and finding the "best-fitting" model we can
 instead recover posterior probability distributions for key cluster parameters.
 
@@ -155,8 +155,8 @@ dispersion and the most massive components are the most centrally concentrated.
 
 The input parameters needed to compute our models include the central concentration parameter $W_0$,
 the truncation parameter $g$\footnote{Several well-known classes of models are reproduced by
-	specific values of $g$: Woolley models \citep{Woolley1954} have $g=0$, King models \citep{King1966}
-	$g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$ which determines
+specific values of $g$: Woolley models \citep{Woolley1954} have $g=0$, King models \citep{King1966}
+$g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$ which determines
 the degree of radial anisotropy in the models, $\delta$ which sets the mass dependence of the
 velocity scale and thus governs the degree of mass segregation, and finally the specific mass bins
 to use as defined by the mean stellar mass ($m_j$) and total mass ($M_j$) of each bin, which
@@ -164,13 +164,23 @@ together specify the stellar mass function. In order to scale the model units in
 the total mass of the cluster $M$ and a size scale (the half-mass radius of the cluster $r_h$) are
 provided as well. Figure \ref{fig:1/limepy_models} demonstrates the ability of the models to
 simultaneously fit many cluster observables, specifically pictured are the line-of-sight velocity
-dispersion profile and the number density profile, though the power of these models lies in their
-ability to simultaneously fit not just kinematic and number density data but also the stellar mass
-function data of a cluster.
+dispersion profile and the number density profile of bright stars. The power of these models lies in
+their ability to simultaneously fit not just kinematic and number density data but also the stellar
+mass function data of a cluster, Figure \ref{fig:1/massfunc_fit} shows model fits to stellar mass
+function data from the globular cluster 47\,Tuc.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./figures/prev_nobin/mass_fun.png}
+	\caption{The stellar mass function data and model fits for the globular cluster 47\,Tuc.
+		Each panel shows the mass function for a different radial region.}
+	\label{fig:1/massfunc_fit}
+\end{figure}
 
 
 In their current implementation, these models assume that all objects within the cluster are single
-and make no attempt to model the dynamical effects of stellar multiplicity. In this project, we
+and make no attempt to model the dynamical effects of stellar multiplicity. In this thesis, we
 adapt these models to incorporate some of the effects of binary stars under the assumption that
 binaries with very long periods have been ionized by the present day. This allows us to treat binary
 systems as point masses and lets us model their dynamics by simply moving some of the mass in stars
@@ -214,21 +224,21 @@ effectively act as a single point mass equal to the sum of each component's mass
 binaries can affect cluster dynamics in much the same way that a large population of heavy remnants
 might. Much like black holes and neutron stars, binary systems will migrate to the centre of a
 cluster due to the effect of mass segregation. It has been found (e.g. \citealt{Kremer2019}) that a
-central population of black holes can fulfill a similar role to binary systems in halting core
-collapse by injecting kinetic energy through two-body interactions within the core of the cluster.
-This same mechanism could apply with tightly-bound binary systems that have mass-segregated to the
-centre of the cluster. This predicted increase in binary fraction as you get closer to the centre of
-a cluster is also seen in observations and is illustrated in Figure
-\ref{fig:1/radial_binary_fraction} for NGC 3201.
+central population of black holes is typically required in addition to binary systems in order to
+halt core collapse. Both of these populations slow core collapse by injecting kinetic energy through
+two-body interactions within the core of the cluster. This predicted increase in binary fraction as
+you get closer to the centre of a cluster is also seen in observations and is illustrated in Figure
+\ref{fig:1/radial_binary_fraction} for NGC 3201. \ps{Read through this again to see if it needs more
+	edits, maybe move some things to the end of previous paragraph?}
 
-The effect of having a significant central population of binaries could be that our models are
+The effect of having a significant central population of binaries could be that our mass models are
 overestimating the number of black holes and other high-mass objects (neutron stars, massive white
 dwarfs) in the core of the cluster. Because the gravitational potential in the central regions of
 the cluster is fairly well constrained by kinematic measurements, if we are missing a significant
 contribution from binaries, the models may be compensating for this "missing mass" by adding more
 mass to the heavy end of the stellar mass function which would lead to an overestimation of the
 number of neutron stars and black holes. By including realistic populations of binary stars in our
-models, we hope to recover more accurate remnant populations for present-day clusters.
+models, we hope to recover more accurate present-day remnant populations.
 
 \ps{Comment for future consideration: You could emphasize that this could impact conclusions about
 	the inferred high-mass IMF of globular clusters (Nolan's work) and the contribution of BH-BH
@@ -255,15 +265,15 @@ photometric observations and radial velocity surveys.
 
 \paragraph{}
 High-precision photometry can be used to detect binaries along the main sequence which have a
-significant difference in the mass of their components. We often use the ratio between the mass of
-the primary star and the companion star to quantify this difference: an equal mass binary will have
-a mass ratio of $q=1$ while a binary with a large difference in the masses of its components will
-have a mass ratio closer to zero. Binaries that are detectable through this method typically have a
-mass ratio greater than $q=0.5$. These systems will appear to be raised above the main sequence when
-plotted on a colour-magnitude diagram as their colour will match that of a typical main-sequence
-star however their luminosity will be the sum of each component \ps{Comment to work in here: The
-combined colour does depend on the colours of the two stars and therefore on the mass ratio, as you
-can see from Fig. 1.5 with the "arc shapes" for different mass ratios.}. Figure
+significant difference in the mass of their components. We use the ratio of the mass of the
+companion star to the mass of the primary star to quantify this difference: an equal mass binary
+will have a mass ratio of $q=1$ while a binary with a large difference in the masses of its
+components will have a mass ratio closer to zero. Binaries that are detectable through this method
+typically have a mass ratio greater than $q=0.5$. These systems will appear to be raised above the
+main sequence when plotted on a colour-magnitude diagram as their colour will match that of a
+typical main-sequence star however their luminosity will be the sum of each component \ps{Comment to
+	work in here: The combined colour does depend on the colours of the two stars and therefore on the
+	mass ratio, as you can see from Fig. 1.5 with the "arc shapes" for different mass ratios.}. Figure
 \ref{fig:1/main_sequence_binaries} shows the main sequence of the cluster NGC\,2298. The binary
 stars in this cluster are visible above the main sequence, raised according to their mass ratio.
 \citet{Milone2012} performed high-precision photometry on several globular clusters using the Hubble
@@ -278,7 +288,7 @@ limits on the overall binary fraction of a cluster. Typical values for the binar
 massive clusters found using this method range from almost zero to an upper limit of around $15\%$
 \citep{Milone2012}. Additionally, studies of the mass ratio distribution within these clusters using
 the same method find a preference for a uniform or "flat" distribution unlike the distribution in
-the solar neighbourhood which is peaked at $q=1.0$ \citep{Milone2012,Fisher2005}
+the solar neighbourhood which is peaked at $q=1.0$ \citep{Milone2012,Fisher2005,Reggiani2013}
 
 
 \begin{figure}
@@ -310,7 +320,7 @@ massive primary stars. For NGC\,3201, the binary fraction found using this metho
 range from $10\textrm{-}12\%$ for different fields.
 
 
-\paragraph{}
+\section{This Thesis}
 The remainder of the thesis is structured as follows: in Chapter 2 I will describe the method used
 to generate mass functions which include realistic binary populations as well as the specifics of
 fitting these modified mass functions to real observations of stellar mass functions. Chapter 3
