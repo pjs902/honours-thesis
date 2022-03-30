@@ -1,33 +1,33 @@
 
 
 
-\section{Results}
 
 
 
-\subsection{Previous Results}
+\section{Previous Results}
 
-As mentioned previously, this project is a continuation of a project done over the previous year in
-which we developed a method to use pulsar timing data to constrain our models. The final results of
-that project were a set of models that accurately reproduce all observables and fully incorporated
-the pulsar data. Figure \ref{fig:nobin_obs_panel} shows the model fits to most of the observables
-while Figure \ref{fig:nobin_mass_fun} shows the fit to the stellar mass function data. In both
-cases, the models satisfyingly reproduce all observables. The median and $1\sigma$ intervals of the
-best fit parameters are listed in Table \ref{tab:parameters_nobin}.
+As mentioned previously, this thesis is a continuation of a project done over the previous year in
+which we developed a method to use pulsar timing data to constrain our mass models of the globular
+cluster 47\,Tuc. The final results of that project were a set of models that accurately reproduce
+all observables and fully incorporated the pulsar data in the likelihood. Figure \ref{fig:nobin_obs_panel} shows the
+model fits to most of the observables while Figure \ref{fig:nobin_mass_fun} shows the fit to the
+stellar mass function data. In both cases, the models satisfyingly reproduces all observables. The
+median and $1\sigma$ credibility intervals of the best-fit parameters are listed in Table
+\ref{tab:parameters_nobin}.
 
 One of the most interesting results of the previous project was the models' ability to constrain the
 black hole content within 47\,Tuc. Figure \ref{fig:prev_nobin_BH_dists} shows the distribution of
-mass in black hole mass and number of black holes in our set of best fit models, which come out to
-$136^{+108}_{-91} \mathrm{M}_\odot$ and $26^{+15}_{-15}$ respectively. Both the total mass and
-number are quite well contained especially in comparison to the previous constraints in the
-literature \citep[see e.g.][]{Henault-Brunet2020,Weatherford2019}.
+mass in black hole mass and number of black holes in our set of best-fit models, which were found to
+be $136^{+108}_{-91} \ \mathrm{M}_\odot$ and $26^{+15}_{-15}$ black holes respectively. Both the
+total mass and number are quite well contained especially in comparison to the previous constraints
+in the literature \citep[see e.g.][]{Henault-Brunet2020,Weatherford2019}.
 
 
 
 
 \begin{table}
 	\centering
-	\caption{Best fit parameters with $1\sigma$ intervals for models with a binary fraction of $0\%$.}
+\caption{Best-fit parameters with $1\sigma$ credibility intervals for models with a binary fraction of $0\%$.}
 	\begin{tabular}{l l}
 
 		\hline
@@ -54,12 +54,13 @@ literature \citep[see e.g.][]{Henault-Brunet2020,Weatherford2019}.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/prev_nobin/BH_dists.png}
-	\caption{BH distributions}
+\caption{Distribution in mass and number of black holes for models with a $0\%$ binary
+	fraction.}
 	\label{fig:prev_nobin_BH_dists}
 \end{figure}
 
 
-\subsection{Low Binary Fraction}
+\section{Low Binary Fraction}
 
 In the models with a $2\%$ binary fraction, we find a similar ability to reproduce all the
 observables, Figure \ref{fig:low_bin_model_obs_panel} and Figure \ref{fig:low_bin_model_mass_fun}
@@ -68,8 +69,8 @@ observables.
 
 The black hole content in these models is also quite well contained, though different from the
 models without binaries. Figure \ref{fig:low_bin_model_BH_dists} shows the distribution of mass in
-black holes and number of black holes which this time, work out to $22^{+13}_{-19}$ black holes or
-$114^{+79}_{-144} \mathrm{M}_\odot$ in black holes. The best-fit parameters and the $1\sigma$
+black holes and number of black holes which this time, work are found to be $22^{+13}_{-19}$ black holes or
+$114^{+79}_{-144} \mathrm{M}_\odot$ in black holes. The best-fit parameters and the $1\sigma$ credibility
 intervals for this set of models are listed in Table \ref{tab:parameters_lowbin}.
 
 
@@ -124,7 +125,7 @@ intervals for this set of models are listed in Table \ref{tab:parameters_lowbin}
 \end{figure}
 
 
-A binary fraction of $2\%$ results in a total mass in binaries of around $15800 \mathrm{M}_\odot$,
+A binary fraction of $2\%$ results in a total mass in binaries of around $15800 \ \mathrm{M}_\odot$,
 Figure \ref{fig:low_bin_model_Bin_mass} shows the distribution of mass in binaries in our set of
 best-fitting models.
 
@@ -137,7 +138,7 @@ best-fitting models.
 \end{figure}
 
 
-\subsection{High Binary Fraction}
+\section{High Binary Fraction}
 
 As is the case for the models with a low binary fraction, the models with a $10\%$ binary
 fraction fit the observables very well. Figures \ref{fig:highbin_obs_panel} and
@@ -170,8 +171,8 @@ fraction fit the observables very well. Figures \ref{fig:highbin_obs_panel} and
 \end{table}
 
 With a higher binary fraction, we now find fewer black holes, Figure
-\ref{fig:high_bin_model_BH_dists} shows the distribution in mass and number which come out to
-$12^{+13}_{-12}$ black holes or $81 ^{+121}_{-81} \mathrm{M}_\odot$ in black holes.
+\ref{fig:high_bin_model_BH_dists} shows the distribution in mass and number which are found to be
+$12^{+13}_{-12}$ black holes or $81 ^{+121}_{-81} \ \mathrm{M}_\odot$ in black holes.
 
 
 \begin{figure}
@@ -182,9 +183,9 @@ $12^{+13}_{-12}$ black holes or $81 ^{+121}_{-81} \mathrm{M}_\odot$ in black hol
 \end{figure}
 
 
-With a $10\%$ binary fraction we now have a significant amount of mass in binaries, roughly $15800
-	\mathrm{M_\odot}$ (see figure \ref{fig:high_bin_model_Bin_mass}), which is a bit less than $2\%$ of
-the total cluster mass.
+With a $10\%$ binary fraction we now have a significant amount of mass in binaries, roughly $81000 \
+	\mathrm{M_\odot}$ (see figure \ref{fig:high_bin_model_Bin_mass}), which is a bit less than
+$2\%$ of the total cluster mass.
 
 \begin{figure}
 	\centering
@@ -194,131 +195,5 @@ the total cluster mass.
 \end{figure}
 
 
-
-
-
-\section{Discussion}
-
-
-
-
-
-
-
-
-\begin{table}
-	\centering
-	\caption{Best fit parameters with $1\sigma$ intervals for all sets of models.}
-	\begin{tabular}{l l l l}
-
-		\hline
-		Parameter                 & Value                                                                    \\
-		\hline
-		$f_b$                     & $0\%$                  & $2\%$                  & $10\%$                 \\
-		$\Phi_0$                  & $6.26^{+0.10}_{-0.10}$ & $6.28^{+0.10}_{-0.10}$ & $6.36^{+0.09}_{-0.09}$ \\
-		$M/10^6 \mathrm{M}_\odot$ & $0.88^{+0.01}_{-0.01}$ & $0.89^{+0.01}_{-0.01}$ & $0.89^{+0.01}_{-0.01}$ \\
-		$r_h / pc$                & $6.72^{+0.06}_{-0.06}$ & $6.74^{+0.06}_{-0.06}$ & $6.77^{+0.06}_{-0.06}$ \\
-		$\log{r_a / pc}$          & $1.51^{+0.07}_{-0.05}$ & $1.50^{+0.06}_{-0.05}$ & $1.48^{+0.06}_{-0.05}$ \\
-		$g$                       & $1.37^{+0.06}_{-0.06}$ & $1.36^{+0.06}_{-0.06}$ & $1.34^{+0.06}_{-0.06}$ \\
-		$\delta$                  & $0.43^{+0.02}_{-0.02}$ & $0.43^{+0.02}_{-0.02}$ & $0.41^{+0.01}_{-0.01}$ \\
-		$s^2$                     & $0.01^{+0.01}_{-0.00}$ & $0.01^{+0.01}_{-0.00}$ & $0.01^{+0.01}_{-0.00}$ \\
-		$F$                       & $3.26^{+0.13}_{-0.12}$ & $3.24^{+0.13}_{-0.12}$ & $3.16^{+0.13}_{-0.12}$ \\
-		$\alpha_1$                & $0.35^{+0.02}_{-0.02}$ & $0.37^{+0.02}_{-0.02}$ & $0.45^{+0.02}_{-0.02}$ \\
-		$\alpha_2$                & $1.46^{+0.05}_{-0.05}$ & $1.47^{+0.05}_{-0.05}$ & $1.53^{+0.05}_{-0.04}$ \\
-		$\alpha_3$                & $2.13^{+0.04}_{-0.03}$ & $2.18^{+0.04}_{-0.04}$ & $2.46^{+0.05}_{-0.05}$ \\
-		$BH_{ret} (\%)$           & $0.07^{+0.06}_{-0.05}$ & $0.08^{+0.09}_{-0.05}$ & $0.17^{+0.18}_{-0.12}$ \\
-		$d$                       & $4.42^{+0.02}_{-0.02}$ & $4.42^{+0.02}_{-0.02}$ & $4.43^{+0.02}_{-0.02}$ \\
-		\hline
-	\end{tabular}
-	\label{tab:parameters_all}
-\end{table}
-
-
-
-
-
-
-
-In each set of models, all observables are very well reproduced, showing the flexibility of the
-\code{LIMEPY} models. Due to this flexibility, it is unlikely that with current observations we
-would be able to infer anything about the binary population of a cluster using this technique.
-Instead, this method should be used in cases where there are existing estimates of the binary
-population within a cluster in order to add a realistic binary component to \code{LIMEPY} models
-
-
-
-\subsection{The Effects of the Binaries}
-
-
-Table \ref{tab:parameters_all} shows the recovered parameters for each set of models, we can see a
-clear agreement in the recovered values which affect the overall structure of the cluster. In
-particular, the total cluster mass, half-mass radius, anisotropy radius, truncation parameter,
-degree of mass segregation and distance are all either identical or within $1\sigma$ of each other
-for all three sets of models.
-
-
-
-The most striking change in model parameters are the values pertaining to the mass function, in
-particular, the $\alpha_3$ parameter which controls the slope of the high-mass mass function. In the
-case with a $10\%$ binary fraction, this parameter is much larger than in the other two cases
-showing that the abundance of binary stars reduce the need for high mass stars and remnants.
-
-We can see that there is still some need for BHs in some of the models as the $BH_{ret}$ parameter
-is much larger in the model with many binaries, this means that even though the initial mass
-function produces many fewer black holes, more of these black holes need to be retained throughout
-the evolution of the cluster.
-
-Table \ref{tab:BH_contents} and Figure \ref{fig:BH_KDEs} show the distribution of BHs for each set
-of models. We can see a clear decrease in the black hole content as we add more binaries. This
-effect was also found by \citet{Mann2019} (see also associated erratum \citealt{Mann2020}) when they
-modelled the central kinematics of 47\,Tuc. This effect is due to the high-mass binary systems which
-have mass-segregated to the central regions of the cluster contribution to the overall mass
-distribution in a similar way to heavy stellar remnants. Through this process, fewer black holes are
-needed to create the observed central velocity dispersion other kinematics.
-
-
-% Table comparing bh content in each set of models
-\begin{table}
-	\centering
-	\caption{Black hole content in each set of models}
-	\begin{tabular}{c c c}
-		\hline
-		Binary Fraction $(\%)$ & Mass in BHs                         & Number of BHs    \\
-		\hline
-		0                      & $136^{+108}_{-91} \mathrm{M}_\odot$ & $26^{+15}_{-15}$ \\
-		2                      & $114^{+144}_{-79} \mathrm{M}_\odot$ & $22^{+19}_{-13}$ \\
-		10                     & $81 ^{+121}_{-81} \mathrm{M}_\odot$ & $12^{+13}_{-12}$ \\
-		\hline
-	\end{tabular}
-	\label{tab:BH_contents}
-\end{table}
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{figures/BH_KDEs.png}
-	\caption{Distribution of mass and number of BHs in each set of models. Distributions are
-		represented by a Kernel Density Estimate of the discrete values for easier visual
-		comparison.}
-	\label{fig:BH_KDEs}
-\end{figure}
-
-When we examine the density profiles for the models with a binary fraction of $10\%$ (see Figure
-\ref{fig:highbin_model_densities}), we can see that the binary stars are indeed more centrally
-concentrated than typical main-sequence stars as predicted and in the central regions, make up
-almost all the main-sequence contribution, while they contribute more than the neutron stars at all
-radii.
-
-\ps{Figure here showing enclosed mass in black holes, enclosed mass in binaries+black holes to show
-	how binaries make up for some BHs. This might be a bit tricky, but it is a good way to see
-	the effect}
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/high_bin_model/density.png}
-	\caption{Mass density profiles for the models with a binary fraction of $10\%$}
-	\label{fig:highbin_model_densities}
-\end{figure}
 
 

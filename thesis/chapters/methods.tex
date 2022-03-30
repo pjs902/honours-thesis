@@ -6,8 +6,9 @@
 
 
 We use a wide range of data to constrain the parameters of our models. In general, we use archival
-kinematic data from ground based spectroscopy, number density profiles from \emph{Gaia}, stellar
-mass function data from HST photometry and pulsar timing data.
+kinematic data from ground-based spectroscopy, proper motions from HST and \emph{Gaia}, number
+density profiles from \emph{Gaia} supplemented with archival data, stellar mass function data from
+HST photometry and pulsar timing data.
 
 \subsection{Kinematics and density profiles}
 
@@ -35,41 +36,114 @@ kinematics of upper main-sequence and evolved stars in our models.
 \subsubsection{Number density profiles}
 We use the number density profile from \citet{DeBoer2019} to constrain the size and structural
 parameters of the cluster. These profiles are made up of a combination of cluster members based on
-Gaia DR2 data in the outer regions and data from various literature sources in the central regions.
-The Gaia data used only includes bright stars ($m > 0.6 \ \mathrm{M}_\odot$, for both clusters) and
-the literature data is dominated by bright stars, therefore in our models we assume the profiles
-probe the distribution of upper main sequence and evolved stars.
+Gaia DR2 data in the outer regions and surface brightness data from \citet{Trager1995} in the
+central regions. The Gaia data used only includes bright stars ($m > 0.6 \ \mathrm{M}_\odot$, for
+both clusters) and the literature data is dominated by bright stars, therefore in our models we
+assume the profiles probe the spatial distribution of upper main sequence and evolved stars.
 
 \subsection{Stellar mass functions}
 
 As a constraint on the global present-day stellar mass function of the cluster, we use a compilation
-of HST based stellar mass function data from
+of HST-based stellar mass function data from
 Baumgardt\footnote{\url{https://people.smp.uq.edu.au/HolgerBaumgardt/globular/}} (2021, priv.
 comm.), which represent an updated and augmented version of the stellar mass functions found in
 \citet{Sollima2017}. This compilation is made up of several HST fields at varying distances from the
 cluster centre. These fields extend out to $14 '$ from the cluster centre and cover a mass range of
-$0.16 - 0.8 \ \mathrm{M}_\odot$. The large radial and mass ranges allow us to constrain the degree
-mass segregation in the clusters.
+$0.16 - 0.8 \ \mathrm{M}_\odot$. The large radial and mass ranges allow us to constrain the change
+of the local stellar mass function with distance from the cluster centre and therefore the degree
+mass segregation in the cluster.
 
 \subsection{Pulsar Data}
 
 We make use of the large population of millisecond pulsars (MSPs) in 47\,Tuc to place further
-constraints on its mass distribution. We use both the spin and orbital period timing solutions from
-\citet{Freire2017}, \citet{Ridolfi2016} and \citet{Freire2018}. We also consider the dispersion
-measures of the pulsars which, when combined with internal gas models from \citet{Abbate2018}, allow
-us to constrain the line-of-sight position of the pulsars within the cluster. The work surrounding
-the use of pulsar data to constrain the models was performed as part of an earlier project and so
-will not be discussed in too much detail in this project.
+constraints on its mass distribution. We use timing solutions from \citet{Freire2017},
+\citet{Ridolfi2016} and \citet{Freire2018} which include both the spin and orbital periods. We also
+consider the dispersion measures of the pulsars which is a measure of how much gas the signal has
+passed through on its way to the observer. When combined with internal gas models from
+\citet{Abbate2018}, the dispersion measures allow us to constrain the line-of-sight position of the
+pulsars within the cluster. The pulsar data is summarized in Tables \ref{tab:pulsars_spin} and
+\ref{tab:pulsars_orbital}.
+
+\ps{TODO: run these tables by Vincent, theyre huge, are the refs ok like that?}
+\begin{sidewaystable}
+    \centering
+    \caption{Pulsar timing data for 47\,Tuc, spin periods. Reference key is as follows:
+        a:\citet{Freire2018}, b:\citet{Freire2017}, c:\citet{Ridolfi2016}}
+
+    \begin{tabular}{c c c c c c c c}
+        \hline
+
+        ID\textsuperscript{reference} & $r$ [arcmin] & $P$ [ms]         & $\Delta P$ [ms] & $\dot{P}$ [s/s]     & $\Delta \dot{P}$ [s/s] & DM [pc/cm3] & $\Delta$DM [pc/cm3] \\
+        \hline
+        aa\textsuperscript{a}         & 0.465        & 1.8453805296800  & \num{6 E-13}    & \num{-4.5890E-20}   & \num{0.0015E-20}       & 24.971      & 0.007               \\
+        ab\textsuperscript{b}         & 0.2092       & 3.7046394947985  & \num{5 E-13}    & \num{9.820E-21}     & \num{0.008E-21}        & 24.373      & 0.020               \\
+        c\textsuperscript{b}          & 1.2298       & 5.7567799955164  & \num{1 E-13}    & \num{-49.850E-21}   & \num{0.002E-21}        & 24.600      & 0.004               \\
+        D\textsuperscript{b}          & 0.6483       & 5.35757328486572 & \num{7E-14}     & \num{-3.4219E-21}   & \num{0.0009E-21}       & 24.732      & 0.003               \\
+        E\textsuperscript{b}          & 0.6205       & 3.53632915276243 & \num{3E-14}     & \num{98.5103E-21}   & \num{0.0005E-21}       & 24.236      & 0.004               \\
+        F\textsuperscript{b}          & 0.2149       & 2.62357935251262 & \num{3E-14}     & \num{64.5031E-21}   & \num{0.0007E-21}       & 24.382      & 0.005               \\
+        G\textsuperscript{b}          & 0.2781       & 4.0403791435651  & \num{1 E-13}    & \num{-42.159E-21}   & \num{0.002E-21}        & 24.436      & 0.004               \\
+        H\textsuperscript{b}          & 0.7677       & 3.2103407093504  & \num{1 E-13}    & \num{-1.830E-21}    & \num{0.001E-21}        & 24.369      & 0.008               \\
+        I\textsuperscript{b}          & 0.2772       & 3.4849920616629  & \num{1 E-13}    & \num{-45.873E-21}   & \num{0.002E-21}        & 24.429      & 0.010               \\
+        J\textsuperscript{b}          & 1.0185       & 2.10063354535248 & \num{6E-14}     & \num{-9.7919E-21}   & \num{0.0009E-21}       & 24.588      & 0.003               \\
+        L\textsuperscript{b}          & 0.1627       & 4.3461679994616  & \num{3 E-13}    & \num{-122.0406E-21} & \num{0.0010E-21}       & 24.400      & 0.012               \\
+        M\textsuperscript{b}          & 1.0688       & 3.6766432176002  & \num{3 E-13}    & \num{-38.418E-21}   & \num{0.005E-21}        & 24.432      & 0.016               \\
+        N\textsuperscript{b}          & 0.4793       & 3.0539543462608  & \num{1 E-13}    & \num{-21.857E-21}   & \num{0.002E-21}        & 24.574      & 0.009               \\
+        O\textsuperscript{b}          & 0.0806       & 2.64334329724356 & \num{4E-14}     & \num{30.3493E-21}   & \num{0.0006E-21}       & 24.356      & 0.002               \\
+        Q\textsuperscript{b}          & 0.9502       & 4.0331811845726  & \num{2 E-13}    & \num{34.0076E-21}   & \num{0.0006E-21}       & 24.265      & 0.004               \\
+        R\textsuperscript{b}          & 0.1519       & 3.4804627074933  & \num{2 E-13}    & \num{148.351E-21}   & \num{0.003E-21}        & 24.361      & 0.007               \\
+        S\textsuperscript{b}          & 0.2150       & 2.83040595787912 & \num{7E-14}     & \num{-120.541E-21}  & \num{0.001E-21}        & 24.376      & 0.004               \\
+        T\textsuperscript{b}          & 0.3179       & 7.5884798073671  & \num{9 E-13}    & \num{293.80E-21}    & \num{0.01E-21}         & 24.411      & 0.021               \\
+        U\textsuperscript{b}          & 0.9386       & 4.3428266963923  & \num{1 E-13}    & \num{95.228E-21}    & \num{0.002E-21}        & 24.337      & 0.004               \\
+        W\textsuperscript{c}          & 0.087        & 2.3523445319370  & \num{3 E-13}    & \num{-8.6553E-20}   & \num{0.0001E-20}       & 24.367      & 0.003               \\
+        X\textsuperscript{c}          & 3.828        & 4.77152291069355 & \num{5E-14}     & \num{1.83609E-20}   & \num{0.00007E-20}      & 24.539      & 0.005               \\
+        Y\textsuperscript{b}          & 0.3743       & 2.19665714352124 & \num{6E-14}     & \num{-35.1720E-21}  & \num{0.0008E-21}       & 24.468      & 0.004               \\
+        Z\textsuperscript{b}          & 0.1506       & 4.554447383906   & \num{3  E-12}   & \num{-4.56E-21}     & \num{0.1E-21}          & 24.450      & 0.040               \\
+        \hline
+    \end{tabular}
+
+    \label{tab:pulsars_spin}
+
+\end{sidewaystable}
+
+
+\begin{sidewaystable}
+    \centering
+    \caption{Pulsar timing data for 47\,Tuc, orbital periods. Reference key is as follows:
+        a:\citet{Freire2018}, b:\citet{Freire2017}, c:\citet{Ridolfi2016}}
+
+    \begin{tabular}{c c c c c c c c}
+        \hline
+
+        ID\textsuperscript{reference} & $r$ [arcmin] & $P_b$ [day]   & $\Delta P_b$ [day] & $\dot{P_b}$ [s/s] & $\Delta \dot{P_b}$ [s/s] & DM [pc/cm3] & $\Delta$DM [pc/cm3] \\
+
+        \hline
+        E\textsuperscript{b}          & 0.6205       & 2.2568483     & 0.0000009          & \num{4.8E-12}     & \num{0.2E-12}            & 24.236      & 0.004               \\
+        H\textsuperscript{b}          & 0.7677       & 2.357696895   & 0.000000010        & \num{-0.7E-12}    & \num{0.6E-12}            & 24.369      & 0.008               \\
+        I\textsuperscript{b}          & 0.2772       & 0.2297922489  & 0.0000000004       & \num{-0.8E-12}    & \num{0.2E-12}            & 24.429      & 0.010               \\
+        Q\textsuperscript{b}          & 0.9502       & 1.1890840496  & 0.0000000004       & \num{-1.0E-12}    & \num{0.2E-12}            & 24.265      & 0.004               \\
+        R\textsuperscript{b}          & 0.1519       & 0.06623147751 & 0.00000000006      & \num{0.19E-12}    & \num{0.04E-12}           & 24.361      & 0.007               \\
+        S\textsuperscript{b}          & 0.2150       & 1.2017242354  & 0.0000000006       & \num{-4.9E-12}    & \num{0.4E-12}            & 24.376      & 0.004               \\
+        T\textsuperscript{b}          & 0.3179       & 1.126176771   & 0.000000001        & \num{2.5E-12}     & \num{1.1E-12}            & 24.411      & 0.021               \\
+        U\textsuperscript{b}          & 0.9386       & 0.42910568324 & 0.00000000008      & \num{0.66E-12}    & \num{0.05E-12}           & 24.337      & 0.004               \\
+        X\textsuperscript{c}          & 3.828        & 10.921183545  & 0.000000001        & \num{6E-12}       & \num{2E-12}              & 24.539      & 0.005               \\
+        Y\textsuperscript{b}          & 0.3743       & 0.5219386107  & 0.0000000001       & \num{-0.82E-12}   & \num{0.07E-12}           & 24.468      & 0.004               \\
+        \hline
+    \end{tabular}
+
+    \label{tab:pulsars_orbital}
+
+\end{sidewaystable}
 
 
 
-\subsection{Binary Data}
 
-In order to create realistic binary populations we use the data from \citet{Milone2012} to inform
-our choices of binary fraction and mass ratio distribution. For 47\,Tuc this means a flat mass
-ration distribution and a binary fraction of roughly $2\%$. Because this estimate of the binary
+\section{Binary Fraction Measurements}
+
+In order to create realistic binary populations we refer to the measurements of \citet{Milone2012} to
+inform our choices of binary fraction and mass ratio distribution. For 47\,Tuc this means a flat
+mass ration distribution and a binary fraction of roughly $2\%$. Because this estimate of the binary
 fraction is so small, we will use it as a lower limit for the binary fraction and also test a case
-where the binary fraction is around $10\%$ representing a case where the binary fraction is quite
+where the binary fraction is around $10\%$, representing a case where the binary fraction is
 significant.
 
 
@@ -77,9 +151,9 @@ significant.
 
 \section{Generating mass functions}
 
-The bulk of project deals with generating mass functions to use as inputs to the \code{LIMEPY}
-models, we do this in two main steps, we first generate a present-day mass function comprised of
-only single stars, and we then modify it to include binary stars.
+An important part of this thesis deals with generating mass functions to use as inputs to the
+\code{LIMEPY} models. We do this in two main steps, we first generate a present-day mass function
+comprised of only single stars, and we then modify it to include binary stars.
 
 \subsection{Single Star Mass Functions}
 
@@ -87,30 +161,35 @@ only single stars, and we then modify it to include binary stars.
 To generate the mass functions comprised of single stars we use the \evolvemf{} algorithm from
 \code{SSPTools}\footnote{\url{www.github.com/pjs902/ssptools}} (first presented in
 \citealt{Balbinot2018}), a publicly available package for working with simple stellar populations.
+As part of the previous project, we updated \evolvemf{} to include realistic prescriptions for the BH
+mass function by including the effects of natal kicks in addition to dynamical ejections.
 
-The \evolvemf{} algorithm combines precomputed grids of stellar evolution models and isochrones to
-accurately model the evolution of a given initial mass function, fully including the effects of
-stellar evolution as well as mass loss due to escaping stars and dynamical ejections. The algorithm
-returns a sampled mass function at a requested evolutionary time, ideal for use in the \code{LIMEPY}
-models.
+The \evolvemf{} algorithm combines precomputed grids of stellar evolution models, isochrones and
+initial-final mass relations to accurately model the evolution of a given initial mass function,
+including the effects of stellar evolution as well as mass loss due to escaping stars and dynamical
+ejections. The algorithm returns a binned mass function at a requested evolutionary time, ideal for
+use as an input in the \code{LIMEPY} models.
 
-We parameterize the mass function as a broken power-law with breakpoints at $0.5 \mathrm{M}_\odot$
-and $1.0 \mathrm{M}_\odot$. We provide to \evolvemf{} the initial mass function slopes and
+We parameterize the mass function as a broken power-law with breakpoints at $0.5 \ \mathrm{M}_\odot$
+and $1.0 \ \mathrm{M}_\odot$. We provide to \evolvemf{} the initial mass function slopes and
 breakpoints, the cluster age, metallicity and escape velocity, as well as parameters which control
-the mass loss due to escaping stars and the specific binning to be used when the present day mass
-function is sampled. Figure \ref{fig:2/evolve_mf} shows the evolution of a mass function over a span
-of $10 \ \mathrm{Gyr}$.
+the mass loss due to escaping stars and the specific binning to be used when returning the final
+discrete mass-function bins.  \ps{re-read this} For 47\,Tuc we set the mass loss due to escaping
+stars to be zero, so we are effectively specifying the present day mass function for low-mass stars.
+Figure \ref{fig:2/evolve_mf} shows the evolution of a mass function over a span of $10 \
+    \mathrm{Gyr}$ (\citealt{Baumgardt2017a} found the age of 47\,Tuc to be $11.75$ Gyr).
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/evolve_mf.png}
-    \caption{The evolution of a typical mass function from $t=0$ to $t=10000 \ \mathrm{Myr}$. The
+    \caption{The evolution of a typical mass function from $t=0$ to $t=10 \ \mathrm{Gyr}$. The
         stellar bins are plotted in green while the remnant bins are plotted in black, the current
-        main-sequence turn-off is plotted as a dashed black line. As the mass function ages, more
-        and more main sequence stars evolve into remnants. Lower right: The evolution of the total
-        mass of the mass function is plotted as a fraction of the initial mass. Mass loss is
-        dominated by the effects of stellar evolution but also has contributions from dynamically
-        ejected and escaping stars.}
+        main-sequence turn-off is plotted as a dashed black line. As the cluster ages, more and more
+        main sequence stars evolve into remnants. Lower right: The evolution of the total mass of
+        the cluster is plotted as a fraction of the initial mass. Mass loss is dominated by the
+        effects of stellar evolution but also has contributions from ejected heavy remnants. The
+        lack of mass loss in the low-mas regime evident, we set the mass loss due to escaping stars
+        to be zero \ps{TODO: reference for this? or at least an argument}}
     \label{fig:2/evolve_mf}
 \end{figure}
 
@@ -136,7 +215,7 @@ using this method.
     \centering
     \includegraphics[width=\textwidth]{figures/q-dists.png}
     \caption{The resulting mass ratio distributions for the "flat" and "solar" mass ratio
-        prescriptions. Both distributions are truncated and lowered at $q=0.2$ due to the relative
+        distributions. Both distributions are truncated and lowered at $q=0.2$ due to the relative
         lack low very low mass stars within the mass functions, making the creation of binary
         systems with a very low mass ratio impossible.}
     \label{fig:2/q-dists}
@@ -169,11 +248,12 @@ with the modified main sequence bins, binary bins and rebinned binary bins.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/shifted-mf.png}
-    \caption{The main-sequence portion of a mass function before and after binaries are added. The
-        blue circles are the original main sequence and the crosses are the modified main sequence.
-        The orange crosses show the single stars after mass has been removed to create binaries and
-        the many green crosses are the binary bins that are initially created. The red crosses are
-        the rebinned binary bins which are actually used in the computation of the \code{LIMEPY}
+    \caption{The main-sequence portion of a mass function before and after binaries are added. $M_j$
+        is the total mass within a bin while $m_j$ is the mean mass of the bin. The blue circles are
+        the original main sequence bins and the crosses are the modified main sequence bins. The orange
+        crosses show the single stars after mass has been removed to create binaries and the many
+        green crosses are the binary bins that are initially created. The red crosses are the
+        rebinned binary bins which are actually used in the computation of the \code{LIMEPY}
         models.}
     \label{fig:2/shifted-mf}
 \end{figure}
@@ -188,15 +268,16 @@ package\footnote{\url{www.github.com/nmdickson/gcfit}}. \code{GCfit} provides a 
 for fitting \evolvemf{} and \code{LIMEPY} models to observations of clusters using either MCMC or
 Nested Sampling.
 
-For this project we use the MCMC backend which is powered by \code{EMCEE}
-\citet{Foreman-Mackey2013,Foreman-Mackey2019}. We use 1024 walkers, initialized at a small
-randomized sphere around a reasonable estimate of the best-fit parameters. We run the chain for 2500
-steps and discard the initial 2000 steps as the burn-in period.
+For this project we use the MCMC backend which is powered by \code{emcee}
+\citet{Foreman-Mackey2013,Foreman-Mackey2019}, an affine-invariant ensemble  sampler. We use 1024
+walkers, initialized at a small randomized sphere around a reasonable initial guess  for the model
+parameters. We run the chain for 2500 steps and discard the initial 2000 steps as the burn-in
+period.
 
 \subsection{Likelihoods}
 
-The majority of the likelihood functions we use are simple Gaussian likelihoods of the following
-form:
+The majority of the likelihood functions we use are simple Gaussian likelihoods, provided below is
+the likelihood for velocity dispersion profile data and all other likelihoods are of a similar form:
 
 \begin{equation}
     \ln \left(\mathcal{L}\right)=\frac{1}{2}
@@ -211,68 +292,147 @@ dispersion. The likelihoods for other observables are formulated in the same way
 are discussed in \code{GCfit}'s documentation\footnote{\url{gcfit.readthedocs.io}}. The total
 likelihood is therefore the sum of all the log-likelihoods for each set of observations.
 
-For the mass function and number density likelihoods we include additional nuisance and scaling
-terms to account for extra sources of error in the mass function data and the effects of potential
-escapers at the cluster boundary.
+For the mass function and number density profile likelihoods we include additional nuisance and scaling
+terms.
+
+In the case of the number density data we introduce a parameter $s^2$ which is added in quadrature
+to the existing measurement uncertainties. This parameter allows us to add a constant amount of
+uncertainty to all values in the data-set, effectively assigning less significance to the data
+located furthest from the cluster centre where the number density is lowest. This allows us to
+account for both background effects on the observations as well as for any effects that may be
+present near the cluster boundary that the LIMEPY models do not account for such as the effects of
+potential escapers (see \citealt{Claydon2019} for a discussion of potential escapers in equilibrium
+models).
+
+For the mass function data the only uncertainty included with the data is the Poisson counting
+error. We introduce the nuisance parameter $F$ which is defined as a factor between 1 and 5 by which
+we adjust each data point's absolute error. This error encapsulates additional sources of error that
+may not have been accounted for as well as addresses the fact that the mass function is being
+approximated as a broken power-law.
+
 
 \subsubsection{Pulsar Likelihood}
 
 As stated previously, the development of a method to use pulsar acceleration measurements to
-constrain the models was performed as part of an earlier project, but we will provide a brief
-description of the likelihood function.
+constrain the models was performed as part of an earlier project, but we will provide a description
+of the process below.
 
-The pulsar accelerations are derived from measurements of the pulsar's period derivative
-($\dot{P}/P$) which is affected by the pulsar's acceleration, analogously to the Doppler effect. In
-order to assign a likelihood to a particular acceleration measurement we first use the
+
+
+
+Pulsar period derivatives as measured by an observer are made up of several distinct components,
+only one of which is related to the cluster potential. The effects of the proper motion of the
+pulsar and the galactic potential of the pulsar are fairly easily constrained based on the pulsar's
+position in the galaxy but, the effects of phenomena like magnetic breaking or accretion are not.
+Equation \ref{eq:pular-components} shows the breakdown of the measured period derivative into
+separate components where $(\dot{P}/P)_{int}$ is any change in period due to the effects intrinsic
+to the pulsar like magnetic breaking or accretion, $a_c$ is the change due to the cluster's
+gravitational potential and is the quantity we are interested in, $a_g$ is the effect of the
+galaxy's gravitational potential and is easily adjusted for based on 47 Tuc's position within the
+Milky Way, $a_s$ is the effect of the pulsar's proper motion and is similarly easy to compensate
+for, $a_{DM}$ is the effect of the changing dispersion measure between the pulsar and the observer
+and is a minor effect which we assume is well compensated for in our treatment of the intrinsic
+period derivative.
+
+\begin{equation}
+    \left(\frac{\dot{P}}{P}\right)_{meas} = \left(\frac{\dot{P}}{P}\right)_{int} + \frac{a_c}{c} +
+    \frac{a_g}{c} + \frac{a_s}{c} + \frac{a_{DM}}{c}
+    \label{eq:pular-components}
+\end{equation}
+
+
+
+In order to constrain the 3D position of the pulsars within the cluster we adopt a model for the
+internal gas distribution of the cluster from \citet{Abbate2018}. We adopt their best fitting model
+which is a uniform distribution of ionized gas with a number density of $n = 0.23 \pm 0.05 \
+    \text{cm}^{-3}$. We also adopt their estimate for the total dispersion measure between the observer
+and the cluster centre: $DM_c = 24.38 \pm 0.02 \ \mathrm{pc cm}^{-3}$. By adopting a model for the
+gas distribution, we are able to accurately determine the pulsars line-of-sight position ($l$)
+within the cluster using the following equation (eq 28 in \citet{Abbate2018}):
+
+\begin{equation}
+    DM = n_g l + DM_c
+    \label{eq:DM-los}
+\end{equation}
+
+Combining the accurate estimate of $l$ with the well-measured projected distance from the cluster
+centre allows us to very accurately determine the pulsar's 3D position within the cluster.
+
+In order to assign a likelihood to a particular $\dot{P}/P$ measurement we first use the
 \texttt{LIMEPY} models to generate a line-of-sight acceleration profile for the given model. We then
-use this acceleration profile to interpolate the possible line-of-sight positions for the pulsar
-within the cluster. These line-of-sight positions are then assigned a likelihood through one of two
-methods. When possible the likelihood is based on a Gaussian centred at the pulsar's line-of-sight
-position as calculated from the dispersion measure (DM) of the pulsar. When the DM of the pulsar is
-not available, the density of pulsar-mass objects is used to assign a likelihood of observing a
-pulsar at that position. This likelihood distribution is then convolved with a Gaussian distribution
-representing the error on the pulsar's acceleration measurement as well as adjusted for typical
-spin-down of a pulsar, the effects of the pulsar's proper motion and the effects of the galactic
-potential. A resulting probability distribution from this method is shown in Figure
+use this acceleration profile to interpolate the possible line-of-sight positions for the pulsar.
+These line-of-sight positions are then assigned a probability distribution based on a Gaussian
+centred at the line-of-sight position as calculated from the DM with a dispersion equal to the
+uncertainty of the DM-based line-of-sight position. The likelihood is the sum of the height of the
+Gaussian at the interpolated line-of-sight positions from the model.
+
+
+For pulsars that are not consistent with the uniform gas model (pulsars AA and D, see
+\citealt{Abbate2018} for details) we instead assign a probability distribution to the line-of-sight
+position based on the model density of pulsar-mass objects at the given line of sight. These
+constraints are less precise than the DM-based constraints but allow us to use pulsars that are not
+well-fit by a uniform gas distribution to constrain the properties of the cluster.
+
+To constrain intrinsic spin-down of the pulsars, we assume the spin-down to be identical to pulsars
+found in the galaxy, outside of clusters, and dependant only on their period. The field pulsars, as
+they are unaffected by the cluster potential, can have their intrinsic spin-down determined
+directly. A Gaussian kernel density estimator is computed in the field $P$-$\dot{P}$ space, which is
+sliced along each cluster pulsar's period to extract a distribution of possible intrinsic values.
+This distribution of intrinsic spin-down values is then convolved with the probability distribution
+from the model.
+
+A resulting probability distribution from this method is shown in Figure
 \ref{fig:pulsar-likelihood}.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/pulsar-likelihood.png}
-    \caption{The resulting probability distribution for period derivatives of pulsar 47\,Tuc S from
-        the method described above. The green line is the likelihood of a given period derivative
-        measurement and the yellow line is the measured period derivative. The asymmetry in the
-        distribution is due to the intrinsic spin-down of the pulsar, biasing the distribution to
-        positive values of $\dot{P}/P$.}
+    \caption{The resulting probability distribution for the spin period derivative of pulsar 47\,Tuc S
+        from the method described above for the best-fitting models of 47\,Tuc. The green line is the
+        likelihood of a given period derivative measurement given the best-fitting model parameters and
+        the yellow line is the measured spin period derivative. The asymmetry in the distribution is due
+        to the intrinsic spin-down of the pulsar, biasing the distribution to positive values of
+        $\dot{P}/P$.}
     \label{fig:pulsar-likelihood}
 \end{figure}
 
-
+Many of the pulsars in 47\,Tuc are in binary systems and for 10 of these systems we have timing
+solutions for the binary system. These binary periods are useful because they are on the order of
+days rather than milliseconds. This means that the intrinsic effects that affect the spin periods
+are negligible and any measured change in the period can be entirely attributed to the acceleration
+from the cluster. Due to the much longer period, the number of detections is greatly reduced
+resulting in a much larger uncertainty than the spin period derivatives, this large uncertainty
+means the probability distributions based on orbital period derivatives have long tails and are not
+suited for placing hard constraints on the mass distribution of the cluster, we nonetheless use the
+orbital periods of these systems as an additional constraint on the cluster potential.
 
 
 \subsection{Fitting Mass Functions to Observations}
 
-When the mass function data was originally collected, the mass was recorded based on the position of
-the star on an isochrone fit to the cluster (see \citealt{Sollima2017} for details). This means that
-any binary stars in the sample are recorded as single stars a mass corresponding to a star with the
-combined colour of the two binary components and a luminosity corresponding to the sum of the two
-components.
+When the mass function data was originally extracted, the mass was inferred based on the position of
+the star on an isochrone fit to the cluster colour-magnitude diagram (see \citealt{Sollima2017} for
+details). This means that any binary stars in the observed sample are interpreted as single stars
+with a mass corresponding to a star with the combined colour of the two binary components and a
+luminosity corresponding to the sum of the two components. When comparing our models to the data, we
+want to extract the mass function profiles in the same way that the data was collected.
 
-Additionally, when we move mass around to create binary bins we remove mass from the surface density
-profiles which would normally be compared to the mass function data. In order to compensate for
-these effects, we rescale the surface density profiles to include the stars which are in binary
-bins, according to how they would have been observed using the observational method described above.
+Additionally, when we move mass around to create binary bins in our models we remove mass from the
+surface density profiles which would normally be compared to the mass function data. In order to
+compensate for these effects, we rescale the main-sequence surface density profiles to include the
+stars which are in binary bins, according to the mass they would have been given using the
+observational method described above, which assumed that all stars are single.
 
-In order to determine the observed mass we use a grid of MIST isochrones
+In order to determine the "observed" mass we use a grid of MIST isochrones
 \citep{Dotter2016,Choi2016}\footnote{We use the \code{EZMIST} library to fetch and prepare the
 isochrones. \code{EZMIST} is available online: \url{https://github.com/mfouesneau/ezmist}} computed
 at a range of metallicities, at the age of the cluster. We use the isochrone closest to the model
-parameters to determine the luminosity of the binary components and then again use the isochrone to
-determine the observed mass of the combined luminosities. Figure \ref{fig:2/isochrone} shows the
-derived relation between stellar mass and luminosity used for these conversions. After having
-determined at what mass a binary system would have been "observed", we then scale the surface
-density profiles of the main-sequence bin which most closely matches the observed mass of the binary
-system by the total mass of the binary system which allows us to correct for both effects.
+parameters (an age of 11.75 Gyr, Fe/H of -0.75, and no stellar rotation) to determine the luminosity
+of the binary components and then again use the isochrone to determine the observed mass of the
+combined luminosities. Figure \ref{fig:2/isochrone} shows the derived relation between stellar mass
+and luminosity used for these conversions. After having determined the mass that would have been
+inferred for a binary system if it was assumed to be a single star, we then scale the surface
+density profile of the main-sequence bin which most closely matches the "observed" mass of the
+binary system by the total mass of the binary system which allows us to correct for both effects.
 
 
 \begin{figure}

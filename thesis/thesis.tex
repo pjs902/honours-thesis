@@ -36,7 +36,8 @@
 \usepackage{microtype}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{hyperref}
-
+\usepackage{rotating}
+\usepackage{siunitx}
 \usepackage [autostyle, english = american]{csquotes}
 \MakeOuterQuote{"}
 %
@@ -71,7 +72,7 @@
 
 
 %---> Commands <--------------------------------------------------------------------------
-\newcommand{\ps}[1]{{\color{NavyBlue} Peter: #1}}
+\renewcommand{\ps}[1]{{\color{NavyBlue} Peter: #1}}
 
 
 %---> ABSTRACT <--------------------------------------------------------------------------
@@ -113,8 +114,12 @@
 \newpage
 
 
-\chapter{Results and Discussion}
+\chapter{Results}
 \input{chapters/results.tex}
+\newpage
+
+\chapter{Discussion}
+\input{chapters/discussion.tex}
 \newpage
 
 \chapter{Conclusion}

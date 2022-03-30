@@ -155,8 +155,8 @@ dispersion and the most massive components are the most centrally concentrated.
 
 The input parameters needed to compute our models include the central concentration parameter $W_0$,
 the truncation parameter $g$\footnote{Several well-known classes of models are reproduced by
-specific values of $g$: Woolley models \citep{Woolley1954} have $g=0$, King models \citep{King1966}
-$g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$ which determines
+	specific values of $g$: Woolley models \citep{Woolley1954} have $g=0$, King models \citep{King1966}
+	$g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$ which determines
 the degree of radial anisotropy in the models, $\delta$ which sets the mass dependence of the
 velocity scale and thus governs the degree of mass segregation, and finally the specific mass bins
 to use as defined by the mean stellar mass ($m_j$) and total mass ($M_j$) of each bin, which
@@ -248,12 +248,12 @@ models, we hope to recover more accurate present-day remnant populations.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/radial_binarity.pdf}
-\caption{Observed binary fraction vs. projected distance from cluster centre for NGC\,3201 as
-	inferred from multi-epoch radial velocity measurements from the MUSE instrument.
-	The slight trend in radial binary fraction is visible. Also plotted is the observed
-	binary fraction in a MOCCA model which matches well with NGC\,3201. MOCCA is a Monte
-	Carlo code designed to model globular clusters for which there is a large grid of
-	pre-computed models available. Reproduced from Figure 8 of \citet{Giesers2019}.}
+	\caption{Observed binary fraction vs. projected distance from cluster centre for NGC\,3201 as
+		inferred from multi-epoch radial velocity measurements from the MUSE instrument.
+		The slight trend in radial binary fraction is visible. Also plotted is the observed
+		binary fraction in a MOCCA model which matches well with NGC\,3201. MOCCA is a Monte
+		Carlo code designed to model globular clusters for which there is a large grid of
+		pre-computed models available. Reproduced from Figure 8 of \citet{Giesers2019}.}
 	\label{fig:1/radial_binary_fraction}
 \end{figure}
 
@@ -313,20 +313,26 @@ detector which enables far more time-efficient surveys than previous methods. Be
 measures radial velocities over time, periods for the binaries can be accurately determined and
 given enough measurements, many other parameters like eccentricity and companion mass can be
 accurately constrained in contrast to photometric methods which can only provide the mass ratio.
-This method also suffers from biases in that it requires the primary star of a binary to be bright
-enough to enable good spectroscopic measurements which may bias the sample towards systems with more
-massive primary stars. For NGC\,3201, the binary fraction found using this method was $6.75 \pm 0.72
-\%$ \citep{Giesers2019} which differs from the photometric estimates of \citet{Milone2012} which
-range from $10\textrm{-}12\%$ for different fields.
+This method also suffers from biases in that it requires the binary system to be bright enough to
+enable good spectroscopic measurements which may bias the sample towards systems with more massive
+stars. For NGC\,3201, the binary fraction found using this method was $6.75 \pm 0.72 \%$
+\citep{Giesers2019} which differs from the photometric estimates of \citet{Milone2012} which range
+from $10\textrm{-}12\%$ for different fields due to the different selection effects in each study.
 
 
 \section{This Thesis}
-The remainder of the thesis is structured as follows: in Chapter 2 I will describe the method used
-to generate mass functions which include realistic binary populations as well as the specifics of
-fitting these modified mass functions to real observations of stellar mass functions. Chapter 3
-discusses the results of the simulations, including the differences between models with and without
-binaries. Chapter 4 discusses the overall implications of including binaries in our models,
-specifically when fitting them to observations.
+To summarize, binary systems are an ingredient that is lacking from our current
+distribution-function based models, in this thesis we will develop a method to include binaries in
+the \code{LIMEPY} models and use this method to investigate the dynamical effects of the binaries.
+We will be focusing primarily on the interplay between the binary content of a cluster and its
+remnant population, in particular, how binaries can fill the role of heavy remnants in the overall
+mass distribution of the cluster. The remainder of the thesis is structured as follows: in Chapter 2
+I will describe the method used to generate mass functions which include realistic binary
+populations as well as the specifics of fitting these modified mass functions to real observations
+of stellar mass functions. Chapter 3 discusses the results of the model fits, including the
+differences between models with and without binaries as well as the overall implications of
+including binaries in our models, specifically when fitting them to observations. Chapter 4
+summarizes our findings and discusses future work.
 
 
 
