@@ -70,14 +70,18 @@ pulsars within the cluster. The pulsar data is summarized in Tables \ref{tab:pul
 
 \section{Binary Fraction Measurements}
 
-In order to create realistic binary populations we refer to the measurements of \citet{Milone2012} to
-inform our choices of binary fraction and mass ratio distribution. For 47\,Tuc this means a flat
-mass ration distribution and a binary fraction of roughly $2\%$. Because this estimate of the binary
-fraction is so small, we will use it as a lower limit for the binary fraction and also test a case
-where the binary fraction is around $10\%$, representing a case where the binary fraction is
+In order to create realistic binary populations we refer to the measurements of \citet{Milone2012}
+to inform our choices of binary fraction and mass ratio distribution. For 47\,Tuc this means a flat
+mass ration distribution and a binary fraction of roughly $2\%$ where the binary fraction is defined
+as the ratio between binary systems and total systems (Equation \ref{eq:binary_fraction}). Because this estimate of the
+binary fraction is so small, we will use it as a lower limit for the binary fraction and also test a
+case where the binary fraction is around $10\%$, representing a case where the binary fraction is
 significant.
 
-
+\begin{equation}
+    f_b = \frac{N_{bin}}{N_{bin} + N_{single}}
+    \label{eq:binary_fraction}
+\end{equation}
 
 
 \section{Generating mass functions}
@@ -159,28 +163,27 @@ distributions using this method.
 \end{figure}
 
 
-After we have assigned part of the total binary fractions to each value of $q$, we then go through
-each bin of main-sequence stars to make binaries. The companion mass for a given bin is calculated
-using the current value of $q$ and the number of binaries to make is calculated using the binary
-fraction for the current value of $q$. After the companion mass and number of binaries are set, we
-then remove mass from the primary bin and the bin that most closely matches the mass of the companion
-and add the mass to a new bin with a mean mass equal to the sum of each binary component. Through
-this process we move mass around between bins of differing \emph{mean} masses while conserving the
-\emph{total} mass in stars in the model.
+After we have assigned a portion of the total binary fraction to each value of $q$, we then go
+through each bin of main-sequence stars to make binaries. The companion mass for a given bin is
+calculated for each value of $q$ in the mass ratio distribution and the number of binaries to make
+is calculated using the portion of the binary fraction assigned to each value of $q$. After the
+companion mass and number of binaries are set, we then remove mass from the primary bin and the bin
+that most closely matches the mass of the companion and add the mass to a new bin with a mean mass
+equal to the sum of the primary and companion masses. Through this process we move mass between bins
+of differing \emph{mean} masses while conserving the \emph{total} mass in stars in the model.
 
 
-We repeat this process for each bin of main-sequence stars until all bins have a binary fraction
-corresponding to the weighted $f_b$ of the current value of $q$. We do this process for each value
-of $q$ in the mass ratio distribution, resulting in each main-sequence bin having a binary fraction
+We repeat this process for each bin of main-sequence stars until each bin has a binary fraction
 equal to the total requested binary fraction and a mass ratio distribution identical to the
-requested distribution.
+requested distribution, this results in the overall binary fraction and mass ratio distribution for
+the cluster matching the requested values.
 
 
 This process tends to create on the order of 150 new bins in our mass function which dramatically
-increases the runtime of the \code{LIMEPY} models. In order to prevent this, we group together binary
-bins of similar masses, forming 15 "binary bins" containing binary systems of similar total mass but
-differing mass ratios. Figure \ref{fig:2/shifted-mf} shows the original main sequence bins, plotted
-with the modified main sequence bins, binary bins and rebinned binary bins.
+increases the runtime of the \code{LIMEPY} models. In order to prevent this, we group together
+binary bins of similar masses, forming 15 "binary bins" containing binary systems of similar total
+mass but differing mass ratios. Figure \ref{fig:2/shifted-mf} shows the original main sequence bins,
+plotted with the modified main sequence bins, binary bins and rebinned binary bins.
 
 
 \begin{figure}
@@ -188,9 +191,9 @@ with the modified main sequence bins, binary bins and rebinned binary bins.
     \includegraphics[width=0.8\textwidth]{figures/shifted-mf.png}
     \caption{The main-sequence portion of a mass function before and after binaries are added. $M_j$
         is the total mass within a bin while $m_j$ is the mean mass of the bin. The blue circles are
-        the original main sequence bins and the crosses are the modified main sequence bins. The orange
-        crosses show the single stars after mass has been removed to create binaries and the many
-        green crosses are the binary bins that are initially created. The red crosses are the
+the original main sequence bins and the crosses are the modified main sequence bins. The
+orange crosses show the single stars after mass has been removed to create binaries and the
+many green crosses are the binary bins that are initially created. The red crosses are the
         rebinned binary bins which are actually used in the computation of the \code{LIMEPY}
         models.}
     \label{fig:2/shifted-mf}
@@ -209,8 +212,9 @@ Nested Sampling.
 For this project we use the MCMC backend which is powered by \code{emcee}
 \citet{Foreman-Mackey2013,Foreman-Mackey2019}, an affine-invariant ensemble  sampler. We use 1024
 walkers, initialized at a small randomized sphere around a reasonable initial guess  for the model
-parameters. We run the chain for 2500 steps and discard the initial 2000 steps as the burn-in
-period.
+parameters. We run the chain for 2500 steps and discard the initial 2000 steps as the burn-in period
+Trace and corner \citep{Foreman-Mackey2016} plots for all three chains are shown in Figures
+\ref{fig:nobin_walkers} through \ref{fig:highbin_corner}.
 
 \subsection{Likelihoods}
 
