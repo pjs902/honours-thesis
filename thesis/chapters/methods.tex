@@ -26,12 +26,12 @@ central dark mass in isotropic models by raising the central velocity dispersion
 
 
 \subsubsection{Line-of-sight velocity dispersion profiles}
-
 We use the line-of-sight velocity dispersion profile from \citet{Baumgardt2018} to further constrain
 the kinematics of the cluster. The dispersion profile is based on archival ESO/VLT and Keck spectra
 along with previously published radial velocity data from the literature. As these radial velocity
 samples are dominated by bright stars, we assume that the velocity dispersion profile traces the
 kinematics of upper main-sequence and evolved stars in our models.
+
 
 \subsubsection{Number density profiles}
 We use the number density profile from \citet{DeBoer2019} to constrain the size and structural
@@ -41,8 +41,8 @@ central regions. The Gaia data used only includes bright stars ($m > 0.6 \ \math
 both clusters) and the literature data is dominated by bright stars, therefore in our models we
 assume the profiles probe the spatial distribution of upper main sequence and evolved stars.
 
-\subsection{Stellar mass functions}
 
+\subsection{Stellar mass functions}
 As a constraint on the global present-day stellar mass function of the cluster, we use a compilation
 of HST-based stellar mass function data from
 Baumgardt\footnote{\url{https://people.smp.uq.edu.au/HolgerBaumgardt/globular/}} (2021, priv.
@@ -53,12 +53,12 @@ $0.16 - 0.8 \ \mathrm{M}_\odot$. The large radial and mass ranges allow us to co
 of the local stellar mass function with distance from the cluster centre and therefore the degree
 mass segregation in the cluster.
 
-\subsection{Pulsar Data}
 
+\subsection{Pulsar Data}
 We make use of the large population of millisecond pulsars (MSPs) in 47\,Tuc to place further
 constraints on its mass distribution. We use timing solutions from \citet{Freire2017},
 \citet{Ridolfi2016} and \citet{Freire2018} which include both the spin and orbital periods. We also
-consider the dispersion measures of the pulsars which is a measure of how much gas the signal has
+consider the dispersion measure of the pulsars which is a measure of how much gas the signal has
 passed through on its way to the observer. When combined with internal gas models from
 \citet{Abbate2018}, the dispersion measures allow us to constrain the line-of-sight position of the
 pulsars within the cluster. The pulsar data is summarized in Tables \ref{tab:pulsars_spin} and
@@ -106,10 +106,12 @@ ejections. The algorithm returns a binned mass function at a requested evolution
 use as an input in the \code{LIMEPY} models.
 
 We parameterize the mass function as a broken power-law with breakpoints at $0.5 \ \mathrm{M}_\odot$
-and $1.0 \ \mathrm{M}_\odot$. We provide to \evolvemf{} the initial mass function slopes and
-breakpoints, the cluster age, metallicity and escape velocity, as well as parameters which control
-the mass loss due to escaping stars and the specific binning to be used when returning the final
-discrete mass-function bins. For this study we do not model the mass loss due to tidal stripping, so
+and $1.0 \ \mathrm{M}_\odot$. We provide to \evolvemf{} the initial mass function slopes
+($\alpha_1$, $\alpha_2$ and $\alpha_3$) and breakpoints, the cluster age, metallicity and escape
+velocity, as well as parameters which control the mass loss due to escaping stars and the specific
+binning to be used when returning the final discrete mass-function bins. We finally provide the
+black hole retention ($BH_{ret}$) which controls how many of the black holes created from the IMF are
+retained to the present day. For this study we do not model the mass loss due to tidal stripping, so
 we set the mass loss due to escaping stars to be zero, so we are effectively specifying the present
 day mass function for low-mass stars. Figure \ref{fig:2/evolve_mf} shows the evolution of a mass
 function over a span of $10 \ \mathrm{Gyr}$ (\citealt{Baumgardt2017a} found the age of 47\,Tuc to be
@@ -126,7 +128,7 @@ $11.75$ Gyr).
         effects of stellar evolution but also has contributions from ejected heavy remnants. The
         lack of mass loss in the low-mas regime evident, we set the mass loss due to escaping stars
 to be zero, meaning that we are effectively fitting on the present-day mass function for
-low-mass stars instead of the initial mass function.}
+low-mass stars.}
     \label{fig:2/evolve_mf}
 \end{figure}
 
@@ -143,8 +145,8 @@ single stars into heavier bins which act as the "binary bins".
 We split this process up into several steps. First we assign a portion of the total binary fraction
 to each value of $q$ in the requested mass ratio distribution. We weight the $f_b$ values assigned
 to the individual values of $q$ by the chosen mass ratio distribution. A flat mass ratio
-distribution would have the total binary fraction divided evenly among the values, while a "solar
-distribution" (see \citealt{Reggiani2013}) would have a significantly higher number of equal mass
+distribution would have the total binary fraction split evenly among the values, while a "solar
+distribution" (see \citealt{Reggiani2013}) would have a significantly higher number of equal-mass
 binaries compared to a flat distribution. Figure \ref{fig:2/q-dists} shows the resulting mass ratio
 distributions using this method.
 
@@ -256,21 +258,19 @@ approximated as a broken power-law.
 \subsubsection{Pulsar Likelihood}
 
 As stated previously, the development of a method to use pulsar acceleration measurements to
-constrain the models was performed as part of an earlier project, but we will provide a description
+constrain the models was performed as part of an earlier project, but we provide a description
 of the process below.
-
-
 
 
 Pulsar period derivatives as measured by an observer are made up of several distinct components,
 only one of which is related to the cluster potential. The effects of the proper motion of the
 pulsar and the galactic potential of the pulsar are fairly easily constrained based on the pulsar's
-position in the galaxy but, the effects of phenomena like magnetic breaking or accretion are not.
+position in the galaxy but, the effects of processes like magnetic breaking or accretion are not.
 Equation \ref{eq:pular-components} shows the breakdown of the measured period derivative into
 separate components where $(\dot{P}/P)_{int}$ is any change in period due to the effects intrinsic
 to the pulsar like magnetic breaking or accretion, $a_c$ is the change due to the cluster's
 gravitational potential and is the quantity we are interested in, $a_g$ is the effect of the
-galaxy's gravitational potential and is easily adjusted for based on 47 Tuc's position within the
+galaxy's gravitational potential and is easily adjusted for based on 47\,Tuc's position within the
 Milky Way, $a_s$ is the effect of the pulsar's proper motion and is similarly easy to compensate
 for, $a_{DM}$ is the effect of the changing dispersion measure between the pulsar and the observer
 and is a minor effect which we assume is well compensated for in our treatment of the intrinsic
@@ -290,7 +290,7 @@ which is a uniform distribution of ionized gas with a number density of $n = 0.2
     \text{cm}^{-3}$. We also adopt their estimate for the total dispersion measure between the observer
 and the cluster centre: $DM_c = 24.38 \pm 0.02 \ \mathrm{pc \ cm}^{-3}$. By adopting a model for the
 gas distribution, we are able to accurately determine the pulsars line-of-sight position ($l$)
-within the cluster using the following equation (eq 28 in \citet{Abbate2018}):
+within the cluster using the following equation (Equation 28 in \citet{Abbate2018}):
 
 \begin{equation}
     DM = n_g l + DM_c
@@ -303,10 +303,10 @@ centre allows us to very accurately determine the pulsar's 3D position within th
 In order to assign a likelihood to a particular $\dot{P}/P$ measurement we first use the
 \texttt{LIMEPY} models to generate a line-of-sight acceleration profile for the given model. We then
 use this acceleration profile to interpolate the possible line-of-sight positions for the pulsar.
-These line-of-sight positions are then assigned a probability distribution based on a Gaussian
-centred at the line-of-sight position as calculated from the DM with a dispersion equal to the
-uncertainty of the DM-based line-of-sight position. The likelihood is the sum of the height of the
-Gaussian at the interpolated line-of-sight positions from the model.
+These line-of-sight positions are then assigned a probability based on a Gaussian centred at the
+line-of-sight position as calculated from the DM with a dispersion equal to the uncertainty of the
+DM-based line-of-sight position. The likelihood is the sum of the height of the Gaussian at each of
+the interpolated line-of-sight positions from the model.
 
 
 For pulsars that are not consistent with the uniform gas model (pulsars AA and D, see
@@ -376,7 +376,8 @@ combined luminosities. Figure \ref{fig:2/isochrone} shows the derived relation b
 and luminosity used for these conversions. After having determined the mass that would have been
 inferred for a binary system if it was assumed to be a single star, we then scale the surface
 density profile of the main-sequence bin which most closely matches the "observed" mass of the
-binary system by the total mass of the binary system which allows us to correct for both effects.
+binary system to include the total mass of the binary system which allows us to correct for both
+effects.
 
 
 \begin{figure}

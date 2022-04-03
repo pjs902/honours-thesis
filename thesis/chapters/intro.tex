@@ -35,18 +35,19 @@ stars caused by the effects of mass segregation.
 
 
 The study of stellar remnants in globular clusters has far-reaching implications for diverse fields
-of astrophysics. Globular clusters are one of the most commonly proposed candidates to host
-intermediate-mass black holes (IMBHs). Due to the effects of mass segregation and the high densities
-within the cores of globular clusters, the central regions of globular clusters are an ideal
-environment for mergers of compact objects, especially in the early stages their of evolution when
-they are significantly denser than the present day \citep[e.g.][]{PortegiesZwart2004,Rodriguez2021}.
-These mergers can be detected through their resultant gravitational waves and the expected rates for
-gravitational wave events depend significantly on the compact object populations in globular
-clusters \citep[e.g][]{Weatherford2021}. These mergers are also thought to be one of the most promising
-formation channels for IMBHs \citep[e.g.][]{Giersz2015}, a so-far undetected class of black holes
-whose masses fall between those of stellar-mass black holes and those of supermassive black holes.
-The formation of these black holes has important implications for understanding the formation of the
-supermassive black holes that we find at the centre of galaxies.
+of astrophysics.  Due to the effects of mass segregation and the high densities within the cores of
+globular clusters, the central regions of globular clusters are an ideal environment for mergers of
+compact objects, especially in the early stages their of evolution when they are significantly
+denser than the present day \citep[e.g.][]{PortegiesZwart2004,Rodriguez2021}. These mergers can be
+detected through their resultant gravitational waves and the expected rates for gravitational wave
+events depend significantly on the compact object populations in globular clusters
+\citep[e.g][]{Weatherford2021}. These mergers are also thought to be one of the most promising
+formation channels for intermediate-mass black holes (IMBHs) \citep[e.g.][]{Giersz2015}, a so-far
+undetected class of black holes whose masses fall between those of stellar-mass black holes and
+those of supermassive black holes. This means that globular clusters are one of the most commonly
+proposed candidates to host intermediate-mass black holes. The formation of these black holes has
+important implications for understanding the formation of the supermassive black holes that we find
+at the centre of galaxies.
 
 
 The work presented in this thesis builds on a previous project I worked on which used pulsar timing
@@ -144,10 +145,10 @@ dispersion and the most massive components are the most centrally concentrated.
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figures/limepy_veldisp.png}
 	\includegraphics[width=0.8\textwidth]{./figures/limepy_numdens.png}
-	\caption{The line-of-sight velocity dispersion profile and number density profile of
-		47\,Tuc, simultaneously fit by a \code{LIMEPY} model. The \code{LIMEPY} models are
-		able to very accurately reproduce a range of cluster observables including
-		simultaneous fitting of stellar mass function data and kinematic data.}
+	\caption{The line-of-sight velocity dispersion profile and number density profile of bright
+		stars in 47\,Tuc, simultaneously fit by a \code{LIMEPY} model. The \code{LIMEPY}
+		models are able to very accurately reproduce a range of cluster observables
+		including simultaneous fitting of stellar mass function data and kinematic data.}
 	\label{fig:1/limepy_models}
 \end{figure}
 
@@ -223,13 +224,12 @@ Because binaries are tightly bound, for all interactions except for the very clo
 effectively act as a single point mass equal to the sum of each component's mass. In this way,
 binaries can affect cluster dynamics in much the same way that a large population of heavy remnants
 might. Much like black holes and neutron stars, binary systems will migrate to the centre of a
-cluster due to the effect of mass segregation. It has been found (e.g. \citealt{Kremer2019}) that a
-central population of black holes is typically required in addition to binary systems in order to
+cluster due to the effect of mass segregation.  This predicted increase in binary fraction as you
+get closer to the centre of a cluster is also seen in observations and is illustrated in Figure
+\ref{fig:1/radial_binary_fraction} for NGC 3201. It has been found (e.g. \citealt{Kremer2019}) that
+a central population of black holes is typically required in addition to binary systems in order to
 halt core collapse. Both of these populations slow core collapse by injecting kinetic energy through
-two-body interactions within the core of the cluster. This predicted increase in binary fraction as
-you get closer to the centre of a cluster is also seen in observations and is illustrated in Figure
-\ref{fig:1/radial_binary_fraction} for NGC 3201. \ps{Read through this again to see if it needs more
-	edits, maybe move some things to the end of previous paragraph?}
+two-body interactions within the core of the cluster.
 
 The effect of having a significant central population of binaries could be that our mass models are
 overestimating the number of black holes and other high-mass objects (neutron stars, massive white
@@ -237,13 +237,9 @@ dwarfs) in the core of the cluster. Because the gravitational potential in the c
 the cluster is fairly well constrained by kinematic measurements, if we are missing a significant
 contribution from binaries, the models may be compensating for this "missing mass" by adding more
 mass to the heavy end of the stellar mass function which would lead to an overestimation of the
-number of neutron stars and black holes. By including realistic populations of binary stars in our
+number of neutron stars and black holes and would have a particularly large impact on the inferred
+high-mass IMF of globular clusters. By including realistic populations of binary stars in our
 models, we hope to recover more accurate present-day remnant populations.
-
-\ps{Comment for future consideration: You could emphasize that this could impact conclusions about
-	the inferred high-mass IMF of globular clusters (Nolan's work) and the contribution of BH-BH
-	mergers from globular clusters to the population of gravitational wave progenitors.}
-
 
 \begin{figure}
 	\centering
@@ -270,10 +266,8 @@ companion star to the mass of the primary star to quantify this difference: an e
 will have a mass ratio of $q=1$ while a binary with a large difference in the masses of its
 components will have a mass ratio closer to zero. Binaries that are detectable through this method
 typically have a mass ratio greater than $q=0.5$. These systems will appear to be raised above the
-main sequence when plotted on a colour-magnitude diagram as their colour will match that of a
-typical main-sequence star however their luminosity will be the sum of each component \ps{Comment to
-	work in here: The combined colour does depend on the colours of the two stars and therefore on the
-	mass ratio, as you can see from Fig. 1.5 with the "arc shapes" for different mass ratios.}. Figure
+main sequence when plotted on a colour-magnitude diagram as their colour will be a combination of
+the two stars while their luminosity will be the direct sum of each component. Figure
 \ref{fig:1/main_sequence_binaries} shows the main sequence of the cluster NGC\,2298. The binary
 stars in this cluster are visible above the main sequence, raised according to their mass ratio.
 \citet{Milone2012} performed high-precision photometry on several globular clusters using the Hubble
@@ -326,13 +320,13 @@ distribution-function based models, in this thesis we will develop a method to i
 the \code{LIMEPY} models and use this method to investigate the dynamical effects of the binaries.
 We will be focusing primarily on the interplay between the binary content of a cluster and its
 remnant population, in particular, how binaries can fill the role of heavy remnants in the overall
-mass distribution of the cluster. The remainder of the thesis is structured as follows: in Chapter 2
-I will describe the method used to generate mass functions which include realistic binary
-populations as well as the specifics of fitting these modified mass functions to real observations
-of stellar mass functions. Chapter 3 discusses the results of the model fits, including the
-differences between models with and without binaries as well as the overall implications of
-including binaries in our models, specifically when fitting them to observations. Chapter 4
-summarizes our findings and discusses future work.
+mass distribution of the cluster. The remainder of the thesis is structured as follows: Chapter 2
+describes the method used to generate mass functions which include realistic binary populations as
+well as the specifics of fitting these modified mass functions to real observations of stellar mass
+functions. Chapter 3 discusses the results of the model fits. Chapter 4 discusses the differences
+between models with and without binaries as well as the overall implications of including binaries
+in our models, specifically when fitting them to observations. Chapter 5 summarizes our findings and
+discusses future work.
 
 
 
