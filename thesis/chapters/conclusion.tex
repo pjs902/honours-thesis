@@ -1,19 +1,28 @@
 
+The effects of binary systems have long been a missing ingredient in equilibrium mass models of
+globular clusters. Due to the effects of mass segregation, heavy binaries will quickly become
+centrally concentrated, much like heavy remnants. A centrally concentrated population of heavy
+binary systems could emulate the effects of heavy remnants in the central regions of a cluster and
+thus by ignoring their effects the remnant populations that we infer for these cluster might be
+biased.
 
+To investigate this effect we have developed a method to include realistic binary populations in
+\code{LIMEPY} models. We used this method to fit three sets of models to observations of the
+globular cluster 47\,Tuc, a set with no binaries, a set with a binary fraction of $2\%$, and a set
+with a binary fraction of $10\%$. Despite their different binary fractions, all three sets of models
+were able to satisfyingly reproduce all observables and recovered the same structural parameters for
+the models. The three sets of models differed primarily in their recovered mass functions and black
+hole content. As more binaries are added, fewer high-mass remnants are required to reproduce the
+kinematics of the cluster. This results in a lowered $\alpha_3$ parameter and less mass in black
+holes and other heavy remnants.
 
-In summary, we have developed a method to include realistic binary populations in \code{LIMEPY}
-models. We used this method to fit three sets of models to observations of the globular cluster
-47\,Tuc, a set with no binaries, a set with a binary fraction of $2\%$, and a set with a binary
-fraction of $10\%$. Despite their different binary fractions, all three sets of models were able to
-satisfyingly reproduce all observables and recovered the same structural parameters for the models.
-The three sets of models differed primarily in their recovered mass functions and black hole
-content. As more binaries are added, few high-mass remnants are required to reproduce the kinematics
-of the cluster. This results in a lowered $\alpha_3$ parameter and less mass in black holes.
+We further showed how binaries fill the same role as heavy remnants in the central mass distribution
+of the cluster, explaining why adding binaries to a model reduces the need for heavy remnants.
 
 The implications of this work depend on the binary fraction of the cluster in question. For 47\,Tuc,
-our best estimates place the binary fraction at around $2\%$, so this effect is likely negligible. If
-however, future observations or models suggest that 47\,Tuc might be host to more binaries, then it
-is important that future studies include their effects in their models if they wish to recover
+our best estimates place the binary fraction at around $2\%$, so this effect is likely negligible.
+If however, future observations or models suggest that 47\,Tuc might be host to more binaries, then
+it is important that future studies include their effects in their models if they wish to recover
 accurate remnant populations.
 
 
@@ -32,14 +41,14 @@ can be formed from any cluster members and binaries where one or both components
 would have an even larger effect on the kinematics of the cluster then main-sequence binaries. The
 reason we did not consider this class of binaries in this project is because we have essentially no
 constraints on what these populations might look like. The usual photometric methods cannot be used
-because there is at most one main-sequence star and radial velocity search will only uncover them if
-the binary contains a main-sequence star. It's possible that in this case, we could turn to N-body
-or Monte Carlo models to constrain the present-day remnant binary populations, but the binary
+because there is at most one main-sequence star and radial velocity searches will only uncover them
+if the binary contains a bright star. It's possible that in this case, we could turn to N-body or
+Monte Carlo models to constrain the present-day remnant binary populations, but the binary
 populations in these models are likely to be highly dependent on the primordial binary population
 and initial conditions of the models.
 
-In the future it would be a nice application of this method to examine a cluster like NGC\,3201
-where we know there is likely to be a fairly large binary population. This might allow us to place
-stringent and reliable constraints on the black hole population in NGC\,3201 while accounting for
-the degeneracy between black hole content and mass in binaries that we have demonstrated can be
-important using 47 Tuc as a test case.
+In the future it would be a interesting application of this method to examine a cluster like
+NGC\,3201 where we know there is likely to be a fairly large binary population. This might allow us
+to place stringent and reliable constraints on the black hole population in NGC\,3201 while
+accounting for the degeneracy between black hole content and mass in binaries that we have
+demonstrated can be important using 47\,Tuc as a test case.

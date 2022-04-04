@@ -12,7 +12,7 @@ NGC\,7006, imaged by the Hubble Space Telescope's Advanced Camera for Surveys. T
 cluster is clearly visible and is made up of tens of thousands of stars. The dynamics of globular
 clusters are almost entirely governed by the interactions between individual cluster members, with
 small effects from the galactic potential of its host galaxy as well as mass loss due to stellar
-evolution. Two-body relaxation is the main driver of the evolution of GCs and through this process,
+evolution. Two-body relaxation is the main driver of the evolution of GCs and, through this process,
 they display a wide range of dynamical phenomena. Among these phenomena, mass segregation is a
 process through which heavier objects migrate to the centre of a cluster and lighter objects move to
 the outer regions. As objects interact with each other, their kinetic energies will tend to equalize
@@ -156,19 +156,20 @@ dispersion and the most massive components are the most centrally concentrated.
 
 The input parameters needed to compute our models include the central concentration parameter $W_0$,
 the truncation parameter $g$\footnote{Several well-known classes of models are reproduced by
-	specific values of $g$: Woolley models \citep{Woolley1954} have $g=0$, King models \citep{King1966}
-	$g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$ which determines
+specific values of $g$: Woolley models \citep{Woolley1954} have $g=0$, King models \citep{King1966}
+$g=1$, and Wilson models \citep{Wilson1975} $g=2$.}, the anisotropy radius $r_a$ which determines
 the degree of radial anisotropy in the models, $\delta$ which sets the mass dependence of the
 velocity scale and thus governs the degree of mass segregation, and finally the specific mass bins
 to use as defined by the mean stellar mass ($m_j$) and total mass ($M_j$) of each bin, which
 together specify the stellar mass function. In order to scale the model units into physical units,
 the total mass of the cluster $M$ and a size scale (the half-mass radius of the cluster $r_h$) are
-provided as well. Figure \ref{fig:1/limepy_models} demonstrates the ability of the models to
-simultaneously fit many cluster observables, specifically pictured are the line-of-sight velocity
-dispersion profile and the number density profile of bright stars. The power of these models lies in
-their ability to simultaneously fit not just kinematic and number density data but also the stellar
-mass function data of a cluster, Figure \ref{fig:1/massfunc_fit} shows model fits to stellar mass
-function data from the globular cluster 47\,Tuc.
+provided as well. Finally, we provide the distance to the cluster ($d$) which is used in converting between
+angular and linear quantities. Figure \ref{fig:1/limepy_models} demonstrates the ability of the
+models to simultaneously fit many cluster observables, specifically pictured are the line-of-sight
+velocity dispersion profile and the number density profile of bright stars. The power of these
+models lies in their ability to simultaneously fit not just kinematic and number density data but
+also the stellar mass function data of a cluster, Figure \ref{fig:1/massfunc_fit} shows model fits
+to stellar mass function data from the globular cluster 47\,Tuc.
 
 
 \begin{figure}
@@ -224,9 +225,9 @@ Because binaries are tightly bound, for all interactions except for the very clo
 effectively act as a single point mass equal to the sum of each component's mass. In this way,
 binaries can affect cluster dynamics in much the same way that a large population of heavy remnants
 might. Much like black holes and neutron stars, binary systems will migrate to the centre of a
-cluster due to the effect of mass segregation.  This predicted increase in binary fraction as you
+cluster due to the effects of mass segregation.  This predicted increase in binary fraction as you
 get closer to the centre of a cluster is also seen in observations and is illustrated in Figure
-\ref{fig:1/radial_binary_fraction} for NGC 3201. It has been found (e.g. \citealt{Kremer2019}) that
+\ref{fig:1/radial_binary_fraction} for NGC\,3201. It has been found (e.g. \citealt{Kremer2019}) that
 a central population of black holes is typically required in addition to binary systems in order to
 halt core collapse. Both of these populations slow core collapse by injecting kinetic energy through
 two-body interactions within the core of the cluster.

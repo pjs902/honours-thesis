@@ -37,8 +37,8 @@ kinematics of upper main-sequence and evolved stars in our models.
 We use the number density profile from \citet{DeBoer2019} to constrain the size and structural
 parameters of the cluster. These profiles are made up of a combination of cluster members based on
 Gaia DR2 data in the outer regions and surface brightness data from \citet{Trager1995} in the
-central regions. The Gaia data used only includes bright stars ($m > 0.6 \ \mathrm{M}_\odot$, for
-both clusters) and the literature data is dominated by bright stars, therefore in our models we
+central regions. The Gaia data only includes bright stars ($m > 0.6 \ \mathrm{M}_\odot$, for both
+clusters) and the literature data is also dominated by bright stars, therefore in our models we
 assume the profiles probe the spatial distribution of upper main sequence and evolved stars.
 
 
@@ -58,7 +58,7 @@ mass segregation in the cluster.
 We make use of the large population of millisecond pulsars (MSPs) in 47\,Tuc to place further
 constraints on its mass distribution. We use timing solutions from \citet{Freire2017},
 \citet{Ridolfi2016} and \citet{Freire2018} which include both the spin and orbital periods. We also
-consider the dispersion measure of the pulsars which is a measure of how much gas the signal has
+consider the dispersion measures of the pulsars which is a measure of how much gas the signal has
 passed through on its way to the observer. When combined with internal gas models from
 \citet{Abbate2018}, the dispersion measures allow us to constrain the line-of-sight position of the
 pulsars within the cluster. The pulsar data is summarized in Tables \ref{tab:pulsars_spin} and
@@ -72,7 +72,7 @@ pulsars within the cluster. The pulsar data is summarized in Tables \ref{tab:pul
 
 In order to create realistic binary populations we refer to the measurements of \citet{Milone2012}
 to inform our choices of binary fraction and mass ratio distribution. For 47\,Tuc this means a flat
-mass ration distribution and a binary fraction of roughly $2\%$ where the binary fraction is defined
+mass ratio distribution and a binary fraction of roughly $2\%$ where the binary fraction is defined
 as the ratio between binary systems and total systems (Equation \ref{eq:binary_fraction}). Because this estimate of the
 binary fraction is so small, we will use it as a lower limit for the binary fraction and also test a
 case where the binary fraction is around $10\%$, representing a case where the binary fraction is
@@ -123,12 +123,12 @@ $11.75$ Gyr).
     \caption{The evolution of a typical mass function from $t=0$ to $t=10 \ \mathrm{Gyr}$. The
         stellar bins are plotted in green while the remnant bins are plotted in black, the current
         main-sequence turn-off is plotted as a dashed black line. As the cluster ages, more and more
-        main sequence stars evolve into remnants. Lower right: The evolution of the total mass of
-        the cluster is plotted as a fraction of the initial mass. Mass loss is dominated by the
-        effects of stellar evolution but also has contributions from ejected heavy remnants. The
-        lack of mass loss in the low-mas regime evident, we set the mass loss due to escaping stars
-to be zero, meaning that we are effectively fitting on the present-day mass function for
-low-mass stars.}
+        main sequence stars evolve into remnants. The lack of mass loss in the low-mass regime is
+        evident, we set the mass loss due to escaping stars to be zero, meaning that we are
+        effectively fitting on the present-day mass function for low-mass stars. Lower right: The
+        evolution of the total mass of the cluster is plotted as a fraction of the initial mass.
+        Mass loss is dominated by the effects of stellar evolution but also has contributions from
+        ejected heavy remnants. }
     \label{fig:2/evolve_mf}
 \end{figure}
 
@@ -142,7 +142,7 @@ effects of a binary population in our mass function, we simply need to shift som
 single stars into heavier bins which act as the "binary bins".
 
 
-We split this process up into several steps. First we assign a portion of the total binary fraction
+We split this process up into several steps. First, we assign a portion of the total binary fraction
 to each value of $q$ in the requested mass ratio distribution. We weight the $f_b$ values assigned
 to the individual values of $q$ by the chosen mass ratio distribution. A flat mass ratio
 distribution would have the total binary fraction split evenly among the values, while a "solar
@@ -214,9 +214,41 @@ Nested Sampling.
 For this project we use the MCMC backend which is powered by \code{emcee}
 \citet{Foreman-Mackey2013,Foreman-Mackey2019}, an affine-invariant ensemble  sampler. We use 1024
 walkers, initialized at a small randomized sphere around a reasonable initial guess  for the model
-parameters. We run the chain for 2500 steps and discard the initial 2000 steps as the burn-in period
-Trace and corner \citep{Foreman-Mackey2016} plots for all three chains are shown in Figures
-\ref{fig:nobin_walkers} through \ref{fig:highbin_corner}.
+parameters. The parameters and their priors are summarized in Table \ref{tab:priors}. We run the
+chains for 2500 steps and discard the initial 2000 steps as the burn-in period. Trace and corner
+\citep{Foreman-Mackey2016} plots for all three chains are shown in Figures \ref{fig:nobin_walkers}
+through \ref{fig:highbin_corner}.
+
+\begin{table}
+    \centering
+    \caption{Model parameters and their priors. Most priors are uniform and are chosen to bound the
+        chains around a reasonable range of parameter values for 47\,Tuc. For the mass function slopes
+        we add the additional constraint that $\alpha_2$ must be steeper than $\alpha_1$ and $\alpha_3$
+        steeper than $\alpha_2$ to ensure that we are only testing mass functions that make sense
+        physically. For the distance we use a Gaussian prior with the distance measurement from
+        \citet{Baumgardt2021} providing the mean and standard deviation of the prior.}
+    \begin{tabular}{l l}
+
+        \hline
+        Parameter                      & Prior                                \\
+        \hline
+        $W_0$                          & Uniform (4, 10)                      \\
+        $M (10^6 \mathrm{M}_{\odot}) $ & Uniform (0.1, 1.5)                   \\
+        $r_h (pc)$                     & Uniform (0.5, 10)                    \\
+        $\log_{10}{r_a / pc}$          & Uniform (0, 5)                       \\
+        $g$                            & Uniform (0, 2.3)                     \\
+        $\delta$                       & Uniform (0.3, 0.5)                   \\
+        $s^2$                          & Uniform (0, 15)                      \\
+        $F$                            & Uniform (1, 5)                       \\
+        $\alpha_1$                     & Uniform (0, 2.35)                    \\
+        $\alpha_2$                     & Uniform (0, 2.35) and $\ge \alpha_1$ \\
+        $\alpha_3$                     & Uniform (1.6, 4) and $\ge \alpha_2$  \\
+        $BH_{ret} (\%)$                & Uniform (0, 5)                       \\
+        $d (\mathrm{kpc}) $            & Gaussian ($4.521 \pm 0.031$)         \\
+        \hline
+    \end{tabular}
+    \label{tab:priors}
+\end{table}
 
 \subsection{Likelihoods}
 
@@ -262,7 +294,7 @@ constrain the models was performed as part of an earlier project, but we provide
 of the process below.
 
 
-Pulsar period derivatives as measured by an observer are made up of several distinct components,
+Pulsar period derivatives, as measured by an observer, are made up of several distinct components,
 only one of which is related to the cluster potential. The effects of the proper motion of the
 pulsar and the galactic potential of the pulsar are fairly easily constrained based on the pulsar's
 position in the galaxy but, the effects of processes like magnetic breaking or accretion are not.
@@ -305,8 +337,8 @@ In order to assign a likelihood to a particular $\dot{P}/P$ measurement we first
 use this acceleration profile to interpolate the possible line-of-sight positions for the pulsar.
 These line-of-sight positions are then assigned a probability based on a Gaussian centred at the
 line-of-sight position as calculated from the DM with a dispersion equal to the uncertainty of the
-DM-based line-of-sight position. The likelihood is the sum of the height of the Gaussian at each of
-the interpolated line-of-sight positions from the model.
+DM-based line-of-sight position. The likelihood is the sum of the probabilities at each of the
+interpolated line-of-sight positions from the model.
 
 
 For pulsars that are not consistent with the uniform gas model (pulsars AA and D, see
@@ -370,13 +402,13 @@ In order to determine the "observed" mass we use a grid of MIST isochrones
 \citep{Dotter2016,Choi2016}\footnote{We use the \code{EZMIST} library to fetch and prepare the
 isochrones. \code{EZMIST} is available online: \url{https://github.com/mfouesneau/ezmist}} computed
 at a range of metallicities, at the age of the cluster. We use the isochrone closest to the model
-parameters (an age of 11.75 Gyr, Fe/H of -0.75, and no stellar rotation) to determine the luminosity
-of the binary components and then again use the isochrone to determine the observed mass of the
-combined luminosities. Figure \ref{fig:2/isochrone} shows the derived relation between stellar mass
-and luminosity used for these conversions. After having determined the mass that would have been
-inferred for a binary system if it was assumed to be a single star, we then scale the surface
-density profile of the main-sequence bin which most closely matches the "observed" mass of the
-binary system to include the total mass of the binary system which allows us to correct for both
+parameters (an age of 11.75 Gyr, Fe/H of -0.75, and we assume no stellar rotation) to determine the
+luminosity of the binary components and then again use the isochrone to determine the observed mass
+of the combined luminosities. Figure \ref{fig:2/isochrone} shows the derived relation between
+stellar mass and luminosity used for these conversions. After having determined the mass that would
+have been inferred for a binary system if it was assumed to be a single star, we then scale the
+surface density profile of the main-sequence bin which most closely matches the "observed" mass of
+the binary system to include the total mass of the binary system which allows us to correct for both
 effects.
 
 
