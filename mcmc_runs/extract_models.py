@@ -33,7 +33,7 @@ plt.rcParams["mathtext.fontset"] = "cm"
 
 
 # Config
-DISCARD = 1800
+DISCARD = 2000
 N_MODELS = 1024
 FB = 0.0
 N_CORES = 6
