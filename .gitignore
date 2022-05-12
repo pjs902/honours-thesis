@@ -444,3 +444,6 @@ dmypy.json
 admin
 *latexindent*
 mcmc_runs/*/*
+notebooks/rescale-gcfit.ipynb
+notebooks/read_mcmc.ipynb
+

@@ -4,21 +4,21 @@
 
 
 Globular clusters (GCs) are dense, spheroidal collections of hundreds of thousands of stars with
-masses ranging from $10^4$ to $10^6$ solar masses that are bound by their own self-gravity. GCs are
-found in most galaxies, with the Milky Way hosting roughly 150, mostly located in the outer halo
-\citep[e.g.][]{Heggie2003}. GCs represent some of the oldest stellar populations in the universe and
-are usually in excess of 10 billion years old. Figure \ref{fig:1/ngc7006} shows the globular cluster
-NGC\,7006, imaged by the Hubble Space Telescope's Advanced Camera for Surveys. The dense core of the
-cluster is clearly visible and is made up of tens of thousands of stars. The dynamics of globular
-clusters are almost entirely governed by the interactions between individual cluster members, with
-small effects from the galactic potential of its host galaxy as well as mass loss due to stellar
-evolution. Two-body relaxation is the main driver of the evolution of GCs and, through this process,
-they display a wide range of dynamical phenomena. Among these phenomena, mass segregation is a
-process through which heavier objects migrate to the centre of a cluster and lighter objects move to
-the outer regions. As objects interact with each other, their kinetic energies will tend to equalize
-which leads to heavier objects slowing down and lighter objects speeding up
-\citep[e.g.][]{Heggie2003}. This process leads to the core of the cluster containing a much higher
-proportion of high-mass stars and heavy remnants than the rest of the cluster. Figure
+total masses ranging from $10^4$ to $10^6$ solar masses that are bound by their own self-gravity.
+GCs are found in most galaxies, with the Milky Way hosting roughly 150, mostly located in the outer
+halo \citep[e.g.][]{Heggie2003}. GCs represent some of the oldest stellar populations in the
+universe and are usually in excess of 10 billion years old. Figure \ref{fig:1/ngc7006} shows the
+globular cluster NGC\,7006, imaged by the Hubble Space Telescope's Advanced Camera for Surveys. The
+dense core of the cluster is clearly visible and is made up of tens of thousands of stars. The
+dynamics of globular clusters are almost entirely governed by the interactions between individual
+cluster members, with small effects from the galactic potential of its host galaxy as well as mass
+loss due to stellar evolution. Two-body relaxation is the main driver of the evolution of GCs and,
+through this process, they display a wide range of dynamical phenomena. Among these phenomena, mass
+segregation is a process through which heavier objects migrate to the centre of a cluster and
+lighter objects move to the outer regions. As objects interact with each other, their kinetic
+energies will tend to equalize which leads to heavier objects slowing down and lighter objects
+speeding up \citep[e.g.][]{Heggie2003}. This process leads to the core of the cluster containing a
+much higher proportion of high-mass stars and heavy remnants than the rest of the cluster. Figure
 \ref{fig:1/radial_mean_mass} shows the mean mass of objects within a realistic model of a globular
 cluster as a function of distance from the cluster centre. The regions closest to the core of the
 cluster have a much higher mean mass due to the increased presence of heavy remnants and high-mass
@@ -37,17 +37,17 @@ stars caused by the effects of mass segregation.
 The study of stellar remnants in globular clusters has far-reaching implications for diverse fields
 of astrophysics.  Due to the effects of mass segregation and the high densities within the cores of
 globular clusters, the central regions of globular clusters are an ideal environment for mergers of
-compact objects, especially in the early stages their of evolution when they are significantly
-denser than the present day \citep[e.g.][]{PortegiesZwart2004,Rodriguez2021}. These mergers can be
-detected through their resultant gravitational waves and the expected rates for gravitational wave
-events depend significantly on the compact object populations in globular clusters
-\citep[e.g][]{Weatherford2021}. These mergers are also thought to be one of the most promising
-formation channels for intermediate-mass black holes (IMBHs) \citep[e.g.][]{Giersz2015}, a so-far
-undetected class of black holes whose masses fall between those of stellar-mass black holes and
-those of supermassive black holes. This means that globular clusters are one of the most commonly
-proposed candidates to host intermediate-mass black holes. The formation of these black holes has
-important implications for understanding the formation of the supermassive black holes that we find
-at the centre of galaxies.
+compact objects, especially in the early stages of their of evolution when they are significantly
+denser than at the present day \citep[e.g.][]{PortegiesZwart2004,Rodriguez2021}. These mergers can
+be detected through their resultant gravitational waves and the expected rates for gravitational
+wave events (in particular black hole-black hole mergers) depend significantly on the compact object
+populations in globular clusters \citep[e.g][]{Weatherford2021}. These mergers are also thought to
+be one of the most promising formation channels for intermediate-mass black holes (IMBHs)
+\citep[e.g.][]{Giersz2015}, a so-far undetected class of black holes whose masses fall between those
+of stellar-mass black holes and those of supermassive black holes. This means that globular clusters
+are one of the most commonly proposed candidates to host intermediate-mass black holes. The
+formation of these black holes has important implications for understanding the formation of the
+supermassive black holes that we find at the centre of galaxies.
 
 
 The work presented in this thesis builds on a previous project I worked on which used pulsar timing
@@ -61,8 +61,8 @@ some binary stars are higher than the typical masses of objects within the clust
 mass segregate to the core of the cluster like heavy stellar remnants. While the binary fraction in
 47\,Tuc is expected to be low \citep{Milone2012}, the effects that a centrally concentrated
 population of binary stars might have on the inferred remnant content of the cluster is still
-unclear and worth investigating. In particular, there may be a degeneracy between the binary
-fraction and black hole content of a cluster. The dynamical effects of a small population of black
+unclear and worth investigating. In particular, there may be a degeneracy between the assumed binary
+fraction and the inferred black hole content of a cluster. The dynamical effects of a small population of black
 holes and a small population of centrally concentrated binaries could be very similar which makes
 the inclusion of binaries important for models attempting to constrain the black hole content of a
 cluster.
@@ -90,7 +90,7 @@ cluster.
 
 When modelling the dynamics of globular clusters, there are generally two approaches commonly used.
 The first is to model the entire evolutionary history of the cluster from initial conditions to the
-present day. The most commonly employed versions of these "evolutionary models" are direct N-body
+present day. The most commonly employed versions of these "evolutionary models" are direct $N$-body
 integration (see for example \citealt{Baumgardt2017a}), which directly calculate the gravitational
 interactions between each object in the cluster, and Monte Carlo models (e.g.
 \citealt{Rodriguez2021}, \citealt{Hypki2013}), which approximate the gravitational interactions
@@ -317,7 +317,7 @@ from $10\textrm{-}12\%$ for different fields due to the different selection effe
 
 \section{This Thesis}
 To summarize, binary systems are an ingredient that is lacking from our current
-distribution-function based models, in this thesis we will develop a method to include binaries in
+distribution-function based models. In this thesis we will develop a method to include binaries in
 the \code{LIMEPY} models and use this method to investigate the dynamical effects of the binaries.
 We will be focusing primarily on the interplay between the binary content of a cluster and its
 remnant population, in particular, how binaries can fill the role of heavy remnants in the overall

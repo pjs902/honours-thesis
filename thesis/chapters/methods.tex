@@ -110,11 +110,11 @@ and $1.0 \ \mathrm{M}_\odot$. We provide to \evolvemf{} the initial mass functio
 ($\alpha_1$, $\alpha_2$ and $\alpha_3$) and breakpoints, the cluster age, metallicity and escape
 velocity, as well as parameters which control the mass loss due to escaping stars and the specific
 binning to be used when returning the final discrete mass-function bins. We finally provide the
-black hole retention ($BH_{ret}$) which controls how many of the black holes created from the IMF are
+black hole retention fraction ($BH_{ret}$) which controls how many of the black holes created from the IMF are
 retained to the present day. For this study we do not model the mass loss due to tidal stripping, so
-we set the mass loss due to escaping stars to be zero, so we are effectively specifying the present
+we set the mass loss due to escaping stars to be zero, and we are effectively specifying the present
 day mass function for low-mass stars. Figure \ref{fig:2/evolve_mf} shows the evolution of a mass
-function over a span of $10 \ \mathrm{Gyr}$ (\citealt{Baumgardt2017a} found the age of 47\,Tuc to be
+function over a span of $10 \ \mathrm{Gyr}$ (\citealt{VandenBerg2013} found the age of 47\,Tuc to be
 $11.75$ Gyr).
 
 \begin{figure}
@@ -159,7 +159,7 @@ distributions using this method.
     \includegraphics[width=\textwidth]{figures/q-dists.png}
     \caption{The resulting mass ratio distributions for the "flat" and "solar" mass ratio
         distributions. Both distributions are truncated and lowered at $q=0.2$ due to the relative
-        lack low very low mass stars within the mass functions, making the creation of binary
+lack of low very low mass stars within the mass functions, making the creation of binary
         systems with a very low mass ratio impossible.}
     \label{fig:2/q-dists}
 \end{figure}
@@ -252,7 +252,7 @@ through \ref{fig:highbin_corner}.
 
 \subsection{Likelihoods}
 
-The majority of the likelihood functions we use are simple Gaussian likelihoods, provided below is
+The majority of the likelihood functions we use are simple Gaussian likelihoods. Provided below is
 the likelihood for velocity dispersion profile data and all other likelihoods are of a similar form:
 
 \begin{equation}
@@ -266,10 +266,10 @@ Where $\mathcal{L}$ is the likelihood, $\sigma$ is the line-of-sight velocity di
 projected distance from the cluster centre, and $\delta \sigma$ is the uncertainty in the velocity
 dispersion. The likelihoods for other observables are formulated in the same way, and the specifics
 are discussed in \code{GCfit}'s documentation\footnote{\url{gcfit.readthedocs.io}}. The total
-likelihood is therefore the sum of all the log-likelihoods for each set of observations.
+log-likelihood is therefore the sum of all the log-likelihoods for each set of observations.
 
-For the mass function and number density profile likelihoods we include additional nuisance and scaling
-terms.
+For the mass function and number density profile likelihoods we include additional nuisance
+parameters and scaling terms.
 
 In the case of the number density data we introduce a parameter $s^2$ which is added in quadrature
 to the existing measurement uncertainties. This parameter allows us to add a constant amount of
@@ -318,7 +318,7 @@ period derivative.
 
 In order to constrain the 3D position of the pulsars within the cluster we adopt a model for the
 internal gas distribution of the cluster from \citet{Abbate2018}. We adopt their best fitting model
-which is a uniform distribution of ionized gas with a number density of $n = 0.23 \pm 0.05 \
+which is a uniform distribution of ionized gas with a number density of $n_g = 0.23 \pm 0.05 \
     \text{cm}^{-3}$. We also adopt their estimate for the total dispersion measure between the observer
 and the cluster centre: $DM_c = 24.38 \pm 0.02 \ \mathrm{pc \ cm}^{-3}$. By adopting a model for the
 gas distribution, we are able to accurately determine the pulsars line-of-sight position ($l$)
@@ -377,8 +377,8 @@ solutions for the binary system. These binary periods are useful because they ar
 days rather than milliseconds. This means that the intrinsic effects that affect the spin periods
 are negligible and any measured change in the period can be entirely attributed to the acceleration
 from the cluster. Due to the much longer period, the number of detections is greatly reduced
-resulting in a much larger uncertainty than the spin period derivatives, this large uncertainty
-means the probability distributions based on orbital period derivatives have long tails and are not
+resulting in a much larger uncertainty than the spin period derivatives. This large uncertainty
+means the likelihood distributions for orbital period derivatives are wider and are not
 suited for placing hard constraints on the mass distribution of the cluster, we nonetheless use the
 orbital periods of these systems as an additional constraint on the cluster potential.
 
